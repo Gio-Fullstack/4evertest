@@ -968,6 +968,31 @@
                 });
             }
 
+            // Check if notifications were already cleared
+            const notificationsCleared = localStorage.getItem('notificationsCleared');
+            if (notificationsCleared === 'true') {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => item.classList.remove('unread'));
+                const notificationCount = document.getElementById('notificationCount');
+                if (notificationCount) {
+                    notificationCount.textContent = '0';
+                    notificationCount.style.display = 'none';
+                }
+            }
+
+            // Function to clear notifications
+            function clearNotifications() {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => item.classList.remove('unread'));
+                const notificationCount = document.getElementById('notificationCount');
+                if (notificationCount) {
+                    notificationCount.textContent = '0';
+                    notificationCount.style.display = 'none';
+                }
+                // Save to localStorage
+                localStorage.setItem('notificationsCleared', 'true');
+            }
+
             // Notifications dropdown toggle
             const notificationsBtn = document.getElementById('notificationsBtn');
             const notificationsDropdown = document.getElementById('notificationsDropdown');
@@ -980,13 +1005,7 @@
                     
                     // If opening the dropdown (was not active before), clear notifications
                     if (!isCurrentlyActive) {
-                        const unreadItems = document.querySelectorAll('.notification-item.unread');
-                        unreadItems.forEach(item => item.classList.remove('unread'));
-                        const notificationCount = document.getElementById('notificationCount');
-                        if (notificationCount) {
-                            notificationCount.textContent = '0';
-                            notificationCount.style.display = 'none';
-                        }
+                        clearNotifications();
                     }
                     
                     // Close settings if open
@@ -1001,13 +1020,7 @@
             if (markAllRead) {
                 markAllRead.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const unreadItems = document.querySelectorAll('.notification-item.unread');
-                    unreadItems.forEach(item => item.classList.remove('unread'));
-                    const notificationCount = document.getElementById('notificationCount');
-                    if (notificationCount) {
-                        notificationCount.textContent = '0';
-                        notificationCount.style.display = 'none';
-                    }
+                    clearNotifications();
                 });
             }
 
