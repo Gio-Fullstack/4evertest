@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Ever Profile Test Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+        .test-button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-weight: 500;
+        }
+        .test-button:hover {
+            background: #5856eb;
+        }
+        .test-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.875rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #fef2f2;
+            border-color: #fca5a5;
+            color: #dc2626;
+        }
+        .success {
+            background: #f0fdf4;
+            border-color: #86efac;
+            color: #16a34a;
+        }
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>4Ever Profile Page Test</h1>
+    <p>This page tests the profile functionality and API integration.</p>
+
+    <div class="test-section">
+        <h2>API Health Check</h2>
+        <button class="test-button" onclick="testHealthCheck()">Test API Health</button>
+        <div id="health-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Profile Data</h2>
+        <button class="test-button" onclick="testGetProfile()">Get Sample Profile</button>
+        <button class="test-button" onclick="testGetTimeline()">Get Timeline Events</button>
+        <button class="test-button" onclick="testGetStories()">Get Stories</button>
+        <button class="test-button" onclick="testGetFamily()">Get Family Members</button>
+        <div id="profile-result" class="test-result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Profile Page</h2>
+        <p>Click the button below to open the actual profile page:</p>
+        <button class="test-button" onclick="openProfilePage()">Open Profile Page</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Database Setup</h2>
+        <p>To test the full functionality, you need to:</p>
+        <ol>
+            <li>Set up your Supabase database with the schema from <code>supabase/profile-schema.sql</code></li>
+            <li>Start the API server: <code>node api/profile-api.js</code></li>
+            <li>Update the API base URL in <code>js/api-service.js</code> if needed</li>
+        </ol>
+    </div>
+
+    <script src="js/api-service.js"></script>
+    <script>
+        // Test functions
+        async function testHealthCheck() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result loading';
+            resultDiv.textContent = 'Testing API health...';
+
+            try {
+                const result = await window.apiService.healthCheck();
+                resultDiv.className = 'test-result success';
+                resultDiv.textContent = 'API Health Check: SUCCESS\n\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.textContent = 'API Health Check: FAILED\n\nError: ' + error.message + '\n\nMake sure the API server is running on port 3000';
+            }
+        }
+
+        async function testGetProfile() {
+            const resultDiv = document.getElementById('profile-result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result loading';
+            resultDiv.textContent = 'Loading profile data...';
+
+            try {
+                const result = await window.apiService.getProfile('00000000-0000-0000-0000-000000000001');
+                resultDiv.className = 'test-result success';
+                resultDiv.textContent = 'Profile Data: SUCCESS\n\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.textContent = 'Profile Data: FAILED\n\nError: ' + error.message + '\n\nMake sure the database is set up with sample data';
+            }
+        }
+
+        async function testGetTimeline() {
+            const resultDiv = document.getElementById('profile-result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result loading';
+            resultDiv.textContent = 'Loading timeline events...';
+
+            try {
+                const result = await window.apiService.getTimelineEvents('00000000-0000-0000-0000-000000000001');
+                resultDiv.className = 'test-result success';
+                resultDiv.textContent = 'Timeline Events: SUCCESS\n\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.textContent = 'Timeline Events: FAILED\n\nError: ' + error.message;
+            }
+        }
+
+        async function testGetStories() {
+            const resultDiv = document.getElementById('profile-result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result loading';
+            resultDiv.textContent = 'Loading stories...';
+
+            try {
+                const result = await window.apiService.getStories('00000000-0000-0000-0000-000000000001');
+                resultDiv.className = 'test-result success';
+                resultDiv.textContent = 'Stories: SUCCESS\n\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.textContent = 'Stories: FAILED\n\nError: ' + error.message;
+            }
+        }
+
+        async function testGetFamily() {
+            const resultDiv = document.getElementById('profile-result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result loading';
+            resultDiv.textContent = 'Loading family members...';
+
+            try {
+                const result = await window.apiService.getFamilyMembers('00000000-0000-0000-0000-000000000001');
+                resultDiv.className = 'test-result success';
+                resultDiv.textContent = 'Family Members: SUCCESS\n\n' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                resultDiv.className = 'test-result error';
+                resultDiv.textContent = 'Family Members: FAILED\n\nError: ' + error.message;
+            }
+        }
+
+        function openProfilePage() {
+            window.open('profile.html', '_blank');
+        }
+
+        // Auto-run health check on page load
+        window.addEventListener('load', () => {
+            setTimeout(testHealthCheck, 1000);
+        });
+    </script>
+</body>
+</html>

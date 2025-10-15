@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View [Name]'s life story, timeline, and family tree on 4Ever">
+    <title>[Name]'s Story - 4Ever</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-profile-mode="owner">
+    <!-- Main Navigation Bar -->
+    <nav class="main-navigation">
+        <a href="feed.html" class="nav-logo">
+            <i class="fas fa-infinity"></i>
+            <span>4Ever</span>
+        </a>
+
+        <div class="nav-search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="profileSearch" placeholder="Search profiles..." class="search-input">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+
+        <button class="nav-mobile-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="feed.html" class="nav-link" data-page="feed">
+                <i class="fas fa-home"></i>
+                <span>Feed</span>
+            </a>
+
+            <a href="profile.html" class="nav-link" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <a href="profile.html#family-tree" class="nav-link" data-page="family">
+                <i class="fas fa-users"></i>
+                <span>Family</span>
+            </a>
+
+            <button class="nav-link" id="notificationsBtn">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge" id="notificationCount">5</div>
+            </button>
+        </div>
+
+        <div class="nav-right">
+            <a href="profile.html" class="nav-profile-btn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
+                <span class="nav-profile-name">John Smith</span>
+            </a>
+
+            <button class="nav-settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </button>
+
+            <div class="nav-dropdown" id="settingsDropdown">
+                <a href="settings.html" class="nav-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="privacy.html" class="nav-dropdown-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacy</span>
+                </a>
+                <a href="help.html" class="nav-dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Notifications Dropdown -->
+        <div class="notifications-dropdown" id="notificationsDropdown">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="btn-mark-read" id="markAllRead">
+                    <i class="fas fa-check-double"></i>
+                    Mark all read
+                </button>
+            </div>
+            
+            <div class="notifications-list" id="notificationsList">
+                <!-- Connection Request -->
+                <div class="notification-item unread" data-type="connection">
+                    <div class="notification-icon connection-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>David Thompson</strong> sent you a connection request</p>
+                        <p class="notification-time">2 hours ago</p>
+                        <div class="notification-actions">
+                            <button class="btn-accept">Accept</button>
+                            <button class="btn-decline">Decline</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Story About You -->
+                <div class="notification-item unread" data-type="story">
+                    <div class="notification-icon story-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Sarah Johnson</strong> added a new story about you: "Family Vacation to Yellowstone"</p>
+                        <p class="notification-time">5 hours ago</p>
+                        <div class="notification-actions">
+                            <button class="btn-view">View Story</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tagged in Story -->
+                <div class="notification-item unread" data-type="tagged">
+                    <div class="notification-icon tagged-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Mary Smith</strong> tagged you in a memory: "Our Trip to Japan"</p>
+                        <p class="notification-time">1 day ago</p>
+                        <div class="notification-actions">
+                            <button class="btn-view">View Memory</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Question -->
+                <div class="notification-item unread" data-type="question">
+                    <div class="notification-icon question-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Michael Smith</strong> asked you a question: "What was it like teaching in the 1980s?"</p>
+                        <p class="notification-time">2 days ago</p>
+                        <div class="notification-actions">
+                            <button class="btn-answer">Answer Question</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Another Story About You -->
+                <div class="notification-item" data-type="story">
+                    <div class="notification-icon story-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Robert Smith</strong> shared a story about you: "John's First Day of School"</p>
+                        <p class="notification-time">3 days ago</p>
+                        <div class="notification-actions">
+                            <button class="btn-view">View Story</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notifications-footer">
+                <a href="#" class="btn-view-all" onclick="alert('View all notifications page coming soon!'); return false;">View All Notifications</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="container">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Profile Picture" id="profileImage">
+                    <div class="avatar-overlay">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name editable-field" id="profileName">John Smith</h1>
+                    <p class="profile-bio editable-field" id="profileBio">Born in 1950, father of three, husband to Mary, son of Robert and Helen. Lived a life full of adventure, love, and countless stories worth preserving.</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="timelineEvents">31</span>
+                            <span class="stat-label">Timeline Events</span>
+                        </div>
+                        <div class="stat owner-only clickable-stat" id="connectionsStat">
+                            <span class="stat-number" id="connectionsCount">42</span>
+                            <span class="stat-label">Connections</span>
+                        </div>
+                        <div class="stat clickable-stat" id="familyStat">
+                            <span class="stat-number" id="familyMembers">7</span>
+                            <span class="stat-label">Family Members</span>
+                        </div>
+                        <div class="stat owner-only clickable-stat" id="closeFriendsStat">
+                            <span class="stat-number" id="closeFriendsCount">12</span>
+                            <span class="stat-label">Close Friends</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <!-- Visitor View: Add Story About Them Button -->
+                        <button class="btn-add-story visitor-only" id="addStoryAboutBtn">
+                            <i class="fas fa-book"></i>
+                            <span id="addStoryAboutText">Add Story About Them</span>
+                        </button>
+                        
+                        <!-- Visitor View: Ask Question Button -->
+                        <button class="btn-ask-question visitor-only" id="askQuestionBtn">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="askQuestionText">Ask a Question</span>
+                        </button>
+                        
+                        <!-- Owner View: Add Story Button -->
+                        <button class="btn-add-story owner-only" id="addStoryBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add New Story</span>
+                        </button>
+                        
+                        <!-- Owner View: Edit Profile Button -->
+                        <button class="btn-edit-profile owner-only" id="editProfileBtn">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit Profile</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Navigation -->
+    <section class="section-navigation">
+        <div class="container">
+            <div class="section-nav-buttons">
+                <button class="section-nav-btn active" data-section="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </button>
+                <button class="section-nav-btn" data-section="timeline">
+                    <i class="fas fa-history"></i>
+                    <span>Timeline</span>
+                </button>
+                <button class="section-nav-btn" data-section="family-tree">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Family Tree</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+
+            <!-- Main Overview Section (Default View) -->
+            <section id="overview" class="content-section active">
+                <!-- Overview Sub-Navigation -->
+                <div class="overview-sub-nav">
+                    <button class="overview-sub-btn" data-subsection="feed">
+                        <i class="fas fa-stream"></i>
+                        <span>Feed</span>
+                    </button>
+                    <button class="overview-sub-btn active" data-subsection="life-overview">
+                        <i class="fas fa-heart"></i>
+                        <span>Life Overview</span>
+                    </button>
+                    <button class="overview-sub-btn" data-subsection="featured-stories">
+                        <i class="fas fa-star"></i>
+                        <span>Featured Stories</span>
+                    </button>
+                </div>
+
+                <!-- Feed Sub-Section -->
+                <div class="overview-subsection" id="feed-subsection">
+                    <div class="feed-container" id="profileFeed">
+                        <!-- Story 1: Wedding Day -->
+                        <div class="feed-story">
+                            <div class="story-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Smith" class="story-avatar">
+                                <div class="story-meta">
+                                    <div class="story-author">John Smith</div>
+                                    <div class="story-time">1975 • <span class="story-category">Family</span></div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3 class="story-title">Married Mary Johnson</h3>
+                                <p class="story-description">The love of my life. We met at a coffee shop and knew instantly we were meant to be together. Our wedding day was the beginning of our beautiful 50+ year journey.</p>
+                                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop" alt="Wedding" class="story-image">
+                            </div>
+                            <div class="story-actions">
+                                <button class="story-action-btn primary">
+                                    <i class="fas fa-play"></i>
+                                    Listen to Story
+                                </button>
+                                <button class="story-action-btn">
+                                    <i class="fas fa-images"></i>
+                                    View Media
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Story 2: Teaching Career -->
+                        <div class="feed-story">
+                            <div class="story-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Smith" class="story-avatar">
+                                <div class="story-meta">
+                                    <div class="story-author">John Smith</div>
+                                    <div class="story-time">1980 • <span class="story-category">Career</span></div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3 class="story-title">Started Teaching Career</h3>
+                                <p class="story-description">Began teaching high school mathematics. Touched the lives of thousands of students over 35 years. Every day in the classroom was a new opportunity to inspire young minds.</p>
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop" alt="Teaching" class="story-image">
+                            </div>
+                            <div class="story-actions">
+                                <button class="story-action-btn primary">
+                                    <i class="fas fa-play"></i>
+                                    Listen to Story
+                                </button>
+                                <button class="story-action-btn">
+                                    <i class="fas fa-images"></i>
+                                    View Media
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Story 3: Trip to Japan -->
+                        <div class="feed-story">
+                            <div class="story-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Smith" class="story-avatar">
+                                <div class="story-meta">
+                                    <div class="story-author">John Smith</div>
+                                    <div class="story-time">2016 • <span class="story-category">Travel</span></div>
+                                </div>
+                            </div>
+                            <div class="story-content">
+                                <h3 class="story-title">Retirement Trip to Japan</h3>
+                                <p class="story-description">Mary and I celebrated retirement with a dream trip to Japan. Cherry blossoms and ancient temples. The beauty, culture, and serenity of Japan left a lasting impression on both of us.</p>
+                                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&h=400&fit=crop" alt="Japan" class="story-image">
+                            </div>
+                            <div class="story-actions">
+                                <button class="story-action-btn primary">
+                                    <i class="fas fa-play"></i>
+                                    Listen to Story
+                                </button>
+                                <button class="story-action-btn">
+                                    <i class="fas fa-images"></i>
+                                    View Media
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Life Overview Sub-Section -->
+                <div class="overview-subsection active" id="life-overview-subsection">
+                    <div class="overview-content">
+                    <h2>Life Overview</h2>
+                    <p class="overview-intro">Welcome to John's life story. Here you can explore his journey through time, discover his family connections, and listen to the stories that shaped his life.</p>
+                    
+                    <div class="overview-grid">
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>Key Milestones</h3>
+                            <p>Born in Chicago in 1950, John's life has been marked by significant moments of love, growth, and achievement.</p>
+                            <ul class="milestone-list">
+                                <li>1950 - Born in Chicago</li>
+                                <li>1975 - Married Mary Johnson</li>
+                                <li>1980 - Started teaching career</li>
+                                <li>1982 - First child born</li>
+                                <li>1985 - Second child born</li>
+                                <li>1988 - Third child born</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Career & Education</h3>
+                            <p>John dedicated 35 years to teaching high school mathematics, touching the lives of thousands of students.</p>
+                            <ul class="milestone-list">
+                                <li>35 years of teaching</li>
+                                <li>Thousands of students taught</li>
+                                <li>Mathematics specialist</li>
+                                <li>Retired in 2015</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3>Family Life</h3>
+                            <p>Family has always been at the center of John's world, with three children and loving parents.</p>
+                            <ul class="milestone-list">
+                                <li>Married to Mary for 50+ years</li>
+                                <li>3 children</li>
+                                <li>Loving parents (Robert & Helen)</li>
+                                <li>Extended family across the country</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Favorite Stories Section -->
+                    <div class="favorite-stories-section">
+                        <h2>Favorite Stories</h2>
+                        <p class="overview-intro">These are the stories that John holds closest to his heart - the moments that shaped his life and brought him the most joy.</p>
+                        
+                        <div class="section-header">
+                            <button class="btn-manage-favorites" id="manageFavoritesBtn">
+                                <i class="fas fa-edit"></i>
+                                Manage Favorites
+                            </button>
+                        </div>
+                        <div class="overview-grid">
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3>Love & Marriage</h3>
+                                <p>The story of how John met Mary and their journey together through 50+ years of marriage.</p>
+                                <ul class="milestone-list">
+                                    <li>1974 - Met at coffee shop</li>
+                                    <li>1975 - Married Mary Johnson</li>
+                                    <li>1982 - First child born</li>
+                                    <li>2024 - 50th anniversary</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h3>Teaching Career</h3>
+                                <p>John's passion for education and the impact he made on thousands of students over 35 years.</p>
+                                <ul class="milestone-list">
+                                    <li>1975 - Started teaching</li>
+                                    <li>35 years of service</li>
+                                    <li>Mathematics specialist</li>
+                                    <li>2015 - Retired</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-baby"></i>
+                                </div>
+                                <h3>Family Moments</h3>
+                                <p>Precious memories of raising three children and watching them grow into successful adults.</p>
+                                <ul class="milestone-list">
+                                    <li>1982 - Sarah born</li>
+                                    <li>1985 - Michael born</li>
+                                    <li>1988 - Emily born</li>
+                                    <li>Loving family memories</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Featured Stories Sub-Section -->
+                <div class="overview-subsection" id="featured-stories-subsection">
+                    <div class="favorite-stories-section">
+                        <h2>Featured Stories</h2>
+                        <p class="overview-intro">These are the stories that John holds closest to his heart - the moments that shaped his life and brought him the most joy.</p>
+                        
+                        <div class="section-header owner-only">
+                            <button class="btn-manage-favorites" id="manageFavoritesBtn">
+                                <i class="fas fa-edit"></i>
+                                Manage Favorites
+                            </button>
+                        </div>
+                        <div class="overview-grid">
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3>Love & Marriage</h3>
+                                <p>The story of how John met Mary and their journey together through 50+ years of marriage.</p>
+                                <ul class="milestone-list">
+                                    <li>1974 - Met at coffee shop</li>
+                                    <li>1975 - Married Mary Johnson</li>
+                                    <li>1982 - First child born</li>
+                                    <li>2024 - 50th anniversary</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h3>Teaching Career</h3>
+                                <p>John's passion for education and the impact he made on thousands of students over 35 years.</p>
+                                <ul class="milestone-list">
+                                    <li>1975 - Started teaching</li>
+                                    <li>35 years of service</li>
+                                    <li>Mathematics specialist</li>
+                                    <li>2015 - Retired</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-baby"></i>
+                                </div>
+                                <h3>Family Moments</h3>
+                                <p>Precious memories of raising three children and watching them grow into successful adults.</p>
+                                <ul class="milestone-list">
+                                    <li>1982 - Sarah born</li>
+                                    <li>1985 - Michael born</li>
+                                    <li>1988 - Emily born</li>
+                                    <li>Loving family memories</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section id="timeline" class="content-section">
+                <div class="section-header">
+                    <h2>Life Timeline</h2>
+                    <div class="timeline-controls">
+                        <button class="btn-filter active" data-filter="all">All</button>
+                        <button class="btn-filter" data-filter="milestones">Milestones</button>
+                        <button class="btn-filter" data-filter="family">Family</button>
+                        <button class="btn-filter" data-filter="career">Career</button>
+                        <button class="btn-filter" data-filter="travel">Travel</button>
+                    </div>
+                </div>
+                
+                
+                <div class="timeline-container">
+                    
+                    <!-- Timeline Events will be dynamically loaded here -->
+                    <div class="timeline-events" id="timelineEvents">
+                        <!-- Sample timeline events -->
+                        <div class="timeline-event" data-category="milestones" data-year="1950" data-month="03" data-day="15">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1950</div>
+                                <h3 class="event-title">Born in Chicago</h3>
+                                <p class="event-description">Born to loving parents in the heart of Chicago. The beginning of an incredible journey.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1951</div>
+                                <h3 class="event-title">First Word</h3>
+                                <p class="event-description">My first word was "Mama" - my mother Helen was so proud she cried tears of joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1951</div>
+                                <h3 class="event-title">First Steps</h3>
+                                <p class="event-description">I took my first wobbly steps at 13 months old. My father Robert caught it on his old camera.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1955</div>
+                                <h3 class="event-title">First Day of School</h3>
+                                <p class="event-description">My first day of kindergarten. I was nervous but excited to meet new friends and learn.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-day-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1975</div>
+                                <h3 class="event-title">Married Mary Johnson</h3>
+                                <p class="event-description">The love of my life. We met at a coffee shop and knew instantly we were meant to be together.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="wedding-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="wedding-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1980</div>
+                                <h3 class="event-title">Started Teaching Career</h3>
+                                <p class="event-description">Began teaching high school mathematics. Touched the lives of thousands of students over 35 years.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="teaching-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="teaching-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1982</div>
+                                <h3 class="event-title">Sarah's Birth</h3>
+                                <p class="event-description">Sarah was born on a beautiful spring morning. The joy of becoming a father is indescribable.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1982</div>
+                                <h3 class="event-title">Sarah's First Smile</h3>
+                                <p class="event-description">At 6 weeks old, Sarah gave us her first real smile. It melted our hearts completely.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-smile-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-smile-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Sarah's First Word</h3>
+                                <p class="event-description">Sarah said "Dada" for the first time. I was so proud I called everyone I knew.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Sarah's First Steps</h3>
+                                <p class="event-description">Sarah took her first wobbly steps across the living room. We were all cheering her on.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Timeline Events -->
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Promoted to Department Head</h3>
+                                <p class="event-description">After three years of dedicated teaching, I was promoted to head the mathematics department.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="promotion-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1985</div>
+                                <h3 class="event-title">Michael's Birth</h3>
+                                <p class="event-description">Our second child, Michael, was born. Sarah was so excited to have a little brother.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1985</div>
+                                <h3 class="event-title">Michael's First Word</h3>
+                                <p class="event-description">Michael's first word was "Mama" - Mary was over the moon with joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1986</div>
+                                <h3 class="event-title">Michael's First Steps</h3>
+                                <p class="event-description">Michael took his first steps at 11 months old. He was determined to keep up with Sarah.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1987</div>
+                                <h3 class="event-title">Family Trip to Yellowstone</h3>
+                                <p class="event-description">Our first major family vacation. The kids were amazed by the geysers and wildlife.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="yellowstone-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="yellowstone-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1988</div>
+                                <h3 class="event-title">Emily's Birth</h3>
+                                <p class="event-description">Our third and final child, Emily, completed our family. Three children, endless love.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1989</div>
+                                <h3 class="event-title">Emily's First Word</h3>
+                                <p class="event-description">Emily's first word was "Sarah" - she idolized her big sister from day one.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1989</div>
+                                <h3 class="event-title">Emily's First Steps</h3>
+                                <p class="event-description">Emily took her first steps at 10 months old. She was the earliest walker of all three kids.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1990</div>
+                                <h3 class="event-title">Teacher of the Year</h3>
+                                <p class="event-description">Honored to receive the Teacher of the Year award. The students' success was my greatest reward.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="teacher-award-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1992</div>
+                                <h3 class="event-title">Sarah's First Day of School</h3>
+                                <p class="event-description">Watching my little girl walk into kindergarten was one of the proudest moments of my life.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1995</div>
+                                <h3 class="event-title">European Adventure</h3>
+                                <p class="event-description">Mary and I took our first trip to Europe. Paris, Rome, and London - memories that will last forever.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="europe-trip-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="europe-trip-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1998</div>
+                                <h3 class="event-title">Family Reunion</h3>
+                                <p class="event-description">The entire Smith family gathered for a week-long reunion. Three generations under one roof.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="family-reunion-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="family-reunion-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2000</div>
+                                <h3 class="event-title">New School Building</h3>
+                                <p class="event-description">Our school moved into a brand new building. State-of-the-art classrooms and technology.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="new-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="new-school-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2003</div>
+                                <h3 class="event-title">Sarah's High School Graduation</h3>
+                                <p class="event-description">Watching Sarah walk across the stage was a moment of pure pride and joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2005</div>
+                                <h3 class="event-title">Michael's Graduation</h3>
+                                <p class="event-description">Another proud moment as Michael graduated. He was heading to culinary school.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2007</div>
+                                <h3 class="event-title">Emily's Graduation</h3>
+                                <p class="event-description">Our youngest graduated high school. All three children were now adults.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2010</div>
+                                <h3 class="event-title">Sarah's Wedding</h3>
+                                <p class="event-description">Walking Sarah down the aisle was one of the most emotional moments of my life.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-wedding-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-wedding-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2012</div>
+                                <h3 class="event-title">30 Years of Teaching</h3>
+                                <p class="event-description">Celebrated three decades of teaching. Thousands of students had passed through my classroom.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="30-years-teaching-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="30-years-teaching-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2014</div>
+                                <h3 class="event-title">First Grandchild</h3>
+                                <p class="event-description">Sarah and her husband welcomed their first child. I became a grandfather!</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-grandchild-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-grandchild-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2015</div>
+                                <h3 class="event-title">Retirement</h3>
+                                <p class="event-description">After 35 years of teaching, I retired. It was bittersweet to leave the classroom.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="retirement-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="retirement-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2016</div>
+                                <h3 class="event-title">Retirement Trip to Japan</h3>
+                                <p class="event-description">Mary and I celebrated retirement with a dream trip to Japan. Cherry blossoms and ancient temples.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="japan-trip-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="japan-trip-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-ring"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2018</div>
+                                <h3 class="event-title">50th Wedding Anniversary</h3>
+                                <p class="event-description">Mary and I celebrated 50 years of marriage. All our children and grandchildren were there.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="50th-anniversary-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="50th-anniversary-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2020</div>
+                                <h3 class="event-title">Family Zoom Calls</h3>
+                                <p class="event-description">During the pandemic, we stayed connected through weekly family Zoom calls. Technology brought us together.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="zoom-calls-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="zoom-calls-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2022</div>
+                                <h3 class="event-title">Michael Opens Restaurant</h3>
+                                <p class="event-description">Michael finally opened his own restaurant in Austin. We were so proud of his culinary journey.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-restaurant-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-restaurant-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2023</div>
+                                <h3 class="event-title">Emily's Art Exhibition</h3>
+                                <p class="event-description">Emily had her first major art exhibition in New York. Her paintings were beautiful and meaningful.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-exhibition-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-exhibition-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2024</div>
+                                <h3 class="event-title">Creating This Profile</h3>
+                                <p class="event-description">Decided to preserve my life stories for future generations. Every memory is precious.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="profile-creation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="profile-creation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family Tree Section -->
+            <section id="family-tree" class="content-section">
+                <div class="section-header">
+                    <h2>Family Tree</h2>
+                    <div class="tree-controls">
+                        <button class="btn-add-family-member owner-only" id="addFamilyMemberBtn">
+                            <i class="fas fa-user-plus"></i>
+                            Add Family Member
+                        </button>
+                        <button class="btn-zoom" id="zoomIn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="btn-zoom" id="zoomOut">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button class="btn-center" id="centerTree">
+                            <i class="fas fa-crosshairs"></i>
+                            Center
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="family-tree-container">
+                    <div class="tree-wrapper" id="treeWrapper">
+                        <div class="family-tree" id="familyTree">
+                            <!-- Generation 3: Grandparents -->
+                            <div class="generation generation-3">
+                                <div class="generation-label">Grandparents</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="grandfather" onclick="showFamilyProfile('grandfather')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Robert Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Robert Smith</h4>
+                                            <p class="relationship">Father</p>
+                                            <p class="dates">1920 - 1995</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="grandmother" onclick="showFamilyProfile('grandmother')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces" alt="Helen Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Helen Smith</h4>
+                                            <p class="relationship">Mother</p>
+                                            <p class="dates">1925 - 2000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generation 2: Parents -->
+                            <div class="generation generation-2">
+                                <div class="generation-label">Parents</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="father" onclick="showFamilyProfile('father')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>John Smith</h4>
+                                            <p class="relationship">You</p>
+                                            <p class="dates">1950 - Present</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="mother" onclick="showFamilyProfile('mother')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Mary Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Mary Smith</h4>
+                                            <p class="relationship">Wife</p>
+                                            <p class="dates">1952 - Present</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generation 1: Children -->
+                            <div class="generation generation-1">
+                                <div class="generation-label">Children</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="daughter1" onclick="showFamilyProfile('daughter1')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Sarah Johnson">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Sarah Johnson</h4>
+                                            <p class="relationship">Daughter</p>
+                                            <p class="dates">1982 - Present</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="son1" onclick="showFamilyProfile('son1')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Michael Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Michael Smith</h4>
+                                            <p class="relationship">Son</p>
+                                            <p class="dates">1985 - Present</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="person-card" data-person="daughter2" onclick="showFamilyProfile('daughter2')" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face" alt="Emily Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Emily Smith</h4>
+                                            <p class="relationship">Daughter</p>
+                                            <p class="dates">1988 - Present</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Audio Player Modal -->
+    <div class="audio-player-modal" id="audioPlayerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="audioTitle">Story Title</h3>
+                <button class="modal-close" id="closeAudioModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="audio-player">
+                    <audio id="audioPlayer" controls>
+                        <source src="" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="audio-info">
+                    <p id="audioDescription">Story description will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share This Profile</h3>
+                <button class="modal-close" id="closeShareModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <button class="share-btn" data-platform="facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn" data-platform="twitter">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </button>
+                    <button class="share-btn" data-platform="linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn" data-platform="email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </button>
+                </div>
+                <div class="share-link">
+                    <label for="profileUrl">Profile Link:</label>
+                    <input type="text" id="profileUrl" value="https://4ever.com/profile/john-smith" readonly>
+                    <button class="btn-copy" id="copyLink">
+                        <i class="fas fa-copy"></i>
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign in to Ask a Question</h3>
+                <button class="modal-close" id="closeLoginModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="login-content">
+                    <div class="login-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <p class="login-description">Sign in with your email to ask John a question. We'll send you a magic link to sign in securely.</p>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Your Email</label>
+                            <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" id="cancelLogin">Cancel</button>
+                            <button type="submit" class="btn-submit">Send Magic Link</button>
+                        </div>
+                    </form>
+                    
+                    <div class="login-footer">
+                        <p><small>We'll send you a secure link to sign in. No password required!</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Family Member Profile Modal -->
+    <div class="family-modal" id="familyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="familyMemberName">Family Member</h3>
+                <button class="modal-close" id="closeFamilyModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="family-member-profile">
+                    <div class="family-member-avatar">
+                        <img id="familyMemberImage" src="" alt="Family Member">
+                    </div>
+                    
+                    <div class="family-member-info">
+                        <div class="family-member-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Relationship:</span>
+                                <span class="detail-value" id="familyMemberRelationship">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Born:</span>
+                                <span class="detail-value" id="familyMemberBorn">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value" id="familyMemberLocation">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Occupation:</span>
+                                <span class="detail-value" id="familyMemberOccupation">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="family-member-bio">
+                            <h4>About</h4>
+                            <p id="familyMemberBio">No bio available.</p>
+                        </div>
+                        
+                        <div class="family-member-actions">
+                            <button class="btn-view-profile" id="viewFullProfileBtn">
+                                <i class="fas fa-user"></i>
+                                View Full Profile
+                            </button>
+                            <button class="btn-ask-question" id="askFamilyMemberBtn">
+                                <i class="fas fa-question-circle"></i>
+                                Ask a Question
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal -->
+    <div class="photos-modal" id="photosModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="photosModalTitle">Media</h3>
+                <button class="modal-close" id="closePhotosModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="photos-gallery" id="photosGallery">
+                    <!-- Photos and videos will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Story Modal -->
+    <div class="question-modal" id="addStoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Story</h3>
+                <button class="modal-close" id="closeAddStoryModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addStoryForm">
+                    <div class="form-group">
+                        <label for="storyTitle">Story Title *</label>
+                        <input type="text" id="storyTitle" required placeholder="e.g., My First Day of School">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyCategory">Category *</label>
+                        <select id="storyCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="family">Family</option>
+                            <option value="career">Career</option>
+                            <option value="travel">Travel</option>
+                            <option value="education">Education</option>
+                            <option value="milestone">Milestone</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyYear">Year *</label>
+                        <input type="number" id="storyYear" required placeholder="e.g., 1985" min="1900" max="2100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyDate">Specific Date</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select id="storyMonth" style="flex: 1;">
+                                <option value="">Month (Optional)</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select id="storyDay" style="flex: 1;">
+                                <option value="">Day (Optional)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Record Your Story *</label>
+                        <div id="recordingInterface" style="padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); text-align: center;">
+                            <div id="recordingStatus" style="margin-bottom: 1rem;">
+                                <i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Ready to record</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                                <button type="button" id="startRecording" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-microphone"></i>
+                                    Start Recording
+                                </button>
+                                <button type="button" id="stopRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-stop"></i>
+                                    Stop Recording
+                                </button>
+                                <button type="button" id="playRecording" class="btn-submit" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-play"></i>
+                                    Play
+                                </button>
+                                <button type="button" id="deleteRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </button>
+                            </div>
+                            <div id="recordingTimer" style="margin-top: 1rem; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); display: none;">0:00</div>
+                        </div>
+                        <input type="hidden" id="storyAudio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Photos & Videos</label>
+                        <input type="file" id="storyMedia" accept="image/*,video/*" multiple style="display: none;">
+                        <button type="button" id="addMediaBtn" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem; justify-content: center; width: 100%; margin-bottom: 0.5rem;">
+                            <i class="fas fa-images"></i>
+                            Add Photo/Video
+                        </button>
+                        <div id="mediaPreviews" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tagPeople">Tag People in This Story</label>
+                        <div id="taggedPeopleContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; min-height: 40px; padding: 0.5rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-color);"></div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="searchPeople" placeholder="Search by name..." style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                            <button type="button" id="addTagBtn" class="btn-cancel" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; white-space: nowrap;">
+                                <i class="fas fa-user-plus"></i>
+                                Add Person
+                            </button>
+                        </div>
+                        <select id="tagPeople" multiple style="display: none;">
+                            <option value="mary-smith" data-name="Mary Smith">Mary Smith (Wife)</option>
+                            <option value="sarah-johnson" data-name="Sarah Johnson">Sarah Johnson (Daughter)</option>
+                            <option value="michael-smith" data-name="Michael Smith">Michael Smith (Son)</option>
+                            <option value="emily-smith" data-name="Emily Smith">Emily Smith (Daughter)</option>
+                            <option value="robert-smith" data-name="Robert Smith">Robert Smith (Father)</option>
+                            <option value="helen-smith" data-name="Helen Smith">Helen Smith (Mother)</option>
+                        </select>
+                        <small>They'll be notified and can add their own photos/videos and tell their version of this story</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyPrivacy">Who can see this story? *</label>
+                        <select id="storyPrivacy" required>
+                            <option value="">Select visibility</option>
+                            <option value="private">Private (Only Me)</option>
+                            <option value="family">Family Only</option>
+                            <option value="connections">Connections (Everyone)</option>
+                            <option value="close-friends">Close Friends</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelAddStory">Cancel</button>
+                        <button type="submit" class="btn-submit">Save Story</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ask Question Modal -->
+    <div class="question-modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="questionModalTitle">Ask John a Question</h3>
+                <button class="modal-close" id="closeQuestionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name" id="userDisplayName">Loading...</p>
+                        <p class="user-email" id="userDisplayEmail">Loading...</p>
+                    </div>
+                    <button class="btn-signout" id="signOutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sign Out
+                    </button>
+                </div>
+                
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionCategory">Question Category</label>
+                        <select id="questionCategory" name="questionCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="childhood">Childhood & Early Life</option>
+                            <option value="family">Family & Relationships</option>
+                            <option value="career">Career & Work</option>
+                            <option value="travel">Travel & Adventures</option>
+                            <option value="memories">Memories & Stories</option>
+                            <option value="advice">Life Advice</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="questionText">Your Question</label>
+                        <textarea id="questionText" name="questionText" rows="4" placeholder="What would you like to know about John's life?" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelQuestion">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connections/Family/Friends List Modal -->
+    <div class="question-modal" id="connectionsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="connectionsModalTitle">Connections</h3>
+                <button class="modal-close" id="closeConnectionsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-container" style="margin-bottom: 1rem;">
+                    <div style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 0.9rem;"></i>
+                        <input type="text" id="connectionsSearch" placeholder="Search people..." style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary); font-size: 0.9rem;">
+                    </div>
+                </div>
+                <div id="connectionsList" class="connections-list">
+                    <!-- Dynamic content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/profile-data.js"></script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script src="js/api-service.js"></script>
+    <script src="js/profile.js"></script>
+    
+    <!-- Navigation Script -->
+    <script>
+        // Profile Mode Management
+        function setProfileMode(mode) {
+            document.body.setAttribute('data-profile-mode', mode);
+            localStorage.setItem('profileMode', mode);
+        }
+
+        function getProfileMode() {
+            return localStorage.getItem('profileMode') || 'owner';
+        }
+
+        // Initialize profile mode on page load
+        document.body.setAttribute('data-profile-mode', getProfileMode());
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Profile Search Functionality
+            const profileSearch = document.getElementById('profileSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Load profile data for search
+            let allProfiles = [];
+            
+            // Import profile data (assuming it's available globally)
+            if (typeof profilesData !== 'undefined') {
+                allProfiles = Object.values(profilesData);
+            }
+            
+            // Search function
+            function searchProfiles(query) {
+                if (!query || query.length < 2) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+                
+                const filtered = allProfiles.filter(profile => 
+                    profile.name.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                displaySearchResults(filtered);
+            }
+            
+            // Display search results
+            function displaySearchResults(profiles) {
+                if (profiles.length === 0) {
+                    searchResults.innerHTML = '<div class="search-no-results">No profiles found</div>';
+                } else {
+                    searchResults.innerHTML = profiles.map(profile => `
+                        <div class="search-result-item" onclick="navigateToProfile('${profile.id}')">
+                            <img src="${profile.avatar}" alt="${profile.name}" class="search-result-avatar">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${profile.name}</div>
+                                <div class="search-result-bio">${profile.bio.substring(0, 80)}${profile.bio.length > 80 ? '...' : ''}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                searchResults.classList.add('active');
+            }
+            
+            // Navigate to profile
+            function navigateToProfile(profileId) {
+                if (profileId === 'john-smith') {
+                    window.location.href = 'profile.html';
+                } else {
+                    window.location.href = `profile-view.html?id=${profileId}`;
+                }
+                searchResults.classList.remove('active');
+                profileSearch.value = '';
+            }
+            
+            // Event listeners
+            if (profileSearch) {
+                profileSearch.addEventListener('input', (e) => {
+                    searchProfiles(e.target.value);
+                });
+                
+                profileSearch.addEventListener('focus', () => {
+                    if (profileSearch.value.length >= 2) {
+                        searchResults.classList.add('active');
+                    }
+                });
+                
+                // Hide results when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-search-container')) {
+                        searchResults.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Settings dropdown toggle
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    settingsDropdown.classList.toggle('active');
+                    // Close notifications if open
+                    const notificationsDropdown = document.getElementById('notificationsDropdown');
+                    if (notificationsDropdown) {
+                        notificationsDropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Connections/Family/Friends Click Handlers
+            const connectionsStat = document.getElementById('connectionsStat');
+            const familyStat = document.getElementById('familyStat');
+            const closeFriendsStat = document.getElementById('closeFriendsStat');
+            const connectionsModal = document.getElementById('connectionsModal');
+            const connectionsModalTitle = document.getElementById('connectionsModalTitle');
+            const connectionsList = document.getElementById('connectionsList');
+            
+            console.log('Found elements:', {
+                connectionsStat: !!connectionsStat,
+                familyStat: !!familyStat,
+                closeFriendsStat: !!closeFriendsStat,
+                connectionsModal: !!connectionsModal
+            });
+            
+            // Sample data for connections, family, and friends
+            const familyData = [
+                { id: 'mary-smith', name: 'Mary Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mary-smith&backgroundColor=ffd5dc', relationship: 'Wife' },
+                { id: 'sarah-johnson', name: 'Sarah Johnson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-johnson&backgroundColor=b6e3f4', relationship: 'Daughter' },
+                { id: 'michael-smith', name: 'Michael Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=michael-smith&backgroundColor=d1d4f9', relationship: 'Son' },
+                { id: 'emily-smith', name: 'Emily Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emily-smith&backgroundColor=ffdfbf', relationship: 'Daughter' },
+                { id: 'robert-smith', name: 'Robert Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=robert-smith&backgroundColor=e0e0e0', relationship: 'Father' },
+                { id: 'helen-smith', name: 'Helen Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=helen-smith&backgroundColor=f4e4ba', relationship: 'Mother' }
+            ];
+            
+            const closeFriendsData = [
+                { id: 'friend1', name: 'David Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=david-wilson&backgroundColor=c0aede', relationship: 'College Friend' },
+                { id: 'friend2', name: 'Lisa Brown', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa-brown&backgroundColor=ffd5dc', relationship: 'Childhood Friend' },
+                { id: 'friend3', name: 'Tom Anderson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tom-anderson&backgroundColor=d1d4f9', relationship: 'Work Colleague' },
+                { id: 'friend4', name: 'Susan Davis', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=susan-davis&backgroundColor=ffdfbf', relationship: 'Neighbor' },
+                { id: 'friend5', name: 'Mike Johnson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mike-johnson&backgroundColor=e0e0e0', relationship: 'Golf Buddy' }
+            ];
+            
+            const connectionsData = {
+                family: familyData,
+                closeFriends: closeFriendsData,
+                connections: [
+                    ...familyData,
+                    ...closeFriendsData,
+                    { id: 'conn1', name: 'Sarah Williams', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-williams&backgroundColor=b6e3f4', relationship: 'Former Student' },
+                    { id: 'conn2', name: 'John Davis', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john-davis&backgroundColor=c0aede', relationship: 'Book Club Member' },
+                    { id: 'conn3', name: 'Emma Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emma-wilson&backgroundColor=ffd5dc', relationship: 'Church Member' }
+                ]
+            };
+            
+            let currentConnectionsData = [];
+            let currentConnectionsType = '';
+            
+            function renderConnectionsList(data = currentConnectionsData) {
+                connectionsList.innerHTML = data.map(person => {
+                    // Determine the person's actual relationship type, not just the list type
+                    let statusClass = 'status-connection';
+                    let statusText = 'Connection';
+                    
+                    // Check if person is family
+                    const isFamily = familyData.some(familyMember => familyMember.id === person.id);
+                    if (isFamily) {
+                        statusClass = 'status-family';
+                        statusText = 'Family';
+                    } 
+                    // Check if person is close friend
+                    else if (closeFriendsData.some(friend => friend.id === person.id)) {
+                        statusClass = 'status-close-friend';
+                        statusText = 'Close Friend';
+                    }
+                    
+                    return `
+                        <div class="connection-item" onclick="navigateToProfile('${person.id}')">
+                            <img src="${person.avatar}" alt="${person.name}" class="connection-avatar">
+                            <div class="connection-info">
+                                <div class="connection-name">${person.name}</div>
+                                <div class="connection-relationship">${person.relationship}</div>
+                            </div>
+                            <div class="connection-status ${statusClass}">
+                                ${statusText}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // Show "No results" message if no data
+                if (data.length === 0) {
+                    connectionsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-style: italic;">No people found</div>';
+                }
+            }
+            
+            function showConnectionsList(type, title) {
+                currentConnectionsType = type;
+                currentConnectionsData = connectionsData[type] || [];
+                connectionsModalTitle.textContent = title;
+                
+                // Clear search input
+                const searchInput = document.getElementById('connectionsSearch');
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+                
+                renderConnectionsList(currentConnectionsData);
+                connectionsModal.classList.add('active');
+            }
+            
+            // Add click handlers only if elements exist
+            if (connectionsStat && connectionsModal && connectionsModalTitle && connectionsList) {
+                connectionsStat.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Connections clicked');
+                    showConnectionsList('connections', 'Connections (42)');
+                });
+            } else {
+                console.log('Connections elements not found');
+            }
+            
+            if (familyStat && connectionsModal && connectionsModalTitle && connectionsList) {
+                familyStat.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Family clicked');
+                    showConnectionsList('family', 'Family Members (7)');
+                });
+            } else {
+                console.log('Family elements not found');
+            }
+            
+            if (closeFriendsStat && connectionsModal && connectionsModalTitle && connectionsList) {
+                closeFriendsStat.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Close friends clicked');
+                    showConnectionsList('closeFriends', 'Close Friends (12)');
+                });
+            } else {
+                console.log('Close friends elements not found');
+            }
+            
+            // Search functionality
+            const connectionsSearch = document.getElementById('connectionsSearch');
+            if (connectionsSearch) {
+                connectionsSearch.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    if (query.trim() === '') {
+                        // Show all data if search is empty
+                        renderConnectionsList(currentConnectionsData);
+                    } else {
+                        // Filter data based on search query
+                        const filteredData = currentConnectionsData.filter(person => 
+                            person.name.toLowerCase().includes(query) ||
+                            person.relationship.toLowerCase().includes(query)
+                        );
+                        renderConnectionsList(filteredData);
+                    }
+                });
+            }
+            
+            // Close connections modal
+            const closeConnectionsModal = document.getElementById('closeConnectionsModal');
+            if (closeConnectionsModal) {
+                closeConnectionsModal.addEventListener('click', () => {
+                    connectionsModal.classList.remove('active');
+                });
+            }
+            
+            // Close modal when clicking outside
+            if (connectionsModal) {
+                connectionsModal.addEventListener('click', (e) => {
+                    if (e.target === connectionsModal) {
+                        connectionsModal.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Notifications dropdown toggle
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            if (notificationsBtn && notificationsDropdown) {
+                notificationsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isCurrentlyActive = notificationsDropdown.classList.contains('active');
+                    notificationsDropdown.classList.toggle('active');
+                    
+                    // If opening the dropdown (was not active before), clear notifications
+                    if (!isCurrentlyActive) {
+                        const unreadItems = document.querySelectorAll('.notification-item.unread');
+                        unreadItems.forEach(item => item.classList.remove('unread'));
+                        const notificationCount = document.getElementById('notificationCount');
+                        if (notificationCount) {
+                            notificationCount.textContent = '0';
+                            notificationCount.style.display = 'none';
+                        }
+                    }
+                    
+                    // Close settings if open
+                    if (settingsDropdown) {
+                        settingsDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Mark all notifications as read
+            const markAllRead = document.getElementById('markAllRead');
+            if (markAllRead) {
+                markAllRead.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const unreadItems = document.querySelectorAll('.notification-item.unread');
+                    unreadItems.forEach(item => item.classList.remove('unread'));
+                    const notificationCount = document.getElementById('notificationCount');
+                    if (notificationCount) {
+                        notificationCount.textContent = '0';
+                        notificationCount.style.display = 'none';
+                    }
+                });
+            }
+
+            // Handle notification action buttons
+            document.addEventListener('click', (e) => {
+                // Accept connection
+                if (e.target.classList.contains('btn-accept') || e.target.closest('.btn-accept')) {
+                    const btn = e.target.classList.contains('btn-accept') ? e.target : e.target.closest('.btn-accept');
+                    const notificationItem = btn.closest('.notification-item');
+                    notificationItem.classList.remove('unread');
+                    alert('Connection request accepted!');
+                    // In production, this would make an API call
+                }
+                
+                // Decline connection
+                if (e.target.classList.contains('btn-decline') || e.target.closest('.btn-decline')) {
+                    const btn = e.target.classList.contains('btn-decline') ? e.target : e.target.closest('.btn-decline');
+                    const notificationItem = btn.closest('.notification-item');
+                    notificationItem.remove();
+                    alert('Connection request declined');
+                    // In production, this would make an API call
+                }
+                
+                // View story/memory
+                if (e.target.classList.contains('btn-view') || e.target.closest('.btn-view')) {
+                    const btn = e.target.classList.contains('btn-view') ? e.target : e.target.closest('.btn-view');
+                    const notificationItem = btn.closest('.notification-item');
+                    notificationItem.classList.remove('unread');
+                    alert('Navigating to story...');
+                    // In production, this would navigate to the actual story
+                }
+                
+                // Answer question
+                if (e.target.classList.contains('btn-answer') || e.target.closest('.btn-answer')) {
+                    const btn = e.target.classList.contains('btn-answer') ? e.target : e.target.closest('.btn-answer');
+                    const notificationItem = btn.closest('.notification-item');
+                    notificationItem.classList.remove('unread');
+                    alert('Opening question response modal...');
+                    // In production, this would open a modal to answer the question
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
+                    settingsDropdown.classList.remove('active');
+                }
+                if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationsBtn) {
+                    notificationsDropdown.classList.remove('active');
+                }
+            });
+
+            // Handle Family link click to show family tree
+            const familyLink = document.querySelector('[data-page="family"]');
+            if (familyLink && window.location.pathname.includes('profile.html')) {
+                familyLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Click the Family Tree navigation button
+                    const familyTreeBtn = document.querySelector('[data-section="family-tree"]');
+                    if (familyTreeBtn) {
+                        familyTreeBtn.click();
+                    }
+                    // Scroll to family tree section
+                    const familyTreeSection = document.getElementById('family-tree');
+                    if (familyTreeSection) {
+                        familyTreeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to log out?')) {
+                        // Add Supabase logout here
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
+            // Add Story Button (Owner Only)
+            const addStoryBtn = document.getElementById('addStoryBtn');
+            if (addStoryBtn) {
+                addStoryBtn.addEventListener('click', () => {
+                    showAddStoryModal(false); // false = about yourself
+                });
+            }
+
+            // Add Story About Button (Visitor Only)
+            const addStoryAboutBtn = document.getElementById('addStoryAboutBtn');
+            if (addStoryAboutBtn) {
+                addStoryAboutBtn.addEventListener('click', () => {
+                    showAddStoryModal(true); // true = about someone else
+                });
+            }
+
+            // Edit Profile Button (Owner Only)
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', () => {
+                    showEditProfileModal();
+                });
+            }
+
+            // Add Family Member Button (Owner Only)
+            const addFamilyMemberBtn = document.getElementById('addFamilyMemberBtn');
+            if (addFamilyMemberBtn) {
+                addFamilyMemberBtn.addEventListener('click', () => {
+                    showAddFamilyMemberModal();
+                });
+            }
+
+            // Overview sub-navigation
+            const overviewSubBtns = document.querySelectorAll('.overview-sub-btn');
+            const overviewSubsections = document.querySelectorAll('.overview-subsection');
+
+            overviewSubBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetSubsection = btn.getAttribute('data-subsection');
+                    
+                    // Update active button
+                    overviewSubBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update active subsection
+                    overviewSubsections.forEach(subsection => {
+                        subsection.classList.remove('active');
+                        if (subsection.id === `${targetSubsection}-subsection`) {
+                            subsection.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Add mode toggle for testing (temporary - remove in production)
+            document.addEventListener('keydown', (e) => {
+                // Press Ctrl + M to toggle between owner and visitor mode
+                if (e.ctrlKey && e.key === 'm') {
+                    const currentMode = getProfileMode();
+                    const newMode = currentMode === 'owner' ? 'visitor' : 'owner';
+                    setProfileMode(newMode);
+                    console.log('Profile mode switched to:', newMode);
+                }
+            });
+
+            // Close Family Member Modal
+            const closeFamilyModalBtn = document.getElementById('closeFamilyModal');
+            if (closeFamilyModalBtn) {
+                closeFamilyModalBtn.addEventListener('click', () => {
+                    document.getElementById('familyModal').classList.remove('active');
+                });
+            }
+
+            // Close modal when clicking outside
+            const familyModal = document.getElementById('familyModal');
+            if (familyModal) {
+                familyModal.addEventListener('click', (e) => {
+                    if (e.target === familyModal) {
+                        familyModal.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Modal Functions
+        let isStoryAboutSomeoneElse = false;
+        
+        function showAddStoryModal(aboutSomeoneElse = false) {
+            isStoryAboutSomeoneElse = aboutSomeoneElse;
+            
+            // Update modal title
+            const modalTitle = document.querySelector('#addStoryModal .modal-header h3');
+            if (aboutSomeoneElse) {
+                const profileName = document.getElementById('profileName').textContent;
+                const firstName = profileName.split(' ')[0];
+                modalTitle.textContent = `Add Story About ${firstName}`;
+            } else {
+                modalTitle.textContent = 'Add New Story';
+            }
+            
+            document.getElementById('addStoryModal').classList.add('active');
+        }
+
+        // Audio Recording Variables
+        let mediaRecorder;
+        let audioChunks = [];
+        let recordedBlob;
+        let recordingInterval;
+        let recordingSeconds = 0;
+        let currentAudioPlayback = null;
+
+        // Close Add Story Modal
+        const closeAddStoryModal = document.getElementById('closeAddStoryModal');
+        const cancelAddStory = document.getElementById('cancelAddStory');
+        
+        if (closeAddStoryModal) {
+            closeAddStoryModal.addEventListener('click', () => {
+                stopRecording();
+                document.getElementById('addStoryModal').classList.remove('active');
+            });
+        }
+        
+        if (cancelAddStory) {
+            cancelAddStory.addEventListener('click', () => {
+                stopRecording();
+                document.getElementById('addStoryModal').classList.remove('active');
+            });
+        }
+
+        // Audio Recording Controls
+        const startRecordingBtn = document.getElementById('startRecording');
+        const stopRecordingBtn = document.getElementById('stopRecording');
+        const playRecordingBtn = document.getElementById('playRecording');
+        const deleteRecordingBtn = document.getElementById('deleteRecording');
+        const recordingStatus = document.getElementById('recordingStatus');
+        const recordingTimer = document.getElementById('recordingTimer');
+
+        if (startRecordingBtn) {
+            startRecordingBtn.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    recordingSeconds = 0;
+
+                    mediaRecorder.addEventListener('dataavailable', event => {
+                        audioChunks.push(event.data);
+                    });
+
+                    mediaRecorder.addEventListener('stop', () => {
+                        recordedBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        document.getElementById('storyAudio').value = 'recorded'; // Mark as recorded
+                        
+                        // Update UI
+                        recordingStatus.innerHTML = '<i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success-color);"></i><p style="margin: 0.5rem 0 0 0; color: var(--success-color);">Recording saved!</p>';
+                        playRecordingBtn.style.display = 'flex';
+                        deleteRecordingBtn.style.display = 'flex';
+                        
+                        // Stop all tracks
+                        stream.getTracks().forEach(track => track.stop());
+                    });
+
+                    mediaRecorder.start();
+                    
+                    // Update UI
+                    startRecordingBtn.style.display = 'none';
+                    stopRecordingBtn.style.display = 'flex';
+                    recordingTimer.style.display = 'block';
+                    recordingStatus.innerHTML = '<i class="fas fa-microphone" style="font-size: 2rem; color: #ff0000; animation: pulse 1s infinite;"></i><p style="margin: 0.5rem 0 0 0; color: #ff0000; font-weight: bold;">Recording...</p>';
+                    
+                    // Start timer
+                    recordingInterval = setInterval(() => {
+                        recordingSeconds++;
+                        const minutes = Math.floor(recordingSeconds / 60);
+                        const seconds = recordingSeconds % 60;
+                        recordingTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    alert('Unable to access microphone. Please ensure you have granted microphone permissions.');
+                }
+            });
+        }
+
+        if (stopRecordingBtn) {
+            stopRecordingBtn.addEventListener('click', () => {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    clearInterval(recordingInterval);
+                    stopRecordingBtn.style.display = 'none';
+                    startRecordingBtn.style.display = 'flex';
+                }
+            });
+        }
+
+        if (playRecordingBtn) {
+            playRecordingBtn.addEventListener('click', () => {
+                if (recordedBlob) {
+                    // Stop any currently playing audio
+                    if (currentAudioPlayback) {
+                        currentAudioPlayback.pause();
+                        currentAudioPlayback.currentTime = 0;
+                    }
+                    
+                    // Create and play new audio
+                    currentAudioPlayback = new Audio(URL.createObjectURL(recordedBlob));
+                    currentAudioPlayback.play();
+                    
+                    // Update button to show it's playing
+                    playRecordingBtn.innerHTML = '<i class="fas fa-pause"></i> Playing...';
+                    playRecordingBtn.disabled = true;
+                    
+                    // Reset button when audio ends
+                    currentAudioPlayback.addEventListener('ended', () => {
+                        playRecordingBtn.innerHTML = '<i class="fas fa-play"></i> Play';
+                        playRecordingBtn.disabled = false;
+                    });
+                }
+            });
+        }
+
+        if (deleteRecordingBtn) {
+            deleteRecordingBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete this recording?')) {
+                    recordedBlob = null;
+                    audioChunks = [];
+                    recordingSeconds = 0;
+                    document.getElementById('storyAudio').value = '';
+                    
+                    // Reset UI
+                    recordingStatus.innerHTML = '<i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i><p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Ready to record</p>';
+                    recordingTimer.textContent = '0:00';
+                    recordingTimer.style.display = 'none';
+                    playRecordingBtn.style.display = 'none';
+                    deleteRecordingBtn.style.display = 'none';
+                    startRecordingBtn.style.display = 'flex';
+                }
+            });
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                clearInterval(recordingInterval);
+            }
+        }
+
+        // Dynamic day dropdown based on month/year
+        const storyYearInput = document.getElementById('storyYear');
+        const storyMonthSelect = document.getElementById('storyMonth');
+        const storyDaySelect = document.getElementById('storyDay');
+
+        function updateDaysInMonth() {
+            const year = parseInt(storyYearInput.value) || new Date().getFullYear();
+            const month = parseInt(storyMonthSelect.value);
+            
+            if (!month) {
+                storyDaySelect.innerHTML = '<option value="">Day (Optional)</option>';
+                return;
+            }
+            
+            // Calculate days in month
+            const daysInMonth = new Date(year, month, 0).getDate();
+            
+            // Save current selection
+            const currentDay = storyDaySelect.value;
+            
+            // Rebuild day options
+            let dayOptions = '<option value="">Day (Optional)</option>';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayValue = i.toString().padStart(2, '0');
+                dayOptions += `<option value="${dayValue}">${i}</option>`;
+            }
+            storyDaySelect.innerHTML = dayOptions;
+            
+            // Restore selection if still valid
+            if (currentDay && parseInt(currentDay) <= daysInMonth) {
+                storyDaySelect.value = currentDay;
+            }
+        }
+
+        if (storyYearInput) {
+            storyYearInput.addEventListener('change', updateDaysInMonth);
+        }
+        
+        if (storyMonthSelect) {
+            storyMonthSelect.addEventListener('change', updateDaysInMonth);
+        }
+
+        // Media preview functionality
+        const storyMediaInput = document.getElementById('storyMedia');
+        const mediaPreviewsContainer = document.getElementById('mediaPreviews');
+        const addMediaBtn = document.getElementById('addMediaBtn');
+
+        // Trigger file input when button is clicked
+        if (addMediaBtn) {
+            addMediaBtn.addEventListener('click', () => {
+                storyMediaInput.click();
+            });
+        }
+
+        if (storyMediaInput) {
+            storyMediaInput.addEventListener('change', (e) => {
+                mediaPreviewsContainer.innerHTML = '';
+                const files = Array.from(e.target.files);
+                
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = (event) => {
+                        const previewItem = document.createElement('div');
+                        previewItem.style.cssText = 'position: relative; width: 80px; height: 80px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--border-color);';
+                        
+                        if (file.type.startsWith('image/')) {
+                            previewItem.innerHTML = `
+                                <img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <button type="button" onclick="removeMediaPreview(${index})" style="position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">×</button>
+                            `;
+                        } else if (file.type.startsWith('video/')) {
+                            previewItem.innerHTML = `
+                                <video src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;"></video>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-play" style="color: white; font-size: 0.8rem; margin-left: 2px;"></i>
+                                </div>
+                                <button type="button" onclick="removeMediaPreview(${index})" style="position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">×</button>
+                            `;
+                        }
+                        
+                        mediaPreviewsContainer.appendChild(previewItem);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                });
+            });
+        }
+
+        // Function to remove media preview
+        window.removeMediaPreview = function(index) {
+            const files = Array.from(storyMediaInput.files);
+            const dt = new DataTransfer();
+            
+            files.forEach((file, i) => {
+                if (i !== index) {
+                    dt.items.add(file);
+                }
+            });
+            
+            storyMediaInput.files = dt.files;
+            
+            // Trigger change event to update previews
+            const event = new Event('change', { bubbles: true });
+            storyMediaInput.dispatchEvent(event);
+        };
+
+        // Tag People functionality
+        const tagPeopleSelect = document.getElementById('tagPeople');
+        const taggedPeopleContainer = document.getElementById('taggedPeopleContainer');
+        const addTagBtn = document.getElementById('addTagBtn');
+        const searchPeopleInput = document.getElementById('searchPeople');
+        let taggedPeople = [];
+
+        if (addTagBtn) {
+            addTagBtn.addEventListener('click', () => {
+                const searchTerm = searchPeopleInput.value.trim().toLowerCase();
+                
+                if (!searchTerm) {
+                    alert('Please enter a name to search');
+                    searchPeopleInput.focus();
+                    return;
+                }
+                
+                // Find matching people
+                const allOptions = Array.from(tagPeopleSelect.options);
+                const matches = allOptions.filter(opt => {
+                    const name = opt.getAttribute('data-name').toLowerCase();
+                    return name.includes(searchTerm) && !taggedPeople.some(p => p.id === opt.value);
+                });
+                
+                if (matches.length === 0) {
+                    alert('No matching people found or already tagged');
+                    return;
+                }
+                
+                if (matches.length === 1) {
+                    // Auto-tag if only one match
+                    selectPersonToTag(matches[0].value, matches[0].text);
+                    searchPeopleInput.value = '';
+                } else {
+                    // Show picker with matches
+                    const optionsHtml = matches.map(opt => 
+                        `<div style="padding: 0.75rem; border-bottom: 1px solid var(--border-light); cursor: pointer;" 
+                              onmouseover="this.style.background='var(--bg-secondary)'" 
+                              onmouseout="this.style.background='white'"
+                              onclick="selectPersonToTag('${opt.value}', '${opt.text}')">${opt.text}</div>`
+                    ).join('');
+                    
+                    const pickerHtml = `
+                        <div id="personPicker" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); z-index: 10001; max-width: 400px; max-height: 400px; overflow-y: auto;">
+                            <div style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="margin: 0;">Select Person to Tag</h3>
+                                <button onclick="closePersonPicker()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                            </div>
+                            ${optionsHtml}
+                        </div>
+                        <div id="pickerOverlay" onclick="closePersonPicker()" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000;"></div>
+                    `;
+                    
+                    const pickerContainer = document.createElement('div');
+                    pickerContainer.innerHTML = pickerHtml;
+                    document.body.appendChild(pickerContainer);
+                }
+            });
+        }
+        
+        // Allow Enter key to add person
+        if (searchPeopleInput) {
+            searchPeopleInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addTagBtn.click();
+                }
+            });
+        }
+
+        window.selectPersonToTag = function(personId, personName) {
+            // Add to tagged people array
+            taggedPeople.push({ id: personId, name: personName });
+            
+            // Add visual tag
+            const tag = document.createElement('div');
+            tag.style.cssText = 'display: flex; align-items: center; gap: 0.5rem; background: var(--primary-color); color: white; padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-size: 0.875rem;';
+            tag.innerHTML = `
+                <i class="fas fa-user"></i>
+                <span>${personName.split('(')[0].trim()}</span>
+                <button type="button" onclick="removeTag('${personId}')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1rem; padding: 0; margin-left: 0.25rem;">&times;</button>
+            `;
+            taggedPeopleContainer.appendChild(tag);
+            
+            // Clear search input
+            if (searchPeopleInput) {
+                searchPeopleInput.value = '';
+            }
+            
+            closePersonPicker();
+        };
+
+        window.removeTag = function(personId) {
+            taggedPeople = taggedPeople.filter(p => p.id !== personId);
+            updateTaggedPeopleDisplay();
+        };
+
+        function updateTaggedPeopleDisplay() {
+            taggedPeopleContainer.innerHTML = '';
+            taggedPeople.forEach(person => {
+                const tag = document.createElement('div');
+                tag.style.cssText = 'display: flex; align-items: center; gap: 0.5rem; background: var(--primary-color); color: white; padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-size: 0.875rem;';
+                tag.innerHTML = `
+                    <i class="fas fa-user"></i>
+                    <span>${person.name.split('(')[0].trim()}</span>
+                    <button type="button" onclick="removeTag('${person.id}')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1rem; padding: 0; margin-left: 0.25rem;">&times;</button>
+                `;
+                taggedPeopleContainer.appendChild(tag);
+            });
+        }
+
+        window.closePersonPicker = function() {
+            const picker = document.getElementById('personPicker');
+            const overlay = document.getElementById('pickerOverlay');
+            if (picker) picker.parentElement.remove();
+            if (overlay) overlay.remove();
+        };
+
+        // Handle Add Story Form Submission
+        const addStoryForm = document.getElementById('addStoryForm');
+        if (addStoryForm) {
+            addStoryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const month = document.getElementById('storyMonth').value;
+                const day = document.getElementById('storyDay').value;
+                
+                const storyData = {
+                    title: document.getElementById('storyTitle').value,
+                    category: document.getElementById('storyCategory').value,
+                    year: document.getElementById('storyYear').value,
+                    month: month || null,
+                    day: day || null,
+                    audio: recordedBlob,
+                    media: document.getElementById('storyMedia').files,
+                    taggedPeople: taggedPeople,
+                    privacy: document.getElementById('storyPrivacy').value
+                };
+                
+                console.log('Story data:', storyData);
+                
+                // Show loading indicator instead of alert
+                const modalBody = document.querySelector('#addStoryModal .modal-body');
+                const originalContent = modalBody.innerHTML;
+                modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <div style="display: inline-block; width: 60px; height: 60px; border: 6px solid var(--border-color); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <h3 style="margin-top: 1.5rem; color: var(--text-primary);">Processing your story...</h3>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Uploading audio and generating AI summary</p>
+                    </div>
+                `;
+                
+                // Add spinning animation
+                if (!document.getElementById('spinAnimation')) {
+                    const style = document.createElement('style');
+                    style.id = 'spinAnimation';
+                    style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+                    document.head.appendChild(style);
+                }
+                
+                // Simulate API call - In production, this would:
+                // 1. Upload audio to storage (S3, etc.)
+                // 2. Send audio to AI service (OpenAI Whisper for transcription + GPT for summary)
+                // 3. Upload photos/videos to storage
+                // 4. Save everything to database
+                
+                setTimeout(async () => {
+                    // Create a formatted date string
+                    let dateString = storyData.year;
+                    if (storyData.month && storyData.day) {
+                        const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 
+                                          'July', 'August', 'September', 'October', 'November', 'December'];
+                        dateString = `${monthNames[parseInt(storyData.month)]} ${parseInt(storyData.day)}, ${storyData.year}`;
+                    } else if (storyData.month) {
+                        const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 
+                                          'July', 'August', 'September', 'October', 'November', 'December'];
+                        dateString = `${monthNames[parseInt(storyData.month)]} ${storyData.year}`;
+                    }
+                    
+                    // Generate a simulated AI summary based on category
+                    const categoryDescriptions = {
+                        'family': 'A cherished family memory that brings together loved ones and creates lasting bonds. This story captures a special moment that will be treasured for generations to come.',
+                        'career': 'A significant milestone in a professional journey filled with challenges, growth, and achievement. This experience shaped the path forward and taught valuable lessons.',
+                        'travel': 'An unforgettable adventure exploring new places and cultures. The sights, sounds, and experiences from this journey created memories that last a lifetime.',
+                        'education': 'An important chapter in the journey of learning and personal development. This educational experience opened doors and expanded horizons in meaningful ways.',
+                        'milestone': 'A pivotal moment marking an important transition or achievement in life. This milestone represents growth, change, and new beginnings.',
+                        'other': 'A meaningful story that captures an important moment in life. Every detail adds to the richness of this personal narrative.'
+                    };
+                    
+                    const aiSummary = categoryDescriptions[storyData.category] || categoryDescriptions['other'];
+                    
+                    // Check if there are media files
+                    const hasMedia = storyData.media && storyData.media.length > 0;
+                    
+                    // Store audio blob URL for playback
+                    const audioUrl = URL.createObjectURL(recordedBlob);
+                    
+                    // Add the new story to the timeline
+                    const timelineEvents = document.querySelector('.timeline-events');
+                    if (timelineEvents) {
+                        const newEvent = document.createElement('div');
+                        newEvent.className = 'timeline-event';
+                        newEvent.setAttribute('data-year', storyData.year);
+                        newEvent.setAttribute('data-month', storyData.month || '00');
+                        newEvent.setAttribute('data-day', storyData.day || '00');
+                        newEvent.innerHTML = `
+                            <div class="event-content">
+                                <div class="event-date">${dateString}</div>
+                                <h3 class="event-title">${storyData.title}</h3>
+                                <p class="event-description">${aiSummary}</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio-url="${audioUrl}">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    ${hasMedia ? `
+                                    <button class="btn-photos" onclick="alert('Viewing ${storyData.media.length} media file(s)')">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Find the correct position to insert based on chronological order
+                        const existingEvents = Array.from(timelineEvents.querySelectorAll('.timeline-event'));
+                        let insertPosition = null;
+                        
+                        for (let i = 0; i < existingEvents.length; i++) {
+                            const event = existingEvents[i];
+                            const eventYear = parseInt(event.getAttribute('data-year') || '9999');
+                            const eventMonth = parseInt(event.getAttribute('data-month') || '00');
+                            const eventDay = parseInt(event.getAttribute('data-day') || '00');
+                            
+                            const newYear = parseInt(storyData.year);
+                            const newMonth = parseInt(storyData.month || '00');
+                            const newDay = parseInt(storyData.day || '00');
+                            
+                            // Compare dates (newest first)
+                            if (newYear > eventYear || 
+                                (newYear === eventYear && newMonth > eventMonth) ||
+                                (newYear === eventYear && newMonth === eventMonth && newDay > eventDay)) {
+                                insertPosition = event;
+                                break;
+                            }
+                        }
+                        
+                        // If existing events don't have data attributes, try to extract year from date text
+                        if (!insertPosition) {
+                            for (let i = 0; i < existingEvents.length; i++) {
+                                const event = existingEvents[i];
+                                let eventYear = parseInt(event.getAttribute('data-year'));
+                                
+                                // If no data-year attribute, try to extract from the date text
+                                if (!eventYear) {
+                                    const dateText = event.querySelector('.event-date')?.textContent || '';
+                                    const yearMatch = dateText.match(/\d{4}/);
+                                    if (yearMatch) {
+                                        eventYear = parseInt(yearMatch[0]);
+                                    }
+                                }
+                                
+                                const newYear = parseInt(storyData.year);
+                                
+                                // Insert before older events (newest first)
+                                if (eventYear && newYear > eventYear) {
+                                    insertPosition = event;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // Insert at the correct chronological position
+                        if (insertPosition) {
+                            timelineEvents.insertBefore(newEvent, insertPosition);
+                        } else {
+                            timelineEvents.appendChild(newEvent);
+                        }
+                        
+                        // Add click handler for the play button
+                        const playBtn = newEvent.querySelector('.btn-play');
+                        if (playBtn) {
+                            playBtn.addEventListener('click', function() {
+                                const audioUrl = this.getAttribute('data-audio-url');
+                                if (audioUrl) {
+                                    // Stop any currently playing audio
+                                    if (currentAudioPlayback) {
+                                        currentAudioPlayback.pause();
+                                        currentAudioPlayback.currentTime = 0;
+                                    }
+                                    
+                                    currentAudioPlayback = new Audio(audioUrl);
+                                    currentAudioPlayback.play();
+                                    
+                                    this.innerHTML = '<i class="fas fa-pause"></i> Playing...';
+                                    this.disabled = true;
+                                    
+                                    currentAudioPlayback.addEventListener('ended', () => {
+                                        this.innerHTML = '<i class="fas fa-play"></i> Listen to Story';
+                                        this.disabled = false;
+                                    });
+                                }
+                            });
+                        }
+                        
+                        // Update timeline events count
+                        const currentCount = document.querySelectorAll('.timeline-events .timeline-event').length;
+                        const stat = document.querySelector('.stat-number#timelineEvents');
+                        if (stat) {
+                            stat.textContent = currentCount;
+                        }
+                    }
+                    
+                    // Send notifications to tagged people
+                    if (storyData.taggedPeople && storyData.taggedPeople.length > 0) {
+                        console.log('Sending notifications to:', storyData.taggedPeople);
+                        // In production, this would:
+                        // 1. Create a notification for each tagged person
+                        // 2. Send them an email/push notification
+                        // 3. Allow them to add their own media and version of the story
+                        
+                        const taggedNames = storyData.taggedPeople.map(p => p.name.split('(')[0].trim()).join(', ');
+                        setTimeout(() => {
+                            alert(`Story saved and notifications sent!\n\n📧 Notified: ${taggedNames}\n\nThey can now:\n• View the story\n• Add their own photos/videos\n• Record their version of the event`);
+                        }, 2500);
+                    }
+                    
+                    // Automatically switch to timeline tab to show the new story
+                    const timelineBtn = document.querySelector('[data-section="timeline"]');
+                    if (timelineBtn) {
+                        timelineBtn.click();
+                        
+                        // Scroll to the new event at the top
+                        setTimeout(() => {
+                            const firstEvent = document.querySelector('.timeline-event');
+                            if (firstEvent) {
+                                firstEvent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                // Add a highlight animation
+                                firstEvent.style.boxShadow = '0 0 20px rgba(0,0,0,0.3)';
+                                setTimeout(() => {
+                                    firstEvent.style.boxShadow = '';
+                                }, 2000);
+                            }
+                        }, 300);
+                    }
+                    
+                    // Close modal and restore original content
+                    setTimeout(() => {
+                        document.getElementById('addStoryModal').classList.remove('active');
+                        modalBody.innerHTML = originalContent;
+                        
+                        // Need to re-bind the event listeners after restoring content
+                        setTimeout(() => {
+                            const newAddStoryForm = document.getElementById('addStoryForm');
+                            const newCloseBtn = document.getElementById('closeAddStoryModal');
+                            const newCancelBtn = document.getElementById('cancelAddStory');
+                            
+                            // Re-bind event listeners (they were removed when innerHTML was replaced)
+                            if (newCloseBtn) {
+                                newCloseBtn.addEventListener('click', () => {
+                                    stopRecording();
+                                    document.getElementById('addStoryModal').classList.remove('active');
+                                });
+                            }
+                            
+                            if (newCancelBtn) {
+                                newCancelBtn.addEventListener('click', () => {
+                                    stopRecording();
+                                    document.getElementById('addStoryModal').classList.remove('active');
+                                });
+                            }
+                        }, 100);
+                        
+                        // Reset recording variables
+                        recordedBlob = null;
+                        audioChunks = [];
+                        recordingSeconds = 0;
+                        
+                        // Reset tagged people
+                        taggedPeople = [];
+                        if (taggedPeopleContainer) {
+                            taggedPeopleContainer.innerHTML = '';
+                        }
+                    }, 500);
+                    
+                }, 2000); // Simulate 2 second processing time
+            });
+        }
+
+        function showEditProfileModal() {
+            alert('Edit Profile modal will open here. This will allow you to:\n\n• Change profile picture\n• Update bio\n• Edit personal information\n• Manage privacy settings');
+        }
+
+        function showAddFamilyMemberModal() {
+            alert('Add Family Member modal will open here. This will allow you to:\n\n• Add family member name\n• Upload their photo\n• Set relationship (Parent, Spouse, Child, Sibling, etc.)\n• Add birth/death dates\n• Write their bio\n• Link their profile (if they have one)');
+        }
+
+        // Initialize ProfilePage
+        const profilePage = new ProfilePage();
+
+        // Function to show family member profile modal
+        function showFamilyProfile(personId) {
+            const familyData = {
+                'grandfather': {
+                    name: 'Robert Smith',
+                    relationship: 'Father',
+                    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+                    born: '1920',
+                    died: '1995',
+                    location: 'Chicago, IL',
+                    occupation: 'Factory Worker',
+                    bio: 'Robert was a hardworking man who spent 30 years working at the local steel mill. He was known for his strong work ethic and dedication to his family. He loved fishing on weekends and telling stories to his grandchildren.',
+                    profileId: 'robert-smith'
+                },
+                'grandmother': {
+                    name: 'Helen Smith',
+                    relationship: 'Mother',
+                    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces',
+                    born: '1925',
+                    died: '2000',
+                    location: 'Chicago, IL',
+                    occupation: 'Homemaker',
+                    bio: 'Helen was the heart of the family, known for her warm smile and delicious cooking. She raised three children and was always there to support her family. She had a beautiful garden and loved to knit.',
+                    profileId: 'helen-smith'
+                },
+                'father': {
+                    name: 'John Smith',
+                    relationship: 'You',
+                    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+                    born: '1950',
+                    died: null,
+                    location: 'Chicago, IL',
+                    occupation: 'Retired Teacher',
+                    bio: 'John dedicated 35 years to teaching high school mathematics. He touched the lives of thousands of students and was known for his patience and ability to make math fun. He loves spending time with his grandchildren and sharing stories from his teaching days.',
+                    profileId: 'john-smith'
+                },
+                'mother': {
+                    name: 'Mary Smith',
+                    relationship: 'Wife',
+                    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
+                    born: '1952',
+                    died: null,
+                    location: 'Chicago, IL',
+                    occupation: 'Retired Nurse',
+                    bio: 'Mary was a compassionate nurse who worked in the local hospital for 30 years. She met John at a coffee shop in 1974 and they knew instantly they were meant to be together. She loves gardening and spending time with her family.',
+                    profileId: 'mary-smith'
+                },
+                'daughter1': {
+                    name: 'Sarah Johnson',
+                    relationship: 'Daughter',
+                    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face',
+                    born: '1982',
+                    died: null,
+                    location: 'Seattle, WA',
+                    occupation: 'Software Engineer',
+                    bio: 'Sarah is a talented software engineer who works for a major tech company. She inherited her father\'s love for problem-solving and her mother\'s caring nature. She has two children and loves hiking in the Pacific Northwest.',
+                    profileId: 'sarah-johnson'
+                },
+                'son1': {
+                    name: 'Michael Smith',
+                    relationship: 'Son',
+                    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face',
+                    born: '1985',
+                    died: null,
+                    location: 'Austin, TX',
+                    occupation: 'Chef',
+                    bio: 'Michael is a passionate chef who owns his own restaurant in Austin. He learned to cook from his grandmother Helen and has made it his life\'s work. He\'s known for his creative dishes and warm hospitality.',
+                    profileId: 'michael-smith'
+                },
+                'daughter2': {
+                    name: 'Emily Smith',
+                    relationship: 'Daughter',
+                    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face',
+                    born: '1988',
+                    died: null,
+                    location: 'New York, NY',
+                    occupation: 'Artist',
+                    bio: 'Emily is a talented artist who creates beautiful paintings and sculptures. She studied art in college and has had several successful gallery shows. She\'s known for her vibrant use of color and her ability to capture emotion in her work.',
+                    profileId: 'emily-smith'
+                }
+            };
+
+            const memberData = familyData[personId];
+            if (!memberData) return;
+
+            // Update modal content
+            document.getElementById('familyMemberName').textContent = memberData.name;
+            document.getElementById('familyMemberImage').src = memberData.image;
+            document.getElementById('familyMemberRelationship').textContent = memberData.relationship;
+            document.getElementById('familyMemberBorn').textContent = memberData.died ? `${memberData.born} - ${memberData.died}` : memberData.born;
+            document.getElementById('familyMemberLocation').textContent = memberData.location;
+            document.getElementById('familyMemberOccupation').textContent = memberData.occupation;
+            document.getElementById('familyMemberBio').textContent = memberData.bio;
+
+            // Update the "View Full Profile" button to navigate to the profile
+            const viewFullProfileBtn = document.getElementById('viewFullProfileBtn');
+            viewFullProfileBtn.onclick = function() {
+                if (memberData.profileId === 'john-smith') {
+                    window.location.href = 'profile.html';
+                } else {
+                    window.location.href = `profile-view.html?id=${memberData.profileId}`;
+                }
+            };
+
+            // Show the modal
+            document.getElementById('familyModal').classList.add('active');
+        }
+
+    </script>
+</body>
+</html>

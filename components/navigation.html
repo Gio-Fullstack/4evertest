@@ -1,0 +1,148 @@
+<!-- Main Navigation Bar -->
+<nav class="main-navigation">
+    <!-- Logo -->
+    <a href="feed.html" class="nav-logo">
+        <i class="fas fa-infinity"></i>
+        <span>4Ever</span>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="nav-mobile-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="nav-links" id="navLinks">
+        <a href="feed.html" class="nav-link" data-page="feed">
+            <i class="fas fa-home"></i>
+            <span>Feed</span>
+        </a>
+
+        <a href="my-profile.html" class="nav-link" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+
+        <a href="friends.html" class="nav-link" data-page="friends">
+            <i class="fas fa-users"></i>
+            <span>Family</span>
+        </a>
+
+        <a href="notifications.html" class="nav-link" data-page="notifications">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+            <div class="notification-badge" id="notificationCount" style="display: none;">3</div>
+        </a>
+    </div>
+
+    <!-- Right Section -->
+    <div class="nav-right">
+        <!-- Profile Button -->
+        <a href="my-profile.html" class="nav-profile-btn">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
+            <span class="nav-profile-name">John Smith</span>
+        </a>
+
+        <!-- Settings Button -->
+        <button class="nav-settings-btn" id="settingsBtn">
+            <i class="fas fa-cog"></i>
+        </button>
+
+        <!-- Settings Dropdown -->
+        <div class="nav-dropdown" id="settingsDropdown">
+            <a href="settings.html" class="nav-dropdown-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="privacy.html" class="nav-dropdown-item">
+                <i class="fas fa-lock"></i>
+                <span>Privacy</span>
+            </a>
+            <a href="help.html" class="nav-dropdown-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Help & Support</span>
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Spacer to prevent content from going under fixed nav -->
+<div class="nav-spacer"></div>
+
+<!-- Navigation JavaScript -->
+<script>
+    // Navigation functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+        }
+
+        // Settings dropdown toggle
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+        
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                settingsDropdown.classList.toggle('active');
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
+                settingsDropdown.classList.remove('active');
+            }
+        });
+
+        // Highlight active page
+        const currentPage = window.location.pathname.split('/').pop().split('.')[0];
+        const navLinksElements = document.querySelectorAll('.nav-link');
+        
+        navLinksElements.forEach(link => {
+            const page = link.getAttribute('data-page');
+            if (currentPage === page || 
+                (currentPage === '' && page === 'feed') ||
+                (currentPage === 'profile' && page === 'profile')) {
+                link.classList.add('active');
+            }
+        });
+
+        // Show notification badge if there are notifications
+        const notificationCount = document.getElementById('notificationCount');
+        // This would be populated from your backend/Supabase
+        const unreadNotifications = 3; // Example count
+        if (notificationCount && unreadNotifications > 0) {
+            notificationCount.textContent = unreadNotifications > 9 ? '9+' : unreadNotifications;
+            notificationCount.style.display = 'block';
+        }
+
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                // Add your logout logic here (Supabase signOut)
+                if (confirm('Are you sure you want to log out?')) {
+                    // Example: await supabase.auth.signOut();
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+    });
+</script>
+

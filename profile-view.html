@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View life story, timeline, and family tree on 4Ever">
+    <title>Profile - 4Ever</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-profile-mode="visitor">
+    <!-- Main Navigation Bar -->
+    <nav class="main-navigation">
+        <a href="feed.html" class="nav-logo">
+            <i class="fas fa-infinity"></i>
+            <span>4Ever</span>
+        </a>
+
+        <div class="nav-search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="profileSearch" placeholder="Search profiles..." class="search-input">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+
+        <button class="nav-mobile-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="feed.html" class="nav-link" data-page="feed">
+                <i class="fas fa-home"></i>
+                <span>Feed</span>
+            </a>
+
+            <a href="profile.html" class="nav-link" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <a href="profile.html#family-tree" class="nav-link" data-page="family">
+                <i class="fas fa-users"></i>
+                <span>Family</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="notifications" style="opacity: 0.5; cursor: not-allowed;">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge" id="notificationCount" style="display: none;">3</div>
+            </a>
+        </div>
+
+        <div class="nav-right">
+            <a href="profile.html" class="nav-profile-btn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
+                <span class="nav-profile-name">John Smith</span>
+            </a>
+
+            <button class="nav-settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </button>
+
+            <div class="nav-dropdown" id="settingsDropdown">
+                <a href="settings.html" class="nav-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="privacy.html" class="nav-dropdown-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacy</span>
+                </a>
+                <a href="help.html" class="nav-dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="container">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img id="profileImage" src="" alt="Profile Picture">
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name" id="profileName">Loading...</h1>
+                    <p class="profile-bio" id="profileBio">Loading...</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="timelineEventsCount">0</span>
+                            <span class="stat-label">Timeline Events</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="familyMembers">0</span>
+                            <span class="stat-label">Family Members</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <!-- Visitor View: Add Story About Them Button -->
+                        <button class="btn-add-story visitor-only" id="addStoryAboutBtn">
+                            <i class="fas fa-book"></i>
+                            <span id="addStoryAboutText">Add Story About Them</span>
+                        </button>
+                        
+                        <!-- Visitor View: Ask Question Button -->
+                        <button class="btn-ask-question visitor-only" id="askQuestionBtn">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="askQuestionText">Ask a Question</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Navigation -->
+    <section class="section-navigation">
+        <div class="container">
+            <div class="section-nav-buttons">
+                <button class="section-nav-btn active" data-section="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </button>
+                <button class="section-nav-btn" data-section="timeline">
+                    <i class="fas fa-history"></i>
+                    <span>Timeline</span>
+                </button>
+                <button class="section-nav-btn" data-section="family-tree">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Family Tree</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Overview Section (Default View) -->
+            <section id="overview" class="content-section active">
+                <!-- Overview Sub-Navigation -->
+                <div class="overview-sub-nav">
+                    <button class="overview-sub-btn active" data-subsection="feed">
+                        <i class="fas fa-stream"></i>
+                        <span>Feed</span>
+                    </button>
+                    <button class="overview-sub-btn" data-subsection="life-overview">
+                        <i class="fas fa-heart"></i>
+                        <span>Life Overview</span>
+                    </button>
+                    <button class="overview-sub-btn" data-subsection="featured-stories">
+                        <i class="fas fa-star"></i>
+                        <span>Featured Stories</span>
+                    </button>
+                </div>
+
+                <!-- Feed Sub-Section -->
+                <div class="overview-subsection active" id="feed-subsection">
+                    <div class="feed-container" id="profileFeed">
+                        <!-- Feed stories will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Life Overview Sub-Section -->
+                <div class="overview-subsection" id="life-overview-subsection">
+                    <div class="overview-content" id="overviewContent">
+                        <!-- Overview will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Featured Stories Sub-Section -->
+                <div class="overview-subsection" id="featured-stories-subsection">
+                    <div class="featured-stories-content" id="featuredStoriesContent">
+                        <!-- Featured stories will be loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section id="timeline" class="content-section">
+                <div class="section-header">
+                    <h2>Life Timeline</h2>
+                    <div class="timeline-controls">
+                        <button class="btn-filter active" data-filter="all">All</button>
+                        <button class="btn-filter" data-filter="milestones">Milestones</button>
+                        <button class="btn-filter" data-filter="family">Family</button>
+                        <button class="btn-filter" data-filter="career">Career</button>
+                        <button class="btn-filter" data-filter="travel">Travel</button>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-events" id="timelineEvents">
+                        <!-- Timeline events will be loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family Tree Section -->
+            <section class="content-section" id="family-tree">
+                <div class="section-header">
+                    <h2>Family Tree</h2>
+                    <div class="tree-controls">
+                        <button class="btn-zoom" id="zoomIn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="btn-zoom" id="zoomOut">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button class="btn-center" id="centerTree">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="family-tree-container">
+                    <div class="tree-wrapper" id="treeWrapper">
+                        <div class="family-tree" id="familyTreeContainer">
+                            <!-- Family tree will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/profile-data.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Profile Search Functionality
+            const profileSearch = document.getElementById('profileSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Load profile data for search
+            let allProfiles = [];
+            
+            // Import profile data (assuming it's available globally)
+            if (typeof profilesData !== 'undefined') {
+                allProfiles = Object.values(profilesData);
+            }
+            
+            // Search function
+            function searchProfiles(query) {
+                if (!query || query.length < 2) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+                
+                const filtered = allProfiles.filter(profile => 
+                    profile.name.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                displaySearchResults(filtered);
+            }
+            
+            // Display search results
+            function displaySearchResults(profiles) {
+                if (profiles.length === 0) {
+                    searchResults.innerHTML = '<div class="search-no-results">No profiles found</div>';
+                } else {
+                    searchResults.innerHTML = profiles.map(profile => `
+                        <div class="search-result-item" onclick="navigateToProfile('${profile.id}')">
+                            <img src="${profile.avatar}" alt="${profile.name}" class="search-result-avatar">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${profile.name}</div>
+                                <div class="search-result-bio">${profile.bio.substring(0, 80)}${profile.bio.length > 80 ? '...' : ''}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                searchResults.classList.add('active');
+            }
+            
+            // Navigate to profile
+            function navigateToProfile(profileId) {
+                if (profileId === 'john-smith') {
+                    window.location.href = 'profile.html';
+                } else {
+                    window.location.href = `profile-view.html?id=${profileId}`;
+                }
+                searchResults.classList.remove('active');
+                profileSearch.value = '';
+            }
+            
+            // Event listeners
+            if (profileSearch) {
+                profileSearch.addEventListener('input', (e) => {
+                    searchProfiles(e.target.value);
+                });
+                
+                profileSearch.addEventListener('focus', () => {
+                    if (profileSearch.value.length >= 2) {
+                        searchResults.classList.add('active');
+                    }
+                });
+                
+                // Hide results when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-search-container')) {
+                        searchResults.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Get profile ID from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileId = urlParams.get('id') || 'john-smith';
+
+            console.log('Loading profile:', profileId);
+            console.log('Available profiles:', Object.keys(profilesData));
+
+            // Load profile data
+            const profileData = profilesData[profileId];
+
+            if (!profileData) {
+                console.error('Profile not found:', profileId);
+                document.getElementById('profileName').textContent = 'Profile Not Found';
+                document.getElementById('profileBio').textContent = 'This profile does not exist.';
+                return;
+            }
+            
+            console.log('Profile loaded:', profileData.name);
+            console.log('Timeline events:', profileData.timeline ? profileData.timeline.length : 0);
+            // Load basic profile info
+            document.title = `${profileData.name}'s Story - 4Ever`;
+            document.getElementById('profileImage').src = profileData.avatar;
+            document.getElementById('profileImage').alt = profileData.name;
+            document.getElementById('profileName').textContent = profileData.name;
+            document.getElementById('profileBio').textContent = profileData.bio;
+            document.getElementById('timelineEventsCount').textContent = profileData.stats.timelineEvents;
+            document.getElementById('familyMembers').textContent = profileData.stats.familyMembers;
+
+            // Update ask question button text
+            const firstName = profileData.name.split(' ')[0];
+            document.getElementById('askQuestionText').textContent = `Ask ${firstName} a Question`;
+            
+            // Update add story about button text
+            const addStoryAboutText = document.getElementById('addStoryAboutText');
+            if (addStoryAboutText) {
+                addStoryAboutText.textContent = `Add Story About ${firstName}`;
+            }
+            
+            // Load Feed Section (stories about this person)
+            const profileFeed = document.getElementById('profileFeed');
+            if (profileData.stories && profileData.stories.length > 0) {
+                profileFeed.innerHTML = profileData.stories.map((story, index) => `
+                    <div class="feed-story">
+                        <div class="story-header">
+                            <img src="${profileData.avatar}" alt="${profileData.name}" class="story-avatar" onclick="window.location.href='profile-view.html?id=${profileData.id}'">
+                            <div class="story-meta">
+                                <div class="story-author" onclick="window.location.href='profile-view.html?id=${profileData.id}'">${profileData.name}</div>
+                                <div class="story-time">${story.date} • <span class="story-category">${story.category}</span></div>
+                            </div>
+                        </div>
+                        <div class="story-content">
+                            <h3 class="story-title">${story.title}</h3>
+                            <p class="story-description">${story.description}</p>
+                            ${story.image ? `<img src="${story.image}" alt="${story.title}" class="story-image">` : ''}
+                        </div>
+                        <div class="story-actions">
+                            <button class="story-action-btn primary">
+                                <i class="fas fa-play"></i>
+                                Listen to Story
+                            </button>
+                            ${story.hasMedia ? `
+                            <button class="story-action-btn">
+                                <i class="fas fa-images"></i>
+                                View Media
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                profileFeed.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No stories yet.</p>';
+            }
+
+            // Load Life Overview Section
+            const overviewContent = document.getElementById('overviewContent');
+            overviewContent.innerHTML = `
+                <h2>Life Overview</h2>
+                <p class="overview-intro">Welcome to ${firstName}'s life story. Here you can explore their journey through time, discover their family connections, and listen to the stories that shaped their life.</p>
+                
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="overview-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Key Milestones</h3>
+                        <p>${firstName}'s life has been marked by significant moments of love, growth, and achievement.</p>
+                        <ul class="milestone-list">
+                            ${profileData.timeline ? profileData.timeline.slice(0, 6).map(event => 
+                                `<li>${event.year} - ${event.title}</li>`
+                            ).join('') : '<li>No milestones yet</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Career & Education</h3>
+                        <p>${firstName}'s professional journey and accomplishments.</p>
+                        <ul class="milestone-list">
+                            ${profileData.timeline ? profileData.timeline.filter(e => e.category === 'career' || e.category === 'education').slice(0, 4).map(event => 
+                                `<li>${event.year} - ${event.title}</li>`
+                            ).join('') : '<li>No career information yet</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-card">
+                        <div class="overview-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Family Life</h3>
+                        <p>Family has always been important to ${firstName}.</p>
+                        <ul class="milestone-list">
+                            ${profileData.timeline ? profileData.timeline.filter(e => e.category === 'family').slice(0, 4).map(event => 
+                                `<li>${event.year} - ${event.title}</li>`
+                            ).join('') : '<li>No family information yet</li>'}
+                        </ul>
+                    </div>
+                </div>
+                
+            `;
+
+            // Load Featured Stories Section
+            const featuredStoriesContent = document.getElementById('featuredStoriesContent');
+            if (profileData.stories && profileData.stories.length > 0) {
+                featuredStoriesContent.innerHTML = `
+                    <h2>Featured Stories</h2>
+                    <p class="overview-intro">These are some of ${firstName}'s most memorable life stories - the moments that shaped their journey.</p>
+                    
+                    <div class="overview-grid">
+                        ${profileData.stories.slice(0, 3).map((story, index) => {
+                            const icons = ['fa-heart', 'fa-star', 'fa-trophy'];
+                            return `
+                                <div class="overview-card">
+                                    <div class="overview-icon">
+                                        <i class="fas ${icons[index] || 'fa-book'}"></i>
+                                    </div>
+                                    <h3>${story.title}</h3>
+                                    <p>${story.description}</p>
+                                    <ul class="milestone-list">
+                                        <li>${story.date} - ${story.category}</li>
+                                    </ul>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                featuredStoriesContent.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No featured stories yet.</p>';
+            }
+
+            // Load timeline
+            if (profileData.timeline && profileData.timeline.length > 0) {
+                const timelineEvents = document.getElementById('timelineEvents');
+                timelineEvents.innerHTML = profileData.timeline.map(event => `
+                    <div class="timeline-event" data-category="${event.category}">
+                        <div class="event-content">
+                            <div class="event-date">${event.year}</div>
+                            <h3 class="event-title">${event.title}</h3>
+                            ${event.description ? `<p class="event-description">${event.description}</p>` : ''}
+                            <div class="event-actions">
+                                <button class="btn-play">
+                                    <i class="fas fa-play"></i>
+                                    Listen to Story
+                                </button>
+                                ${event.hasMedia ? `
+                                <button class="btn-photos">
+                                    <i class="fas fa-images"></i>
+                                    View Media
+                                </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                console.log('Timeline events loaded:', profileData.timeline.length);
+            } else {
+                console.log('No timeline data found');
+            }
+            
+            // Timeline filters
+            const filterBtns = document.querySelectorAll('.btn-filter[data-filter]');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const events = document.querySelectorAll('.timeline-event');
+                    events.forEach(event => {
+                        if (filter === 'all' || event.getAttribute('data-category') === filter) {
+                            event.style.display = 'block';
+                        } else {
+                            event.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Load family tree with proper generation structure
+            const familyTreeContainer = document.getElementById('familyTreeContainer');
+            if (profileData.familyTree && profileData.familyTree.length > 0) {
+                // Organize family members by generation
+                let grandparents = [];
+                let parents = [];
+                let children = [];
+                
+                profileData.familyTree.forEach(memberId => {
+                    const member = profilesData[memberId];
+                    if (!member) return;
+                    
+                    // Determine relationship and generation
+                    let relationship = 'Family';
+                    if (memberId.includes('smith') && !memberId.includes(profileId)) {
+                        if (member.birthYear < profileData.birthYear - 20) {
+                            relationship = 'Parent';
+                            if (member.birthYear < 1940) {
+                                grandparents.push({...member, relationship});
+                            } else {
+                                parents.push({...member, relationship});
+                            }
+                        } else if (member.birthYear > profileData.birthYear + 20) {
+                            relationship = 'Child';
+                            children.push({...member, relationship});
+                        } else {
+                            relationship = 'Sibling';
+                            parents.push({...member, relationship});
+                        }
+                    } else if (memberId.includes('johnson')) {
+                        relationship = 'Spouse';
+                        parents.push({...member, relationship});
+                    } else {
+                        parents.push({...member, relationship});
+                    }
+                });
+                
+                const createGenerationHtml = (members, generationClass, label) => {
+                    if (members.length === 0) return '';
+                    return `
+                        <div class="generation ${generationClass}">
+                            <div class="generation-label">${label}</div>
+                            <div class="generation-content">
+                                ${members.map(member => `
+                                    <div class="person-card" onclick="window.location.href='profile-view.html?id=${member.id}'" style="cursor: pointer;">
+                                        <div class="person-avatar">
+                                            <img src="${member.avatar}" alt="${member.name}">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>${member.name}</h4>
+                                            <p class="relationship">${member.relationship}</p>
+                                            ${member.deathYear ? `<p class="dates">${member.birthYear} - ${member.deathYear}</p>` : `<p class="dates">Born ${member.birthYear}</p>`}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                };
+                
+                familyTreeContainer.innerHTML = `
+                    ${createGenerationHtml(grandparents, 'generation-3', 'Grandparents')}
+                    ${createGenerationHtml(parents, 'generation-2', 'Parents')}
+                    ${createGenerationHtml(children, 'generation-1', 'Children')}
+                `;
+            } else {
+                familyTreeContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No family connections yet.</p>';
+            }
+
+            // Overview sub-navigation
+            const overviewSubBtns = document.querySelectorAll('.overview-sub-btn');
+            const overviewSubsections = document.querySelectorAll('.overview-subsection');
+
+            overviewSubBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetSubsection = btn.getAttribute('data-subsection');
+                    
+                    // Update active button
+                    overviewSubBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update active subsection
+                    overviewSubsections.forEach(subsection => {
+                        subsection.classList.remove('active');
+                        if (subsection.id === `${targetSubsection}-subsection`) {
+                            subsection.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Section navigation (moved inside main DOMContentLoaded)
+            const navBtns = document.querySelectorAll('.section-nav-btn');
+            const sections = document.querySelectorAll('.content-section');
+
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetSection = btn.getAttribute('data-section');
+
+                    navBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetSection) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Settings dropdown toggle
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    settingsDropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
+                    settingsDropdown.classList.remove('active');
+                }
+            });
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to log out?')) {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
+            // Add Story About button
+            const addStoryAboutBtnClick = document.getElementById('addStoryAboutBtn');
+            if (addStoryAboutBtnClick) {
+                addStoryAboutBtnClick.addEventListener('click', () => {
+                    const modalTitle = document.getElementById('addStoryModalTitle');
+                    if (modalTitle) {
+                        modalTitle.textContent = `Add Story About ${firstName}`;
+                    }
+                    document.getElementById('addStoryModal').classList.add('active');
+                });
+            }
+
+            // Ask question button
+            const askQuestionBtnClick = document.getElementById('askQuestionBtn');
+            if (askQuestionBtnClick) {
+                askQuestionBtnClick.addEventListener('click', () => {
+                    const modalTitle = document.getElementById('questionModalTitle');
+                    if (modalTitle) {
+                        modalTitle.textContent = `Ask ${firstName} a Question`;
+                    }
+                    const placeholder = document.getElementById('questionText');
+                    if (placeholder) {
+                        placeholder.placeholder = `What would you like to know about ${firstName}'s life?`;
+                    }
+                    document.getElementById('questionModal').classList.add('active');
+                });
+            }
+            
+            // Modal close handlers
+            const closeAddStoryModal = document.getElementById('closeAddStoryModal');
+            const cancelAddStory = document.getElementById('cancelAddStory');
+            const closeQuestionModal = document.getElementById('closeQuestionModal');
+            const cancelQuestion = document.getElementById('cancelQuestion');
+            
+            if (closeAddStoryModal) {
+                closeAddStoryModal.addEventListener('click', () => {
+                    document.getElementById('addStoryModal').classList.remove('active');
+                });
+            }
+            
+            if (cancelAddStory) {
+                cancelAddStory.addEventListener('click', () => {
+                    document.getElementById('addStoryModal').classList.remove('active');
+                });
+            }
+            
+            if (closeQuestionModal) {
+                closeQuestionModal.addEventListener('click', () => {
+                    document.getElementById('questionModal').classList.remove('active');
+                });
+            }
+            
+            if (cancelQuestion) {
+                cancelQuestion.addEventListener('click', () => {
+                    document.getElementById('questionModal').classList.remove('active');
+                });
+            }
+            
+            // Handle form submissions with placeholders
+            const addStoryForm = document.getElementById('addStoryForm');
+            if (addStoryForm) {
+                addStoryForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const storyData = {
+                        title: document.getElementById('storyTitle').value,
+                        category: document.getElementById('storyCategory').value,
+                        year: document.getElementById('storyYear').value,
+                        month: document.getElementById('storyMonth').value || null,
+                        day: document.getElementById('storyDay').value || null,
+                        privacy: document.getElementById('storyPrivacy').value,
+                        taggedPeople: Array.from(document.getElementById('tagPeople').selectedOptions).map(option => option.value)
+                    };
+                    
+                    console.log('Story data:', storyData);
+                    
+                    const privacyText = storyData.privacy === 'private' ? 'Private (Only Me)' :
+                                       storyData.privacy === 'family' ? 'Family Only' : 
+                                       storyData.privacy === 'connections' ? 'Connections (Everyone)' : 
+                                       storyData.privacy === 'close-friends' ? 'Close Friends' : 'Not specified';
+                    
+                    alert(`Story about ${profileData.name} will be saved!\n\nPrivacy: ${privacyText}\n\nIn production, this would upload the story to their profile.`);
+                    document.getElementById('addStoryModal').classList.remove('active');
+                    addStoryForm.reset();
+                });
+            }
+            
+            const questionForm = document.getElementById('questionForm');
+            if (questionForm) {
+                questionForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert(`Question for ${profileData.name} submitted!\n\nIn production, this would be sent to them for answering.`);
+                    document.getElementById('questionModal').classList.remove('active');
+                    questionForm.reset();
+                });
+            }
+        }); // End of DOMContentLoaded
+    </script>
+
+    <!-- Add Story Modal -->
+    <div class="question-modal" id="addStoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="addStoryModalTitle">Add Story</h3>
+                <button class="modal-close" id="closeAddStoryModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addStoryForm">
+                    <div class="form-group">
+                        <label for="storyTitle">Story Title *</label>
+                        <input type="text" id="storyTitle" required placeholder="e.g., Family Vacation to Yellowstone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyCategory">Category *</label>
+                        <select id="storyCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="family">Family</option>
+                            <option value="career">Career</option>
+                            <option value="travel">Travel</option>
+                            <option value="education">Education</option>
+                            <option value="milestone">Milestone</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyYear">Year *</label>
+                        <input type="number" id="storyYear" required placeholder="e.g., 1985" min="1900" max="2100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyDate">Specific Date</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select id="storyMonth" style="flex: 1;">
+                                <option value="">Month (Optional)</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                            <select id="storyDay" style="flex: 1;">
+                                <option value="">Day (Optional)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Record Your Story *</label>
+                        <div id="recordingInterface" style="padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); text-align: center;">
+                            <div id="recordingStatus" style="margin-bottom: 1rem;">
+                                <i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Ready to record</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                                <button type="button" id="startRecording" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-microphone"></i>
+                                    Start Recording
+                                </button>
+                                <button type="button" id="stopRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-stop"></i>
+                                    Stop Recording
+                                </button>
+                                <button type="button" id="playRecording" class="btn-submit" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-play"></i>
+                                    Play
+                                </button>
+                                <button type="button" id="deleteRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </button>
+                            </div>
+                            <div id="recordingTimer" style="margin-top: 1rem; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); display: none;">0:00</div>
+                        </div>
+                        <input type="hidden" id="storyAudio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Photos & Videos</label>
+                        <input type="file" id="storyMedia" accept="image/*,video/*" multiple style="display: none;">
+                        <button type="button" id="addMediaBtn" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem; justify-content: center; width: 100%; margin-bottom: 0.5rem;">
+                            <i class="fas fa-images"></i>
+                            Add Photo/Video
+                        </button>
+                        <div id="mediaPreviews" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tagPeople">Tag People in This Story</label>
+                        <div id="taggedPeopleContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; min-height: 40px; padding: 0.5rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-color);"></div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="searchPeople" placeholder="Search by name..." style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                            <button type="button" id="addTagBtn" class="btn-cancel" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; white-space: nowrap;">
+                                <i class="fas fa-user-plus"></i>
+                                Add Person
+                            </button>
+                        </div>
+                        <select id="tagPeople" multiple style="display: none;">
+                            <option value="john-smith" data-name="John Smith">John Smith (Profile Owner)</option>
+                            <option value="mary-smith" data-name="Mary Smith">Mary Smith (Wife)</option>
+                            <option value="sarah-johnson" data-name="Sarah Johnson">Sarah Johnson (Daughter)</option>
+                            <option value="michael-smith" data-name="Michael Smith">Michael Smith (Son)</option>
+                            <option value="emily-smith" data-name="Emily Smith">Emily Smith (Daughter)</option>
+                            <option value="robert-smith" data-name="Robert Smith">Robert Smith (Father)</option>
+                            <option value="helen-smith" data-name="Helen Smith">Helen Smith (Mother)</option>
+                        </select>
+                        <small>They'll be notified and can add their own photos/videos and tell their version of this story</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storyPrivacy">Who can see this story? *</label>
+                        <select id="storyPrivacy" required>
+                            <option value="">Select visibility</option>
+                            <option value="private">Private (Only Me)</option>
+                            <option value="family">Family Only</option>
+                            <option value="connections">Connections (Everyone)</option>
+                            <option value="close-friends">Close Friends</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelAddStory">Cancel</button>
+                        <button type="submit" class="btn-submit">Save Story</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ask Question Modal -->
+    <div class="question-modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="questionModalTitle">Ask a Question</h3>
+                <button class="modal-close" id="closeQuestionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionCategory">Question Category</label>
+                        <select id="questionCategory" name="questionCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="childhood">Childhood & Early Life</option>
+                            <option value="family">Family & Relationships</option>
+                            <option value="career">Career & Work</option>
+                            <option value="travel">Travel & Adventures</option>
+                            <option value="memories">Memories & Stories</option>
+                            <option value="advice">Life Advice</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="questionText">Your Question</label>
+                        <textarea id="questionText" name="questionText" rows="4" placeholder="What would you like to know?" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelQuestion">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

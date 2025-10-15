@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timeline Test</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <h1>Timeline Test</h1>
+    
+    <div class="timeline-container" style="margin: 2rem;">
+        <div class="timeline-events" id="timelineEvents">
+            <div class="timeline-event" data-category="milestones">
+                <div class="event-content">
+                    <div class="event-date">1982</div>
+                    <h3 class="event-title">Born in Chicago</h3>
+                    <div class="event-actions">
+                        <button class="btn-play">
+                            <i class="fas fa-play"></i>
+                            Listen to Story
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-event" data-category="childhood">
+                <div class="event-content">
+                    <div class="event-date">1983</div>
+                    <h3 class="event-title">First Steps</h3>
+                    <div class="event-actions">
+                        <button class="btn-play">
+                            <i class="fas fa-play"></i>
+                            Listen to Story
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-event" data-category="education">
+                <div class="event-content">
+                    <div class="event-date">2000</div>
+                    <h3 class="event-title">High School Graduation</h3>
+                    <div class="event-actions">
+                        <button class="btn-play">
+                            <i class="fas fa-play"></i>
+                            Listen to Story
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/profile-data.js"></script>
+    <script>
+        console.log('Timeline test loaded');
+        console.log('Sarah profile:', profilesData['sarah-johnson']);
+    </script>
+</body>
+</html>
+

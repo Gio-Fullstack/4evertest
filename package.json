@@ -1,0 +1,28 @@
+{
+  "name": "4ever-profile",
+  "version": "1.0.0",
+  "description": "4Ever Profile Page with Timeline and Family Tree",
+  "main": "api/profile-api.js",
+  "scripts": {
+    "start": "node api/profile-api.js",
+    "dev": "nodemon api/profile-api.js",
+    "test": "node test-profile.html"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "profile",
+    "timeline",
+    "family-tree",
+    "stories",
+    "supabase"
+  ],
+  "author": "4Ever Team",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View [Name]'s life story, timeline, and family tree on 4Ever">
+    <title>[Name]'s Story - 4Ever</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-profile-mode="owner">
+    <!-- Main Navigation Bar -->
+    <nav class="main-navigation">
+        <a href="feed.html" class="nav-logo">
+            <i class="fas fa-infinity"></i>
+            <span>4Ever</span>
+        </a>
+
+        <button class="nav-mobile-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="feed.html" class="nav-link" data-page="feed">
+                <i class="fas fa-home"></i>
+                <span>Feed</span>
+            </a>
+
+            <a href="profile.html" class="nav-link" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <a href="profile.html#family-tree" class="nav-link" data-page="family">
+                <i class="fas fa-users"></i>
+                <span>Family</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="notifications" style="opacity: 0.5; cursor: not-allowed;">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge" id="notificationCount" style="display: none;">3</div>
+            </a>
+        </div>
+
+        <div class="nav-right">
+            <a href="profile.html" class="nav-profile-btn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
+                <span class="nav-profile-name">John Smith</span>
+            </a>
+
+            <button class="nav-settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </button>
+
+            <div class="nav-dropdown" id="settingsDropdown">
+                <a href="settings.html" class="nav-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="privacy.html" class="nav-dropdown-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacy</span>
+                </a>
+                <a href="help.html" class="nav-dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="container">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Profile Picture" id="profileImage">
+                    <div class="avatar-overlay">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <h1 class="profile-name editable-field" id="profileName">John Smith</h1>
+                    <p class="profile-bio editable-field" id="profileBio">Born in 1950, father of three, husband to Mary, son of Robert and Helen. Lived a life full of adventure, love, and countless stories worth preserving.</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="storyCount">3</span>
+                            <span class="stat-label">Stories</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="timelineEvents">31</span>
+                            <span class="stat-label">Timeline Events</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="familyMembers">7</span>
+                            <span class="stat-label">Family Members</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <!-- Visitor View: Ask Question Button -->
+                        <button class="btn-ask-question visitor-only" id="askQuestionBtn">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="askQuestionText">Ask a Question</span>
+                        </button>
+                        
+                        <!-- Owner View: Add Story Button -->
+                        <button class="btn-add-story owner-only" id="addStoryBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Add New Story</span>
+                        </button>
+                        
+                        <!-- Owner View: Edit Profile Button -->
+                        <button class="btn-edit-profile owner-only" id="editProfileBtn">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit Profile</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Navigation -->
+    <section class="section-navigation">
+        <div class="container">
+            <div class="section-nav-buttons">
+                <button class="section-nav-btn active" data-section="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </button>
+                <button class="section-nav-btn" data-section="timeline">
+                    <i class="fas fa-history"></i>
+                    <span>Timeline</span>
+                </button>
+                <button class="section-nav-btn" data-section="family-tree">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Family Tree</span>
+                </button>
+                <button class="section-nav-btn" data-section="stories">
+                    <i class="fas fa-book-open"></i>
+                    <span>Stories</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+
+            <!-- Main Overview Section (Default View) -->
+            <section id="overview" class="content-section active">
+                <!-- Overview Sub-Navigation -->
+                <div class="overview-sub-nav">
+                    <button class="overview-sub-btn" data-subsection="feed">
+                        <i class="fas fa-stream"></i>
+                        <span>Feed</span>
+                    </button>
+                    <button class="overview-sub-btn active" data-subsection="life-overview">
+                        <i class="fas fa-heart"></i>
+                        <span>Life Overview</span>
+                    </button>
+                    <button class="overview-sub-btn" data-subsection="featured-stories">
+                        <i class="fas fa-star"></i>
+                        <span>Featured Stories</span>
+                    </button>
+                </div>
+
+                <!-- Feed Sub-Section -->
+                <div class="overview-subsection" id="feed-subsection">
+                    <div class="feed-container" id="profileFeed">
+                        <!-- Feed stories will be populated here -->
+                        <p style="text-align: center; color: var(--text-secondary); padding: 2rem;">Feed feature coming soon!</p>
+                    </div>
+                </div>
+
+                <!-- Life Overview Sub-Section -->
+                <div class="overview-subsection active" id="life-overview-subsection">
+                    <div class="overview-content">
+                    <h2>Life Overview</h2>
+                    <p class="overview-intro">Welcome to John's life story. Here you can explore his journey through time, discover his family connections, and listen to the stories that shaped his life.</p>
+                    
+                    <div class="overview-grid">
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>Key Milestones</h3>
+                            <p>Born in Chicago in 1950, John's life has been marked by significant moments of love, growth, and achievement.</p>
+                            <ul class="milestone-list">
+                                <li>1950 - Born in Chicago</li>
+                                <li>1975 - Married Mary Johnson</li>
+                                <li>1980 - Started teaching career</li>
+                                <li>1982 - First child born</li>
+                                <li>1985 - Second child born</li>
+                                <li>1988 - Third child born</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Career & Education</h3>
+                            <p>John dedicated 35 years to teaching high school mathematics, touching the lives of thousands of students.</p>
+                            <ul class="milestone-list">
+                                <li>35 years of teaching</li>
+                                <li>Thousands of students taught</li>
+                                <li>Mathematics specialist</li>
+                                <li>Retired in 2015</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3>Family Life</h3>
+                            <p>Family has always been at the center of John's world, with three children and loving parents.</p>
+                            <ul class="milestone-list">
+                                <li>Married to Mary for 50+ years</li>
+                                <li>3 children</li>
+                                <li>Loving parents (Robert & Helen)</li>
+                                <li>Extended family across the country</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Favorite Stories Section -->
+                    <div class="favorite-stories-section">
+                        <h2>Favorite Stories</h2>
+                        <p class="overview-intro">These are the stories that John holds closest to his heart - the moments that shaped his life and brought him the most joy.</p>
+                        
+                        <div class="section-header">
+                            <button class="btn-manage-favorites" id="manageFavoritesBtn">
+                                <i class="fas fa-edit"></i>
+                                Manage Favorites
+                            </button>
+                        </div>
+                        <div class="overview-grid">
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3>Love & Marriage</h3>
+                                <p>The story of how John met Mary and their journey together through 50+ years of marriage.</p>
+                                <ul class="milestone-list">
+                                    <li>1974 - Met at coffee shop</li>
+                                    <li>1975 - Married Mary Johnson</li>
+                                    <li>1982 - First child born</li>
+                                    <li>2024 - 50th anniversary</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h3>Teaching Career</h3>
+                                <p>John's passion for education and the impact he made on thousands of students over 35 years.</p>
+                                <ul class="milestone-list">
+                                    <li>1975 - Started teaching</li>
+                                    <li>35 years of service</li>
+                                    <li>Mathematics specialist</li>
+                                    <li>2015 - Retired</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon">
+                                    <i class="fas fa-baby"></i>
+                                </div>
+                                <h3>Family Moments</h3>
+                                <p>Precious memories of raising three children and watching them grow into successful adults.</p>
+                                <ul class="milestone-list">
+                                    <li>1982 - Sarah born</li>
+                                    <li>1985 - Michael born</li>
+                                    <li>1988 - Emily born</li>
+                                    <li>Loving family memories</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Featured Stories Sub-Section -->
+                <div class="overview-subsection" id="featured-stories-subsection">
+                    <div class="favorite-stories-section">
+            <section id="timeline" class="content-section">
+                <div class="section-header">
+                    <h2>Life Timeline</h2>
+                    <div class="timeline-controls">
+                        <button class="btn-filter active" data-filter="all">All</button>
+                        <button class="btn-filter" data-filter="milestones">Milestones</button>
+                        <button class="btn-filter" data-filter="family">Family</button>
+                        <button class="btn-filter" data-filter="career">Career</button>
+                        <button class="btn-filter" data-filter="travel">Travel</button>
+                    </div>
+                </div>
+                
+                
+                <div class="timeline-container">
+                    
+                    <!-- Timeline Events will be dynamically loaded here -->
+                    <div class="timeline-events" id="timelineEvents">
+                        <!-- Sample timeline events -->
+                        <div class="timeline-event" data-category="milestones">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1950</div>
+                                <h3 class="event-title">Born in Chicago</h3>
+                                <p class="event-description">Born to loving parents in the heart of Chicago. The beginning of an incredible journey.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1951</div>
+                                <h3 class="event-title">First Word</h3>
+                                <p class="event-description">My first word was "Mama" - my mother Helen was so proud she cried tears of joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1951</div>
+                                <h3 class="event-title">First Steps</h3>
+                                <p class="event-description">I took my first wobbly steps at 13 months old. My father Robert caught it on his old camera.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="childhood">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1955</div>
+                                <h3 class="event-title">First Day of School</h3>
+                                <p class="event-description">My first day of kindergarten. I was nervous but excited to meet new friends and learn.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-day-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1975</div>
+                                <h3 class="event-title">Married Mary Johnson</h3>
+                                <p class="event-description">The love of my life. We met at a coffee shop and knew instantly we were meant to be together.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="wedding-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="wedding-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1980</div>
+                                <h3 class="event-title">Started Teaching Career</h3>
+                                <p class="event-description">Began teaching high school mathematics. Touched the lives of thousands of students over 35 years.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="teaching-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="teaching-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1982</div>
+                                <h3 class="event-title">Sarah's Birth</h3>
+                                <p class="event-description">Sarah was born on a beautiful spring morning. The joy of becoming a father is indescribable.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1982</div>
+                                <h3 class="event-title">Sarah's First Smile</h3>
+                                <p class="event-description">At 6 weeks old, Sarah gave us her first real smile. It melted our hearts completely.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-smile-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-smile-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Sarah's First Word</h3>
+                                <p class="event-description">Sarah said "Dada" for the first time. I was so proud I called everyone I knew.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Sarah's First Steps</h3>
+                                <p class="event-description">Sarah took her first wobbly steps across the living room. We were all cheering her on.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Timeline Events -->
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1983</div>
+                                <h3 class="event-title">Promoted to Department Head</h3>
+                                <p class="event-description">After three years of dedicated teaching, I was promoted to head the mathematics department.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="promotion-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1985</div>
+                                <h3 class="event-title">Michael's Birth</h3>
+                                <p class="event-description">Our second child, Michael, was born. Sarah was so excited to have a little brother.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1985</div>
+                                <h3 class="event-title">Michael's First Word</h3>
+                                <p class="event-description">Michael's first word was "Mama" - Mary was over the moon with joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1986</div>
+                                <h3 class="event-title">Michael's First Steps</h3>
+                                <p class="event-description">Michael took his first steps at 11 months old. He was determined to keep up with Sarah.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1987</div>
+                                <h3 class="event-title">Family Trip to Yellowstone</h3>
+                                <p class="event-description">Our first major family vacation. The kids were amazed by the geysers and wildlife.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="yellowstone-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="yellowstone-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1988</div>
+                                <h3 class="event-title">Emily's Birth</h3>
+                                <p class="event-description">Our third and final child, Emily, completed our family. Three children, endless love.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-birth-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-birth-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1989</div>
+                                <h3 class="event-title">Emily's First Word</h3>
+                                <p class="event-description">Emily's first word was "Sarah" - she idolized her big sister from day one.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-first-word-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-first-word-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1989</div>
+                                <h3 class="event-title">Emily's First Steps</h3>
+                                <p class="event-description">Emily took her first steps at 10 months old. She was the earliest walker of all three kids.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-first-steps-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-first-steps-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1990</div>
+                                <h3 class="event-title">Teacher of the Year</h3>
+                                <p class="event-description">Honored to receive the Teacher of the Year award. The students' success was my greatest reward.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="teacher-award-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1992</div>
+                                <h3 class="event-title">Sarah's First Day of School</h3>
+                                <p class="event-description">Watching my little girl walk into kindergarten was one of the proudest moments of my life.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1995</div>
+                                <h3 class="event-title">European Adventure</h3>
+                                <p class="event-description">Mary and I took our first trip to Europe. Paris, Rome, and London - memories that will last forever.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="europe-trip-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="europe-trip-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">1998</div>
+                                <h3 class="event-title">Family Reunion</h3>
+                                <p class="event-description">The entire Smith family gathered for a week-long reunion. Three generations under one roof.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="family-reunion-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="family-reunion-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2000</div>
+                                <h3 class="event-title">New School Building</h3>
+                                <p class="event-description">Our school moved into a brand new building. State-of-the-art classrooms and technology.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="new-school-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="new-school-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2003</div>
+                                <h3 class="event-title">Sarah's High School Graduation</h3>
+                                <p class="event-description">Watching Sarah walk across the stage was a moment of pure pride and joy.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2005</div>
+                                <h3 class="event-title">Michael's Graduation</h3>
+                                <p class="event-description">Another proud moment as Michael graduated. He was heading to culinary school.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2007</div>
+                                <h3 class="event-title">Emily's Graduation</h3>
+                                <p class="event-description">Our youngest graduated high school. All three children were now adults.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-graduation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-graduation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2010</div>
+                                <h3 class="event-title">Sarah's Wedding</h3>
+                                <p class="event-description">Walking Sarah down the aisle was one of the most emotional moments of my life.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="sarah-wedding-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="sarah-wedding-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2012</div>
+                                <h3 class="event-title">30 Years of Teaching</h3>
+                                <p class="event-description">Celebrated three decades of teaching. Thousands of students had passed through my classroom.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="30-years-teaching-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="30-years-teaching-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2014</div>
+                                <h3 class="event-title">First Grandchild</h3>
+                                <p class="event-description">Sarah and her husband welcomed their first child. I became a grandfather!</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="first-grandchild-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="first-grandchild-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="career">
+                            <div class="event-marker">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2015</div>
+                                <h3 class="event-title">Retirement</h3>
+                                <p class="event-description">After 35 years of teaching, I retired. It was bittersweet to leave the classroom.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="retirement-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="retirement-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="travel">
+                            <div class="event-marker">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2016</div>
+                                <h3 class="event-title">Retirement Trip to Japan</h3>
+                                <p class="event-description">Mary and I celebrated retirement with a dream trip to Japan. Cherry blossoms and ancient temples.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="japan-trip-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="japan-trip-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-ring"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2018</div>
+                                <h3 class="event-title">50th Wedding Anniversary</h3>
+                                <p class="event-description">Mary and I celebrated 50 years of marriage. All our children and grandchildren were there.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="50th-anniversary-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="50th-anniversary-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2020</div>
+                                <h3 class="event-title">Family Zoom Calls</h3>
+                                <p class="event-description">During the pandemic, we stayed connected through weekly family Zoom calls. Technology brought us together.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="zoom-calls-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="zoom-calls-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2022</div>
+                                <h3 class="event-title">Michael Opens Restaurant</h3>
+                                <p class="event-description">Michael finally opened his own restaurant in Austin. We were so proud of his culinary journey.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="michael-restaurant-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="michael-restaurant-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2023</div>
+                                <h3 class="event-title">Emily's Art Exhibition</h3>
+                                <p class="event-description">Emily had her first major art exhibition in New York. Her paintings were beautiful and meaningful.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="emily-exhibition-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="emily-exhibition-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-event" data-category="family">
+                            <div class="event-marker">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="event-content">
+                                <div class="event-date">2024</div>
+                                <h3 class="event-title">Creating This Profile</h3>
+                                <p class="event-description">Decided to preserve my life stories for future generations. Every memory is precious.</p>
+                                <div class="event-actions">
+                                    <button class="btn-play" data-audio="profile-creation-story.mp3">
+                                        <i class="fas fa-play"></i>
+                                        Listen to Story
+                                    </button>
+                                    <button class="btn-photos" data-story="profile-creation-story">
+                                        <i class="fas fa-images"></i>
+                                        View Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family Tree Section -->
+            <section id="family-tree" class="content-section">
+                <div class="section-header">
+                    <h2>Family Tree</h2>
+                    <div class="tree-controls">
+                        <button class="btn-zoom" id="zoomIn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="btn-zoom" id="zoomOut">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button class="btn-center" id="centerTree">
+                            <i class="fas fa-crosshairs"></i>
+                            Center
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="family-tree-container">
+                    <div class="tree-wrapper" id="treeWrapper">
+                        <div class="family-tree" id="familyTree">
+                            <!-- Generation 3: Grandparents -->
+                            <div class="generation generation-3">
+                                <div class="generation-label">Grandparents</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="grandfather">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Robert Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Robert Smith</h4>
+                                            <p class="relationship">Father</p>
+                                            <p class="dates">1920 - 1995</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="grandmother">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces" alt="Helen Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Helen Smith</h4>
+                                            <p class="relationship">Mother</p>
+                                            <p class="dates">1925 - 2000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generation 2: Parents -->
+                            <div class="generation generation-2">
+                                <div class="generation-label">Parents</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="father">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>John Smith</h4>
+                                            <p class="relationship">You</p>
+                                            <p class="dates">1950 - Present</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="mother">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Mary Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Mary Smith</h4>
+                                            <p class="relationship">Wife</p>
+                                            <p class="dates">1952 - Present</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generation 1: Children -->
+                            <div class="generation generation-1">
+                                <div class="generation-label">Children</div>
+                                <div class="generation-content">
+                                    <div class="person-card" data-person="daughter1">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Sarah Johnson">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Sarah Johnson</h4>
+                                            <p class="relationship">Daughter</p>
+                                            <p class="dates">1982 - Present</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="son1">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Michael Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Michael Smith</h4>
+                                            <p class="relationship">Son</p>
+                                            <p class="dates">1985 - Present</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="person-card" data-person="daughter2">
+                                        <div class="person-avatar">
+                                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face" alt="Emily Smith">
+                                        </div>
+                                        <div class="person-info">
+                                            <h4>Emily Smith</h4>
+                                            <p class="relationship">Daughter</p>
+                                            <p class="dates">1988 - Present</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stories Section -->
+            <section id="stories" class="content-section">
+                <div class="section-header">
+                    <h2>Featured Stories</h2>
+                    <div class="story-controls">
+                        <button class="btn-filter active" data-filter="all">All Stories</button>
+                        <button class="btn-filter" data-filter="childhood">Childhood</button>
+                        <button class="btn-filter" data-filter="family">Family</button>
+                        <button class="btn-filter" data-filter="career">Career</button>
+                    </div>
+                </div>
+                
+                <div class="stories-grid" id="storiesGrid">
+                    <!-- Sample stories -->
+                    <div class="story-card" data-category="childhood">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=250&fit=crop" alt="Childhood Story">
+                            <div class="story-duration">12:34</div>
+                        </div>
+                        <div class="story-content">
+                            <h3 class="story-title">Growing Up in Chicago</h3>
+                            <p class="story-excerpt">Memories of my childhood neighborhood, the friends I made, and the adventures we had...</p>
+                            <div class="story-meta">
+                                <span class="story-date">1950s</span>
+                            </div>
+                            <div class="story-actions">
+                                <button class="btn-play-story">
+                                    <i class="fas fa-play"></i>
+                                    Listen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card" data-category="family">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=250&fit=crop" alt="Wedding Story">
+                            <div class="story-duration">8:45</div>
+                        </div>
+                        <div class="story-content">
+                            <h3 class="story-title">The Day I Met Mary</h3>
+                            <p class="story-excerpt">It was a rainy Tuesday in March when I walked into that little coffee shop...</p>
+                            <div class="story-meta">
+                                <span class="story-date">1974</span>
+                            </div>
+                            <div class="story-actions">
+                                <button class="btn-play-story">
+                                    <i class="fas fa-play"></i>
+                                    Listen
+                                </button>
+                                <button class="btn-photos-story" data-story="met-mary">
+                                    <i class="fas fa-images"></i>
+                                    Media
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card" data-category="career">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop" alt="Teaching Story">
+                            <div class="story-duration">15:22</div>
+                        </div>
+                        <div class="story-content">
+                            <h3 class="story-title">My Teaching Journey</h3>
+                            <p class="story-excerpt">35 years of teaching mathematics, the students who changed my life, and the lessons I learned...</p>
+                            <div class="story-meta">
+                                <span class="story-date">1980-2015</span>
+                            </div>
+                            <div class="story-actions">
+                                <button class="btn-play-story">
+                                    <i class="fas fa-play"></i>
+                                    Listen
+                                </button>
+                                <button class="btn-photos-story" data-story="teaching-journey">
+                                    <i class="fas fa-images"></i>
+                                    Media
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Audio Player Modal -->
+    <div class="audio-player-modal" id="audioPlayerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="audioTitle">Story Title</h3>
+                <button class="modal-close" id="closeAudioModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="audio-player">
+                    <audio id="audioPlayer" controls>
+                        <source src="" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="audio-info">
+                    <p id="audioDescription">Story description will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share This Profile</h3>
+                <button class="modal-close" id="closeShareModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <button class="share-btn" data-platform="facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn" data-platform="twitter">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </button>
+                    <button class="share-btn" data-platform="linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                        LinkedIn
+                    </button>
+                    <button class="share-btn" data-platform="email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </button>
+                </div>
+                <div class="share-link">
+                    <label for="profileUrl">Profile Link:</label>
+                    <input type="text" id="profileUrl" value="https://4ever.com/profile/john-smith" readonly>
+                    <button class="btn-copy" id="copyLink">
+                        <i class="fas fa-copy"></i>
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign in to Ask a Question</h3>
+                <button class="modal-close" id="closeLoginModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="login-content">
+                    <div class="login-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <p class="login-description">Sign in with your email to ask John a question. We'll send you a magic link to sign in securely.</p>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Your Email</label>
+                            <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" id="cancelLogin">Cancel</button>
+                            <button type="submit" class="btn-submit">Send Magic Link</button>
+                        </div>
+                    </form>
+                    
+                    <div class="login-footer">
+                        <p><small>We'll send you a secure link to sign in. No password required!</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Family Member Profile Modal -->
+    <div class="family-modal" id="familyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="familyMemberName">Family Member</h3>
+                <button class="modal-close" id="closeFamilyModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="family-member-profile">
+                    <div class="family-member-avatar">
+                        <img id="familyMemberImage" src="" alt="Family Member">
+                    </div>
+                    
+                    <div class="family-member-info">
+                        <div class="family-member-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Relationship:</span>
+                                <span class="detail-value" id="familyMemberRelationship">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Born:</span>
+                                <span class="detail-value" id="familyMemberBorn">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value" id="familyMemberLocation">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Occupation:</span>
+                                <span class="detail-value" id="familyMemberOccupation">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="family-member-bio">
+                            <h4>About</h4>
+                            <p id="familyMemberBio">No bio available.</p>
+                        </div>
+                        
+                        <div class="family-member-actions">
+                            <button class="btn-view-profile" id="viewFullProfileBtn">
+                                <i class="fas fa-user"></i>
+                                View Full Profile
+                            </button>
+                            <button class="btn-ask-question" id="askFamilyMemberBtn">
+                                <i class="fas fa-question-circle"></i>
+                                Ask a Question
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal -->
+    <div class="photos-modal" id="photosModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="photosModalTitle">Media</h3>
+                <button class="modal-close" id="closePhotosModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="photos-gallery" id="photosGallery">
+                    <!-- Photos and videos will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ask Question Modal -->
+    <div class="question-modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="questionModalTitle">Ask John a Question</h3>
+                <button class="modal-close" id="closeQuestionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name" id="userDisplayName">Loading...</p>
+                        <p class="user-email" id="userDisplayEmail">Loading...</p>
+                    </div>
+                    <button class="btn-signout" id="signOutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sign Out
+                    </button>
+                </div>
+                
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionCategory">Question Category</label>
+                        <select id="questionCategory" name="questionCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="childhood">Childhood & Early Life</option>
+                            <option value="family">Family & Relationships</option>
+                            <option value="career">Career & Work</option>
+                            <option value="travel">Travel & Adventures</option>
+                            <option value="memories">Memories & Stories</option>
+                            <option value="advice">Life Advice</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="questionText">Your Question</label>
+                        <textarea id="questionText" name="questionText" rows="4" placeholder="What would you like to know about John's life?" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelQuestion">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/supabase-client.js"></script>
+    <script src="js/api-service.js"></script>
+    <script src="js/profile.js"></script>
+    
+    <!-- Navigation Script -->
+    <script>
+        // Profile Mode Management
+        function setProfileMode(mode) {
+            document.body.setAttribute('data-profile-mode', mode);
+            localStorage.setItem('profileMode', mode);
+        }
+
+        function getProfileMode() {
+            return localStorage.getItem('profileMode') || 'owner';
+        }
+
+        // Initialize profile mode on page load
+        document.body.setAttribute('data-profile-mode', getProfileMode());
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Settings dropdown toggle
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    settingsDropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
+                    settingsDropdown.classList.remove('active');
+                }
+            });
+
+            // Handle Family link click to show family tree
+            const familyLink = document.querySelector('[data-page="family"]');
+            if (familyLink && window.location.pathname.includes('profile.html')) {
+                familyLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Click the Family Tree navigation button
+                    const familyTreeBtn = document.querySelector('[data-section="family-tree"]');
+                    if (familyTreeBtn) {
+                        familyTreeBtn.click();
+                    }
+                    // Scroll to family tree section
+                    const familyTreeSection = document.getElementById('family-tree');
+                    if (familyTreeSection) {
+                        familyTreeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to log out?')) {
+                        // Add Supabase logout here
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
+            // Add Story Button (Owner Only)
+            const addStoryBtn = document.getElementById('addStoryBtn');
+            if (addStoryBtn) {
+                addStoryBtn.addEventListener('click', () => {
+                    showAddStoryModal();
+                });
+            }
+
+            // Edit Profile Button (Owner Only)
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', () => {
+                    showEditProfileModal();
+                });
+            }
+
+            // Add mode toggle for testing (temporary - remove in production)
+            document.addEventListener('keydown', (e) => {
+                // Press Ctrl + M to toggle between owner and visitor mode
+                if (e.ctrlKey && e.key === 'm') {
+                    const currentMode = getProfileMode();
+                    const newMode = currentMode === 'owner' ? 'visitor' : 'owner';
+                    setProfileMode(newMode);
+                    console.log('Profile mode switched to:', newMode);
+                }
+            });
+        });
+
+        // Modal Functions
+        function showAddStoryModal() {
+            alert('Add Story modal will open here. This will allow you to:\n\n• Upload audio recording\n• Add title and description\n• Select category (Family, Career, Travel, etc.)\n• Add photos and videos\n• Set timeline date\n• Add to favorite stories');
+        }
+
+        function showEditProfileModal() {
+            alert('Edit Profile modal will open here. This will allow you to:\n\n• Change profile picture\n• Update bio\n• Edit personal information\n• Manage privacy settings');
+        }
+    </script>
+</body>
+</html>
