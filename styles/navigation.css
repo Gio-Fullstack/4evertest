@@ -173,6 +173,10 @@
     transition: all 0.3s ease;
     position: relative;
     cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .nav-link i {
