@@ -453,16 +453,26 @@
                     });
                 }
                 
-                // Generate sample connections (family + other connections)
-                const otherConnections = [
-                    { id: 'conn1', name: 'David Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=david-wilson&backgroundColor=c0aede', relationship: 'Friend' },
-                    { id: 'conn2', name: 'Lisa Brown', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa-brown&backgroundColor=ffd5dc', relationship: 'Colleague' },
-                    { id: 'conn3', name: 'Tom Anderson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tom-anderson&backgroundColor=d1d4f9', relationship: 'Neighbor' }
-                ];
+                // Get all other profiles as connections (excluding self and family)
+                const otherConnections = [];
+                const excludeIds = [profileData.id, ...(profileData.familyTree || [])];
+                
+                Object.values(profilesData).forEach(profile => {
+                    if (!excludeIds.includes(profile.id)) {
+                        otherConnections.push({
+                            id: profile.id,
+                            name: profile.name,
+                            avatar: profile.avatar,
+                            relationship: 'Connection'
+                        });
+                    }
+                });
+                
+                const allConnections = [...familyData, ...otherConnections];
                 
                 return {
                     family: familyData,
-                    connections: [...familyData, ...otherConnections]
+                    connections: allConnections
                 };
             }
             
@@ -487,9 +497,27 @@
                         'john-smith': 'Husband',
                         'sarah-johnson': 'Daughter',
                         'michael-smith': 'Son',
-                        'emily-smith': 'Daughter',
-                        'robert-smith': 'Father-in-law',
-                        'helen-smith': 'Mother-in-law'
+                        'emily-smith': 'Daughter'
+                    },
+                    'michael-smith': {
+                        'john-smith': 'Father',
+                        'mary-smith': 'Mother',
+                        'sarah-johnson': 'Sister',
+                        'emily-smith': 'Sister'
+                    },
+                    'emily-smith': {
+                        'john-smith': 'Father',
+                        'mary-smith': 'Mother',
+                        'sarah-johnson': 'Sister',
+                        'michael-smith': 'Brother'
+                    },
+                    'robert-smith': {
+                        'helen-smith': 'Wife',
+                        'john-smith': 'Son'
+                    },
+                    'helen-smith': {
+                        'robert-smith': 'Husband',
+                        'john-smith': 'Son'
                     }
                 };
                 

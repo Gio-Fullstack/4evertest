@@ -9,8 +9,8 @@ const profilesData = {
         stats: {
             stories: 3,
             timelineEvents: 31,
-            connections: 42,
-            familyMembers: 7
+            connections: 6,
+            familyMembers: 6
         },
         familyTree: ['mary-smith', 'sarah-johnson', 'michael-smith', 'emily-smith', 'robert-smith', 'helen-smith']
     },
@@ -23,8 +23,8 @@ const profilesData = {
         stats: {
             stories: 5,
             timelineEvents: 18,
-            connections: 35,
-            familyMembers: 6
+            connections: 6,
+            familyMembers: 4
         },
         stories: [
             {
@@ -95,8 +95,8 @@ const profilesData = {
         stats: {
             stories: 4,
             timelineEvents: 22,
-            connections: 28,
-            familyMembers: 7
+            connections: 6,
+            familyMembers: 4
         },
         stories: [
             {
@@ -157,8 +157,8 @@ const profilesData = {
         stats: {
             stories: 3,
             timelineEvents: 15,
-            connections: 22,
-            familyMembers: 5
+            connections: 6,
+            familyMembers: 4
         },
         stories: [
             {
@@ -208,8 +208,8 @@ const profilesData = {
         stats: {
             stories: 4,
             timelineEvents: 14,
-            connections: 30,
-            familyMembers: 5
+            connections: 6,
+            familyMembers: 4
         },
         stories: [
             {
@@ -269,8 +269,8 @@ const profilesData = {
         stats: {
             stories: 2,
             timelineEvents: 12,
-            connections: 18,
-            familyMembers: 4
+            connections: 6,
+            familyMembers: 2
         },
         stories: [
             {
@@ -313,8 +313,8 @@ const profilesData = {
         stats: {
             stories: 2,
             timelineEvents: 7,
-            connections: 15,
-            familyMembers: 4
+            connections: 6,
+            familyMembers: 2
         },
         stories: [
             {

@@ -193,15 +193,15 @@
                             <span class="stat-label">Timeline Events</span>
                         </div>
                         <div class="stat owner-only clickable-stat" id="connectionsStat">
-                            <span class="stat-number" id="connectionsCount">42</span>
+                            <span class="stat-number" id="connectionsCount">6</span>
                             <span class="stat-label">Connections</span>
                         </div>
                         <div class="stat clickable-stat" id="familyStat">
-                            <span class="stat-number" id="familyMembers">7</span>
+                            <span class="stat-number" id="familyMembers">6</span>
                             <span class="stat-label">Family Members</span>
                         </div>
                         <div class="stat owner-only clickable-stat" id="closeFriendsStat">
-                            <span class="stat-number" id="closeFriendsCount">12</span>
+                            <span class="stat-number" id="closeFriendsCount">0</span>
                             <span class="stat-label">Close Friends</span>
                         </div>
                     </div>
@@ -1960,24 +1960,12 @@
                 { id: 'helen-smith', name: 'Helen Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=helen-smith&backgroundColor=f4e4ba', relationship: 'Mother' }
             ];
             
-            const closeFriendsData = [
-                { id: 'friend1', name: 'David Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=david-wilson&backgroundColor=c0aede', relationship: 'College Friend' },
-                { id: 'friend2', name: 'Lisa Brown', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa-brown&backgroundColor=ffd5dc', relationship: 'Childhood Friend' },
-                { id: 'friend3', name: 'Tom Anderson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tom-anderson&backgroundColor=d1d4f9', relationship: 'Work Colleague' },
-                { id: 'friend4', name: 'Susan Davis', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=susan-davis&backgroundColor=ffdfbf', relationship: 'Neighbor' },
-                { id: 'friend5', name: 'Mike Johnson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mike-johnson&backgroundColor=e0e0e0', relationship: 'Golf Buddy' }
-            ];
+            const closeFriendsData = [];
             
             const connectionsData = {
                 family: familyData,
                 closeFriends: closeFriendsData,
-                connections: [
-                    ...familyData,
-                    ...closeFriendsData,
-                    { id: 'conn1', name: 'Sarah Williams', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-williams&backgroundColor=b6e3f4', relationship: 'Former Student' },
-                    { id: 'conn2', name: 'John Davis', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john-davis&backgroundColor=c0aede', relationship: 'Book Club Member' },
-                    { id: 'conn3', name: 'Emma Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emma-wilson&backgroundColor=ffd5dc', relationship: 'Church Member' }
-                ]
+                connections: familyData
             };
             
             let currentConnectionsData = [];
@@ -2042,7 +2030,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Connections clicked');
-                    showConnectionsList('connections', 'Connections (42)');
+                    showConnectionsList('connections', 'Connections (6)');
                 });
             } else {
                 console.log('Connections elements not found');
@@ -2053,7 +2041,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Family clicked');
-                    showConnectionsList('family', 'Family Members (7)');
+                    showConnectionsList('family', 'Family Members (6)');
                 });
             } else {
                 console.log('Family elements not found');
@@ -2064,7 +2052,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     console.log('Close friends clicked');
-                    showConnectionsList('closeFriends', 'Close Friends (12)');
+                    showConnectionsList('closeFriends', 'Close Friends (0)');
                 });
             } else {
                 console.log('Close friends elements not found');
