@@ -101,11 +101,11 @@
                             <span class="stat-number" id="timelineEventsCount">0</span>
                             <span class="stat-label">Timeline Events</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat clickable-stat" id="connectionsStat">
                             <span class="stat-number" id="connectionsCount">0</span>
                             <span class="stat-label">Connections</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat clickable-stat" id="familyStat">
                             <span class="stat-number" id="familyMembers">0</span>
                             <span class="stat-label">Family Members</span>
                         </div>
@@ -239,6 +239,29 @@
         </div>
     </main>
 
+    <!-- Connections Modal -->
+    <div class="question-modal" id="connectionsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="connectionsModalTitle">Connections</h3>
+                <button class="btn-modal-close" id="closeConnectionsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="search-container" style="margin-bottom: 1rem;">
+                    <div style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 0.9rem;"></i>
+                        <input type="text" id="connectionsSearch" placeholder="Search people..." style="width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary); font-size: 0.9rem;">
+                    </div>
+                </div>
+                <div id="connectionsList" class="connections-list">
+                    <!-- Dynamic content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/profile-data.js"></script>
     <script>
@@ -319,6 +342,160 @@
                 });
             }
             
+            // Function to setup clickable stats (Connections and Family)
+            function setupClickableStats(profileData) {
+                const connectionsStat = document.getElementById('connectionsStat');
+                const familyStat = document.getElementById('familyStat');
+                const connectionsModal = document.getElementById('connectionsModal');
+                const connectionsModalTitle = document.getElementById('connectionsModalTitle');
+                const connectionsList = document.getElementById('connectionsList');
+                
+                let currentConnectionsData = [];
+                
+                // Generate sample connections data based on profile
+                const connectionsData = generateConnectionsData(profileData);
+                
+                // Function to render connections list
+                function renderConnectionsList(data) {
+                    connectionsList.innerHTML = data.map(person => `
+                        <div class="connection-item" onclick="window.location.href='${person.id === profileData.id ? 'profile.html' : `profile-view.html?id=${person.id}`}'">
+                            <img src="${person.avatar}" alt="${person.name}" class="connection-avatar">
+                            <div class="connection-info">
+                                <div class="connection-name">${person.name}</div>
+                                <div class="connection-relationship">${person.relationship || 'Connection'}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                
+                // Function to show connections list
+                function showConnectionsList(type, title) {
+                    currentConnectionsData = connectionsData[type];
+                    connectionsModalTitle.textContent = title;
+                    
+                    // Clear search input
+                    const searchInput = document.getElementById('connectionsSearch');
+                    if (searchInput) {
+                        searchInput.value = '';
+                    }
+                    
+                    renderConnectionsList(currentConnectionsData);
+                    connectionsModal.classList.add('active');
+                }
+                
+                // Add click handlers
+                if (connectionsStat) {
+                    connectionsStat.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showConnectionsList('connections', `Connections (${profileData.stats.connections || 0})`);
+                    });
+                }
+                
+                if (familyStat) {
+                    familyStat.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showConnectionsList('family', `Family Members (${profileData.stats.familyMembers || 0})`);
+                    });
+                }
+                
+                // Search functionality
+                const connectionsSearch = document.getElementById('connectionsSearch');
+                if (connectionsSearch) {
+                    connectionsSearch.addEventListener('input', (e) => {
+                        const query = e.target.value.toLowerCase();
+                        if (query.trim() === '') {
+                            renderConnectionsList(currentConnectionsData);
+                        } else {
+                            const filteredData = currentConnectionsData.filter(person => 
+                                person.name.toLowerCase().includes(query) ||
+                                (person.relationship && person.relationship.toLowerCase().includes(query))
+                            );
+                            renderConnectionsList(filteredData);
+                        }
+                    });
+                }
+                
+                // Close connections modal
+                const closeConnectionsModal = document.getElementById('closeConnectionsModal');
+                if (closeConnectionsModal) {
+                    closeConnectionsModal.addEventListener('click', () => {
+                        connectionsModal.classList.remove('active');
+                    });
+                }
+                
+                // Close modal when clicking outside
+                if (connectionsModal) {
+                    connectionsModal.addEventListener('click', (e) => {
+                        if (e.target === connectionsModal) {
+                            connectionsModal.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            // Function to generate connections data based on profile
+            function generateConnectionsData(profileData) {
+                // Get family members from profile data
+                const familyData = [];
+                if (profileData.familyTree) {
+                    profileData.familyTree.forEach(memberId => {
+                        const member = profilesData[memberId];
+                        if (member) {
+                            familyData.push({
+                                id: member.id,
+                                name: member.name,
+                                avatar: member.avatar,
+                                relationship: getFamilyRelationship(profileData.id, memberId)
+                            });
+                        }
+                    });
+                }
+                
+                // Generate sample connections (family + other connections)
+                const otherConnections = [
+                    { id: 'conn1', name: 'David Wilson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=david-wilson&backgroundColor=c0aede', relationship: 'Friend' },
+                    { id: 'conn2', name: 'Lisa Brown', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa-brown&backgroundColor=ffd5dc', relationship: 'Colleague' },
+                    { id: 'conn3', name: 'Tom Anderson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tom-anderson&backgroundColor=d1d4f9', relationship: 'Neighbor' }
+                ];
+                
+                return {
+                    family: familyData,
+                    connections: [...familyData, ...otherConnections]
+                };
+            }
+            
+            // Function to determine family relationship
+            function getFamilyRelationship(profileId, memberId) {
+                const relationships = {
+                    'john-smith': {
+                        'mary-smith': 'Wife',
+                        'sarah-johnson': 'Daughter',
+                        'michael-smith': 'Son',
+                        'emily-smith': 'Daughter',
+                        'robert-smith': 'Father',
+                        'helen-smith': 'Mother'
+                    },
+                    'sarah-johnson': {
+                        'john-smith': 'Father',
+                        'mary-smith': 'Mother',
+                        'michael-smith': 'Brother',
+                        'emily-smith': 'Sister'
+                    },
+                    'mary-smith': {
+                        'john-smith': 'Husband',
+                        'sarah-johnson': 'Daughter',
+                        'michael-smith': 'Son',
+                        'emily-smith': 'Daughter',
+                        'robert-smith': 'Father-in-law',
+                        'helen-smith': 'Mother-in-law'
+                    }
+                };
+                
+                return relationships[profileId]?.[memberId] || 'Family';
+            }
+            
             // Get profile ID from URL parameter
             const urlParams = new URLSearchParams(window.location.search);
             const profileId = urlParams.get('id') || 'john-smith';
@@ -357,6 +534,9 @@
             if (addStoryAboutText) {
                 addStoryAboutText.textContent = `Add Story About ${firstName}`;
             }
+
+            // Setup clickable stats for connections and family
+            setupClickableStats(profileData);
             
             // Load Feed Section (stories about this person)
             const profileFeed = document.getElementById('profileFeed');
