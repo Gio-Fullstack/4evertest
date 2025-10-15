@@ -38,8 +38,11 @@
 
 .nav-logo-img {
     height: 40px;
+    max-height: 40px;
     width: auto;
+    max-width: 150px;
     object-fit: contain;
+    display: block;
 }
 
 /* Search Functionality */
@@ -417,6 +420,8 @@
 
     .nav-logo-img {
         height: 32px;
+        max-height: 32px;
+        max-width: 120px;
     }
 }
 
