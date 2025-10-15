@@ -102,6 +102,10 @@
                             <span class="stat-label">Timeline Events</span>
                         </div>
                         <div class="stat">
+                            <span class="stat-number" id="connectionsCount">0</span>
+                            <span class="stat-label">Connections</span>
+                        </div>
+                        <div class="stat">
                             <span class="stat-number" id="familyMembers">0</span>
                             <span class="stat-label">Family Members</span>
                         </div>
@@ -341,6 +345,7 @@
             document.getElementById('profileName').textContent = profileData.name;
             document.getElementById('profileBio').textContent = profileData.bio;
             document.getElementById('timelineEventsCount').textContent = profileData.stats.timelineEvents;
+            document.getElementById('connectionsCount').textContent = profileData.stats.connections || 0;
             document.getElementById('familyMembers').textContent = profileData.stats.familyMembers;
 
             // Update ask question button text
