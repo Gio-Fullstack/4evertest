@@ -1932,10 +1932,18 @@
     <div class="question-modal" id="connectionsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="connectionsModalTitle">Connections</h3>
-                <button class="modal-close" id="closeConnectionsModal">
-                    <i class="fas fa-times"></i>
-                </button>
+                <div style="flex: 1;">
+                    <h3 id="connectionsModalTitle">Connections</h3>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <button class="btn-submit" id="manageCloseFriendsBtn" style="display: none; padding: 0.5rem 1rem; font-size: 0.85rem;">
+                        <i class="fas fa-user-edit"></i>
+                        Manage Close Friends
+                    </button>
+                    <button class="modal-close" id="closeConnectionsModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="search-container" style="margin-bottom: 1rem;">
@@ -2112,6 +2120,7 @@
             
             let currentConnectionsData = [];
             let currentConnectionsType = '';
+            let isManagingCloseFriends = false;
             
             function renderConnectionsList(data = currentConnectionsData) {
                 connectionsList.innerHTML = data.map(person => {
@@ -2126,28 +2135,54 @@
                         statusText = 'Family';
                     } 
                     // Check if person is close friend
-                    else if (closeFriendsData.some(friend => friend.id === person.id)) {
+                    const isCloseFriend = closeFriendsData.some(friend => friend.id === person.id);
+                    if (isCloseFriend) {
                         statusClass = 'status-close-friend';
                         statusText = 'Close Friend';
                     }
                     
-                    return `
-                        <div class="connection-item" onclick="navigateToProfile('${person.id}')">
-                            <img src="${person.avatar}" alt="${person.name}" class="connection-avatar">
-                            <div class="connection-info">
-                                <div class="connection-name">${person.name}</div>
-                                <div class="connection-relationship">${person.relationship}</div>
+                    // If in manage mode, show add/remove buttons
+                    if (isManagingCloseFriends) {
+                        const actionButton = isCloseFriend 
+                            ? `<button class="btn-cancel" onclick="event.stopPropagation(); removeFromCloseFriends('${person.id}')" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                <i class="fas fa-user-minus"></i> Remove
+                               </button>`
+                            : `<button class="btn-submit" onclick="event.stopPropagation(); addToCloseFriends('${person.id}', '${person.name}', '${person.avatar}', '${person.relationship}')" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                                <i class="fas fa-user-plus"></i> Add
+                               </button>`;
+                        
+                        return `
+                            <div class="connection-item" style="cursor: default;">
+                                <img src="${person.avatar}" alt="${person.name}" class="connection-avatar">
+                                <div class="connection-info">
+                                    <div class="connection-name">${person.name}</div>
+                                    <div class="connection-relationship">${person.relationship}</div>
+                                </div>
+                                ${actionButton}
                             </div>
-                            <div class="connection-status ${statusClass}">
-                                ${statusText}
+                        `;
+                    } else {
+                        return `
+                            <div class="connection-item" onclick="navigateToProfile('${person.id}')">
+                                <img src="${person.avatar}" alt="${person.name}" class="connection-avatar">
+                                <div class="connection-info">
+                                    <div class="connection-name">${person.name}</div>
+                                    <div class="connection-relationship">${person.relationship}</div>
+                                </div>
+                                <div class="connection-status ${statusClass}">
+                                    ${statusText}
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    }
                 }).join('');
                 
                 // Show "No results" message if no data
                 if (data.length === 0) {
-                    connectionsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-style: italic;">No people found</div>';
+                    const emptyMessage = currentConnectionsType === 'closeFriends' 
+                        ? 'No close friends yet. Click "Manage Close Friends" to add some!'
+                        : 'No people found';
+                    connectionsList.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-style: italic;">${emptyMessage}</div>`;
                 }
             }
             
@@ -2155,6 +2190,15 @@
                 currentConnectionsType = type;
                 currentConnectionsData = connectionsData[type] || [];
                 connectionsModalTitle.textContent = title;
+                isManagingCloseFriends = false;
+                
+                // Show/hide manage button based on type
+                const manageBtn = document.getElementById('manageCloseFriendsBtn');
+                if (type === 'closeFriends') {
+                    manageBtn.style.display = 'flex';
+                } else {
+                    manageBtn.style.display = 'none';
+                }
                 
                 // Clear search input
                 const searchInput = document.getElementById('connectionsSearch');
@@ -2165,6 +2209,61 @@
                 renderConnectionsList(currentConnectionsData);
                 connectionsModal.classList.add('active');
             }
+
+            // Manage Close Friends button
+            const manageCloseFriendsBtn = document.getElementById('manageCloseFriendsBtn');
+            if (manageCloseFriendsBtn) {
+                manageCloseFriendsBtn.addEventListener('click', () => {
+                    isManagingCloseFriends = !isManagingCloseFriends;
+                    
+                    if (isManagingCloseFriends) {
+                        manageCloseFriendsBtn.innerHTML = '<i class="fas fa-check"></i> Done Managing';
+                        manageCloseFriendsBtn.classList.remove('btn-submit');
+                        manageCloseFriendsBtn.classList.add('btn-cancel');
+                        // Show all connections when managing
+                        currentConnectionsData = connectionsData.connections;
+                        connectionsModalTitle.textContent = 'Manage Close Friends';
+                    } else {
+                        manageCloseFriendsBtn.innerHTML = '<i class="fas fa-user-edit"></i> Manage Close Friends';
+                        manageCloseFriendsBtn.classList.remove('btn-cancel');
+                        manageCloseFriendsBtn.classList.add('btn-submit');
+                        // Back to close friends only
+                        currentConnectionsData = closeFriendsData;
+                        connectionsModalTitle.textContent = `Close Friends (${closeFriendsData.length})`;
+                        // Update the stat count
+                        document.getElementById('closeFriendsCount').textContent = closeFriendsData.length;
+                    }
+                    
+                    renderConnectionsList(currentConnectionsData);
+                });
+            }
+
+            // Add to close friends
+            window.addToCloseFriends = function(personId, name, avatar, relationship) {
+                // Check if already exists
+                if (!closeFriendsData.some(f => f.id === personId)) {
+                    closeFriendsData.push({ id: personId, name, avatar, relationship });
+                    renderConnectionsList(currentConnectionsData);
+                    document.getElementById('closeFriendsCount').textContent = closeFriendsData.length;
+                    
+                    // In production, save to database
+                    console.log('Added to close friends:', name);
+                }
+            };
+
+            // Remove from close friends
+            window.removeFromCloseFriends = function(personId) {
+                const index = closeFriendsData.findIndex(f => f.id === personId);
+                if (index > -1) {
+                    const person = closeFriendsData[index];
+                    closeFriendsData.splice(index, 1);
+                    renderConnectionsList(currentConnectionsData);
+                    document.getElementById('closeFriendsCount').textContent = closeFriendsData.length;
+                    
+                    // In production, remove from database
+                    console.log('Removed from close friends:', person.name);
+                }
+            };
             
             // Add click handlers only if elements exist
             if (connectionsStat && connectionsModal && connectionsModalTitle && connectionsList) {
