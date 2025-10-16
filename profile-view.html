@@ -141,6 +141,10 @@
                     <i class="fas fa-history"></i>
                     <span>Timeline</span>
                 </button>
+                <button class="section-nav-btn" data-section="qna">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Q&A</span>
+                </button>
                 <button class="section-nav-btn" data-section="family-tree">
                     <i class="fas fa-sitemap"></i>
                     <span>Family Tree</span>
@@ -168,10 +172,6 @@
                         <i class="fas fa-star"></i>
                         <span>Featured Stories</span>
                     </button>
-                    <button class="overview-sub-btn" data-subsection="qna">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Q&A</span>
-                    </button>
                 </div>
 
                 <!-- Feed Sub-Section -->
@@ -195,15 +195,18 @@
                     </div>
                 </div>
 
-                <!-- Q&A Sub-Section -->
-                <div class="overview-subsection" id="qna-subsection">
-                    <div class="qna-section">
+            </section>
+
+            <!-- Q&A Section -->
+            <section id="qna" class="content-section">
+                <div class="qna-section">
+                    <div class="section-header">
                         <h2>Questions & Answers</h2>
-                        <p class="overview-intro">Get to know <span id="qnaProfileName">them</span> better through answered questions.</p>
-                        
-                        <div class="qna-container" id="qnaContainer">
-                            <!-- Q&A will be loaded dynamically -->
-                        </div>
+                        <p style="color: var(--text-secondary);">Get to know <span id="qnaProfileName">them</span> better through answered questions.</p>
+                    </div>
+                    
+                    <div class="qna-container" id="qnaContainer">
+                        <!-- Q&A will be loaded dynamically -->
                     </div>
                 </div>
             </section>
