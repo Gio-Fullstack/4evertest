@@ -189,10 +189,10 @@
                             <span id="addStoryAboutText">Add Story About Them</span>
                         </button>
                         
-                        <!-- Visitor View: Ask Question Button -->
+                        <!-- Visitor View: Request Story Button -->
                         <button class="btn-ask-question visitor-only" id="askQuestionBtn">
-                            <i class="fas fa-question-circle"></i>
-                            <span id="askQuestionText">Ask a Question</span>
+                            <i class="fas fa-comment-dots"></i>
+                            <span id="askQuestionText">Request a Story</span>
                         </button>
                     </div>
                 </div>
@@ -645,7 +645,7 @@
 
             // Update ask question button text
             const firstName = profileData.name.split(' ')[0];
-            document.getElementById('askQuestionText').textContent = `Ask ${firstName} a Question`;
+            document.getElementById('askQuestionText').textContent = `Request a Story from ${firstName}`;
             
             // Update add story about button text
             const addStoryAboutText = document.getElementById('addStoryAboutText');
@@ -1111,11 +1111,11 @@
                 askQuestionBtnClick.addEventListener('click', () => {
                     const modalTitle = document.getElementById('questionModalTitle');
                     if (modalTitle) {
-                        modalTitle.textContent = `Ask ${firstName} a Question`;
+                        modalTitle.textContent = `Request a Story from ${firstName}`;
                     }
                     const placeholder = document.getElementById('questionText');
                     if (placeholder) {
-                        placeholder.placeholder = `What would you like to know about ${firstName}'s life?`;
+                        placeholder.placeholder = `What story would you like ${firstName} to share?`;
                     }
                     document.getElementById('questionModal').classList.add('active');
                 });
@@ -1450,11 +1450,11 @@
         </div>
     </div>
 
-    <!-- Ask Question Modal -->
+    <!-- Request Story Modal -->
     <div class="question-modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="questionModalTitle">Ask a Question</h3>
+                <h3 id="questionModalTitle">Request a Story</h3>
                 <button class="modal-close" id="closeQuestionModal">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1476,13 +1476,13 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="questionText">Your Question</label>
-                        <textarea id="questionText" name="questionText" rows="4" placeholder="What would you like to know?" required></textarea>
+                        <label for="questionText">Your Story Request</label>
+                        <textarea id="questionText" name="questionText" rows="4" placeholder="What story would you like them to share?" required></textarea>
                     </div>
                     
                     <div class="form-actions">
                         <button type="button" class="btn-cancel" id="cancelQuestion">Cancel</button>
-                        <button type="submit" class="btn-submit">Submit Question</button>
+                        <button type="submit" class="btn-submit">Send Request</button>
                     </div>
                 </form>
             </div>
