@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4Ever - Preserve Your Family's Stories for Generations</title>
+    <title>4Ever - Preserve Your Family's Stories</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,24 +20,10 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #000000;
-            --secondary: #8B4513;
-            --accent: #d2691e;
-            --text-dark: #1a1a1a;
-            --text-gray: #666666;
-            --text-light: #999999;
-            --bg-white: #ffffff;
-            --bg-light: #f9fafb;
-            --bg-dark: #000000;
-            --border: #e5e7eb;
-        }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--text-dark);
+            color: #1a1a1a;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* Navigation */
@@ -46,15 +32,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #e5e7eb;
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 1.25rem 0;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -62,690 +48,258 @@
             align-items: center;
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-
         .nav-logo img {
-            height: 40px;
+            height: 45px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--text-gray);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .btn-nav {
-            padding: 0.65rem 1.5rem;
-            background: var(--primary);
+        .btn-signin {
+            padding: 0.75rem 2rem;
+            background: #000;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            font-size: 0.95rem;
+            display: inline-block;
         }
 
-        .btn-nav:hover {
+        .btn-signin:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
-            padding: 8rem 2rem 6rem;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            margin-top: 100px;
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(135deg, #000 0%, #2a2a2a 100%);
             color: white;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.5;
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hero-badge i {
-            color: #10b981;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.35rem;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.85);
             margin-bottom: 3rem;
-            line-height: 1.7;
         }
 
-        .hero-cta {
+        .waitlist-form {
+            max-width: 450px;
+            margin: 0 auto;
             display: flex;
             gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
         }
 
-        .btn-primary {
-            padding: 1rem 2.5rem;
+        .waitlist-form input {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1.05rem;
+            color: white;
+        }
+
+        .waitlist-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .waitlist-form button {
+            padding: 1.25rem 2.5rem;
             background: white;
-            color: var(--primary);
+            color: #000;
             border: none;
             border-radius: 12px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.3);
+        .waitlist-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
         }
 
-        .btn-secondary {
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Features Section */
-        .section {
+        /* Screenshots Section */
+        .screenshots {
             padding: 6rem 2rem;
-            max-width: 1400px;
+            background: #fafafa;
+        }
+
+        .screenshots-container {
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-header {
+        .screenshots h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
             text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .screenshots p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
             margin-bottom: 4rem;
         }
 
-        .section-badge {
-            display: inline-block;
+        .screenshot-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .screenshot-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
             background: #f0f0f0;
-            color: var(--secondary);
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1rem;
         }
 
-        .section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
+        .screenshot-caption {
+            padding: 2rem;
         }
 
-        .section p {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            max-width: 700px;
+        .screenshot-caption h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+
+        .screenshot-caption p {
+            color: #666;
+            text-align: left;
+            margin: 0;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .features h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .features > p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
         }
 
-        .feature-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            border-color: var(--secondary);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            background: var(--bg-light);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .step {
+        .feature {
             text-align: center;
-            position: relative;
+            padding: 2rem;
         }
 
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin: 0 auto 1.5rem;
-        }
-
-        .step h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .step p {
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        /* AI Call Section */
-        .ai-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ai-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .ai-content {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .ai-text h2 {
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .ai-text p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .ai-features {
-            list-style: none;
-        }
-
-        .ai-features li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-        }
-
-        .ai-features i {
-            color: var(--accent);
-            font-size: 1.25rem;
-            width: 30px;
-        }
-
-        .phone-mockup {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            padding: 3rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .phone-mockup i {
-            font-size: 6rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .phone-mockup h3 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .phone-mockup p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.1rem;
-        }
-
-        /* Pricing */
-        .pricing {
-            background: white;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .pricing-card:hover {
-            border-color: var(--secondary);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-
-        .pricing-card.featured {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .pricing-badge {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: var(--secondary);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .pricing-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .pricing-card.featured h3 {
-            color: white;
-        }
-
-        .pricing-price {
+        .feature i {
             font-size: 3rem;
-            font-weight: 800;
-            margin: 1.5rem 0;
-        }
-
-        .pricing-price span {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .pricing-card.featured .pricing-price span {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .pricing-features li {
-            padding: 0.75rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-gray);
-        }
-
-        .pricing-card.featured .pricing-features li {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .pricing-features i {
-            color: #10b981;
-            font-size: 1.1rem;
-        }
-
-        .btn-pricing {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--primary);
-            background: white;
-            color: var(--primary);
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-pricing:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .pricing-card.featured .btn-pricing {
-            background: white;
-            border-color: white;
-            color: var(--primary);
-        }
-
-        .pricing-card.featured .btn-pricing:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            background: var(--bg-light);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .testimonial {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            color: #8B4513;
             margin-bottom: 1.5rem;
         }
 
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .testimonial-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-            color: var(--text-dark);
-        }
-
-        .testimonial-info p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .testimonial-text {
-            color: var(--text-gray);
-            line-height: 1.7;
-            font-size: 1.05rem;
-            font-style: italic;
-        }
-
-        .stars {
-            color: #fbbf24;
+        .feature h3 {
+            font-size: 1.4rem;
             margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.7;
         }
 
         /* CTA Section */
-        .cta-section {
-            padding: 8rem 2rem;
+        .cta {
+            padding: 6rem 2rem;
             background: linear-gradient(135deg, #8B4513 0%, #d2691e 100%);
             color: white;
             text-align: center;
         }
 
-        .cta-section h2 {
+        .cta h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            color: white;
         }
 
-        .cta-section p {
+        .cta p {
             font-size: 1.3rem;
             margin-bottom: 3rem;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            opacity: 0.95;
         }
 
-        .waitlist-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .waitlist-form input {
-            flex: 1;
-            min-width: 250px;
-            padding: 1.25rem 1.5rem;
+        .cta .waitlist-form input {
+            background: rgba(255, 255, 255, 0.95);
             border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            color: #000;
         }
 
-        .waitlist-form button {
-            padding: 1.25rem 2.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .waitlist-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        .cta .waitlist-form input::placeholder {
+            color: #999;
         }
 
         /* Footer */
         .footer {
-            background: var(--bg-dark);
+            background: #000;
             color: white;
-            padding: 4rem 2rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-brand p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.7;
-        }
-
-        .footer-section h4 {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            padding: 3rem 2rem 2rem;
             text-align: center;
         }
 
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 1.1rem;
+        .footer p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
         }
 
         /* Success Modal */
@@ -756,7 +310,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 10000;
             align-items: center;
             justify-content: center;
@@ -771,7 +325,7 @@
             padding: 3rem;
             border-radius: 20px;
             text-align: center;
-            max-width: 500px;
+            max-width: 450px;
             margin: 1rem;
         }
 
@@ -784,13 +338,23 @@
         .modal-content h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
-            color: var(--text-dark);
         }
 
         .modal-content p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
+            color: #666;
             margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-modal {
+            padding: 1rem 2.5rem;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         /* Responsive */
@@ -803,53 +367,19 @@
                 font-size: 1.1rem;
             }
 
-            .section h2 {
-                font-size: 2.5rem;
+            .screenshots h2,
+            .features h2,
+            .cta h2 {
+                font-size: 2rem;
             }
 
-            .ai-content {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
+            .waitlist-form {
+                flex-direction: column;
             }
 
             .features-grid {
                 grid-template-columns: 1fr;
             }
-
-            .steps {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        /* Logo in nav */
-        .nav-logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
         }
     </style>
 </head>
@@ -860,370 +390,121 @@
             <a href="#" class="nav-logo">
                 <img src="images/4ever-logo.png" alt="4Ever">
             </a>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#how-it-works" class="nav-link">How It Works</a>
-                <a href="#pricing" class="nav-link">Pricing</a>
-                <a href="login.html" class="btn-nav">Sign In</a>
-            </div>
+            <a href="login.html" class="btn-signin">Sign In</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content fade-in">
-            <div class="hero-badge">
-                <i class="fas fa-sparkles"></i>
-                <span>Now with AI-Powered Story Recording</span>
-            </div>
-            <h1>Preserve Your Family's Legacy Forever</h1>
-            <p>The beautiful way to capture, share, and preserve your family's most precious memories for generations to come.</p>
-            <div class="hero-cta">
-                <button class="btn-primary" onclick="scrollToWaitlist()">Join the Waitlist</button>
-                <button class="btn-secondary" onclick="window.location.href='feed.html'">View Demo</button>
-            </div>
+        <div class="hero-content">
+            <h1>Preserve Your Family's Stories Forever</h1>
+            <p>Capture memories through voice, text, or photos. Build timelines. Connect generations.</p>
+            
+            <form class="waitlist-form" id="waitlistFormHero">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="section">
-        <div class="stats">
-            <div>
-                <div class="stat-number">10,000+</div>
-                <div class="stat-label">Stories Preserved</div>
-            </div>
-            <div>
-                <div class="stat-number">5,000+</div>
-                <div class="stat-label">Families Connected</div>
-            </div>
-            <div>
-                <div class="stat-number">50,000+</div>
-                <div class="stat-label">Family Members</div>
-            </div>
-            <div>
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Free to Start</div>
+    <!-- Screenshots Section -->
+    <section class="screenshots">
+        <div class="screenshots-container">
+            <h2>See 4Ever in Action</h2>
+            <p>A beautiful platform designed for preserving family memories</p>
+            
+            <div class="screenshot-grid">
+                <div class="screenshot-item">
+                    <div class="screenshot-img">
+                        <span>📸 Screenshot: Profile Timeline</span>
+                    </div>
+                    <div class="screenshot-caption">
+                        <h3>Beautiful Family Timelines</h3>
+                        <p>Every family member gets their own interactive timeline showing their life's journey through photos, stories, and memories.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-img">
+                        <span>📸 Screenshot: Story Approval</span>
+                    </div>
+                    <div class="screenshot-caption">
+                        <h3>Story Approval System</h3>
+                        <p>Review and approve stories that others share about you. Keep your timeline accurate and meaningful.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot-img">
+                        <span>📸 Screenshot: AI Recording</span>
+                    </div>
+                    <div class="screenshot-caption">
+                        <h3>AI-Powered Story Recording</h3>
+                        <p>Call our AI and tell your stories by phone. No typing, no app required. Just talk and your memories are preserved.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="section" id="features">
-        <div class="section-header">
-            <div class="section-badge">Features</div>
-            <h2>Everything You Need to Preserve Family Stories</h2>
-            <p>From AI-powered recording to beautiful timelines, we've thought of everything.</p>
-        </div>
-
+    <section class="features">
+        <h2>Everything You Need</h2>
+        <p>Simple, powerful tools for preserving family memories</p>
+        
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-                <h3>AI Story Recording</h3>
-                <p>Call our AI hotline and tell your stories. Our AI transcribes, organizes, and adds them to your timeline automatically. No typing required.</p>
+            <div class="feature">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Record by Phone</h3>
+                <p>Call and tell your stories. Our AI handles the rest.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>Interactive Timelines</h3>
-                <p>Build beautiful, interactive timelines for every family member. Watch your family's history come to life with photos, videos, and audio.</p>
+            <div class="feature">
+                <i class="fas fa-timeline"></i>
+                <h3>Life Timelines</h3>
+                <p>Visual timelines of your family's journey through time.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Family Tree Builder</h3>
-                <p>Create profiles for everyone - living and deceased. Connect generations and preserve relationships for future family members.</p>
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <h3>Family Profiles</h3>
+                <p>Create profiles for everyone, living or deceased.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-share-alt"></i>
-                </div>
-                <h3>Story Collaboration</h3>
-                <p>Family members can add stories about each other. Every story needs approval, keeping your timeline accurate and authentic.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-question-circle"></i>
-                </div>
+            <div class="feature">
+                <i class="fas fa-question-circle"></i>
                 <h3>Q&A Feature</h3>
-                <p>Ask questions to family members and preserve their answers forever. Create conversations that span generations.</p>
+                <p>Ask questions and preserve answers for generations.</p>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <h3>Privacy Controls</h3>
-                <p>Control who sees what. Share stories with family only, close friends, or keep them private. You're always in control.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Section -->
-    <section class="section ai-section">
-        <div class="ai-content">
-            <div class="ai-text">
-                <div class="section-badge" style="background: rgba(255, 255, 255, 0.1); color: white;">AI Powered</div>
-                <h2>Tell Your Stories by Phone</h2>
-                <p>Simply call our AI assistant and share your memories. No app required. No typing. Just talk.</p>
-                <ul class="ai-features">
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <span>Call anytime, from any phone</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-brain"></i>
-                        <span>AI automatically transcribes and organizes</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-calendar"></i>
-                        <span>Extracts dates, people, and categories</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check-circle"></i>
-                        <span>Review and approve before publishing</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="phone-mockup">
-                <i class="fas fa-phone-volume"></i>
-                <h3>1-800-4EVER-AI</h3>
-                <p>Your personal AI storyteller, available 24/7</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="section how-it-works" id="how-it-works">
-        <div class="section-header">
-            <div class="section-badge">Simple Process</div>
-            <h2>How 4Ever Works</h2>
-            <p>Start preserving your family's legacy in minutes</p>
-        </div>
-
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Create Your Account</h3>
-                <p>Sign up with your email and phone number. Create profiles for your family members.</p>
+            <div class="feature">
+                <i class="fas fa-lock"></i>
+                <h3>Privacy First</h3>
+                <p>You control who sees your family's stories.</p>
             </div>
 
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Share Stories</h3>
-                <p>Call our AI to record stories, type them out, or upload photos and videos from your life.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Build Timelines</h3>
-                <p>Your stories automatically organize into beautiful timelines. Watch your family's history unfold.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Connect & Preserve</h3>
-                <p>Invite family to collaborate. Build your family tree. Preserve memories for future generations.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section pricing" id="pricing">
-        <div class="section-header">
-            <div class="section-badge">Pricing</div>
-            <h2>Choose Your Plan</h2>
-            <p>Start free, upgrade as your family grows</p>
-        </div>
-
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Free</h3>
-                <div class="pricing-price">$0<span>/forever</span></div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check-circle"></i> 3 profiles</li>
-                    <li><i class="fas fa-check-circle"></i> 1GB storage</li>
-                    <li><i class="fas fa-check-circle"></i> Basic timeline</li>
-                    <li><i class="fas fa-check-circle"></i> AI story recording</li>
-                    <li><i class="fas fa-check-circle"></i> Story submissions</li>
-                </ul>
-                <button class="btn-pricing" onclick="scrollToWaitlist()">Get Started Free</button>
-            </div>
-
-            <div class="pricing-card">
-                <h3>Family</h3>
-                <div class="pricing-price">$9.99<span>/month</span></div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check-circle"></i> 10 profiles</li>
-                    <li><i class="fas fa-check-circle"></i> 10GB storage</li>
-                    <li><i class="fas fa-check-circle"></i> Advanced timeline</li>
-                    <li><i class="fas fa-check-circle"></i> Unlimited AI calls</li>
-                    <li><i class="fas fa-check-circle"></i> Priority support</li>
-                    <li><i class="fas fa-check-circle"></i> Custom themes</li>
-                </ul>
-                <button class="btn-pricing" onclick="scrollToWaitlist()">Join Waitlist</button>
-            </div>
-
-            <div class="pricing-card featured">
-                <div class="pricing-badge">Most Popular</div>
-                <h3>Legacy</h3>
-                <div class="pricing-price">$19.99<span>/month</span></div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check-circle"></i> 50 profiles</li>
-                    <li><i class="fas fa-check-circle"></i> 50GB storage</li>
-                    <li><i class="fas fa-check-circle"></i> Unlimited stories</li>
-                    <li><i class="fas fa-check-circle"></i> Advanced family tree</li>
-                    <li><i class="fas fa-check-circle"></i> Premium support</li>
-                    <li><i class="fas fa-check-circle"></i> Custom domain</li>
-                    <li><i class="fas fa-check-circle"></i> Export & backup</li>
-                </ul>
-                <button class="btn-pricing" onclick="scrollToWaitlist()">Join Waitlist</button>
-            </div>
-
-            <div class="pricing-card">
-                <h3>Lifetime</h3>
-                <div class="pricing-price">$299<span>/once</span></div>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check-circle"></i> Unlimited profiles</li>
-                    <li><i class="fas fa-check-circle"></i> 100GB storage</li>
-                    <li><i class="fas fa-check-circle"></i> Everything included</li>
-                    <li><i class="fas fa-check-circle"></i> Lifetime updates</li>
-                    <li><i class="fas fa-check-circle"></i> VIP support</li>
-                    <li><i class="fas fa-check-circle"></i> Priority features</li>
-                </ul>
-                <button class="btn-pricing" onclick="scrollToWaitlist()">Join Waitlist</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="section testimonials">
-        <div class="section-header">
-            <div class="section-badge">Testimonials</div>
-            <h2>What Families Are Saying</h2>
-            <p>Join thousands of families preserving their legacies</p>
-        </div>
-
-        <div class="testimonial-grid">
-            <div class="testimonial">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"4Ever has transformed how our family stays connected. My grandmother called and shared stories from the 1950s that we never knew. Absolutely priceless."</p>
-                <div class="testimonial-header">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=jennifer&backgroundColor=b6e3f4" class="testimonial-avatar">
-                    <div class="testimonial-info">
-                        <h4>Jennifer Martinez</h4>
-                        <p>Mother of 3, Legacy Plan</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"The AI phone feature is genius! My dad isn't tech-savvy, but he loves calling and sharing his memories. Now my kids can hear his stories forever."</p>
-                <div class="testimonial-header">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=david&backgroundColor=d1d4f9" class="testimonial-avatar">
-                    <div class="testimonial-info">
-                        <h4>David Chen</h4>
-                        <p>Family Plan User</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"I created profiles for my grandparents who passed away. Being able to preserve their stories and photos in one place brings me so much comfort."</p>
-                <div class="testimonial-header">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=emily&backgroundColor=ffd5dc" class="testimonial-avatar">
-                    <div class="testimonial-info">
-                        <h4>Emily Rodriguez</h4>
-                        <p>Lifetime Member</p>
-                    </div>
-                </div>
+            <div class="feature">
+                <i class="fas fa-cloud"></i>
+                <h3>Safe & Secure</h3>
+                <p>Your memories are backed up and protected.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="waitlist">
-        <h2>Start Preserving Your Family's Legacy Today</h2>
-        <p>Join our waitlist and be among the first to experience the future of family storytelling.</p>
+    <section class="cta">
+        <h2>Join the Waitlist</h2>
+        <p>Be among the first to preserve your family's legacy</p>
         
-        <form class="waitlist-form" id="waitlistForm">
-            <input type="email" placeholder="Enter your email" id="waitlistEmail" required>
+        <form class="waitlist-form" id="waitlistFormCTA">
+            <input type="email" placeholder="Enter your email" required>
             <button type="submit">Join Waitlist</button>
         </form>
-
-        <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.8;">
-            <i class="fas fa-shield-alt"></i> We respect your privacy. Unsubscribe anytime.
-        </p>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>4Ever</h3>
-                <p>Preserving family stories and creating lasting legacies for generations to come.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Product</h4>
-                <ul class="footer-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="feed.html">Demo</a></li>
-                    <li><a href="#">Updates</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul class="footer-links">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2024 4Ever. All rights reserved. Made with ❤️ for families everywhere.</p>
-        </div>
+        <p>&copy; 2024 4Ever. All rights reserved.</p>
     </footer>
 
     <!-- Success Modal -->
@@ -1231,78 +512,40 @@
         <div class="modal-content">
             <i class="fas fa-check-circle"></i>
             <h3>You're on the list!</h3>
-            <p>Thank you for joining our waitlist. We'll notify you as soon as 4Ever launches.</p>
-            <button class="btn-primary" onclick="closeSuccessModal()">Continue</button>
+            <p>We'll email you when 4Ever launches.</p>
+            <button class="btn-modal" onclick="closeModal()">Got it</button>
         </div>
     </div>
 
     <script>
-        // Smooth scroll
-        function scrollToWaitlist() {
-            document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Waitlist form
-        document.getElementById('waitlistForm').addEventListener('submit', (e) => {
+        // Handle both waitlist forms
+        function handleWaitlistSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('waitlistEmail').value;
+            const email = e.target.querySelector('input[type="email"]').value;
             
-            // In production, save to database
+            // In production: save to database
             console.log('Waitlist signup:', email);
             
             // Show success modal
             document.getElementById('successModal').classList.add('active');
             
             // Clear form
-            document.getElementById('waitlistEmail').value = '';
-            
-            // In production: Send to API
-            // await fetch('/api/waitlist', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ email })
-            // });
-        });
+            e.target.reset();
+        }
 
-        function closeSuccessModal() {
+        document.getElementById('waitlistFormHero').addEventListener('submit', handleWaitlistSubmit);
+        document.getElementById('waitlistFormCTA').addEventListener('submit', handleWaitlistSubmit);
+
+        function closeModal() {
             document.getElementById('successModal').classList.remove('active');
         }
 
         // Close modal on outside click
         document.getElementById('successModal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('successModal')) {
-                closeSuccessModal();
+                closeModal();
             }
-        });
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Fade in on scroll (optional)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.feature-card, .step, .testimonial').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
         });
     </script>
 </body>
 </html>
-
