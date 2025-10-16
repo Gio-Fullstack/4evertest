@@ -992,7 +992,7 @@
 
             // Tag People functionality
             const searchPeopleInput = document.getElementById('searchPeople');
-            const addTagBtn = document.getElementById('addTagBtn');
+            const tagSearchResults = document.getElementById('tagSearchResults');
             const taggedPeopleContainer = document.getElementById('taggedPeopleContainer');
             const tagPeopleSelect = document.getElementById('tagPeople');
             
@@ -1020,54 +1020,89 @@
                 }
             };
             
-            // Add tag button click
-            if (addTagBtn && searchPeopleInput) {
-                addTagBtn.addEventListener('click', () => {
-                    const searchTerm = searchPeopleInput.value.trim().toLowerCase();
+            // Function to add a tag
+            function addPersonTag(personId, personName) {
+                // Check if already tagged
+                if (taggedPeople.find(p => p.id === personId)) {
+                    return;
+                }
+                
+                // Add to tagged people
+                taggedPeople.push({ id: personId, name: personName });
+                renderTaggedPeople();
+                
+                // Select in the hidden select
+                const option = tagPeopleSelect.querySelector(`option[value="${personId}"]`);
+                if (option) {
+                    option.selected = true;
+                }
+                
+                // Clear search
+                searchPeopleInput.value = '';
+                tagSearchResults.style.display = 'none';
+            }
+            
+            // Search functionality with dropdown
+            if (searchPeopleInput && tagSearchResults) {
+                searchPeopleInput.addEventListener('input', (e) => {
+                    const query = e.target.value.trim().toLowerCase();
                     
-                    if (!searchTerm) {
-                        alert('Please enter a name to search');
+                    if (query.length < 1) {
+                        tagSearchResults.style.display = 'none';
                         return;
                     }
                     
                     // Search through all options
                     const options = Array.from(tagPeopleSelect.options);
-                    const matchedOption = options.find(opt => 
-                        opt.getAttribute('data-name').toLowerCase().includes(searchTerm)
+                    const matches = options.filter(opt => 
+                        opt.getAttribute('data-name').toLowerCase().includes(query) &&
+                        !taggedPeople.find(p => p.id === opt.value)
                     );
                     
-                    if (matchedOption) {
-                        const personId = matchedOption.value;
-                        const personName = matchedOption.getAttribute('data-name');
-                        
-                        // Check if already tagged
-                        if (taggedPeople.find(p => p.id === personId)) {
-                            alert(`${personName} is already tagged`);
-                            return;
-                        }
-                        
-                        // Add to tagged people
-                        taggedPeople.push({ id: personId, name: personName });
-                        renderTaggedPeople();
-                        
-                        // Select in the hidden select
-                        matchedOption.selected = true;
-                        
-                        // Clear search
-                        searchPeopleInput.value = '';
+                    if (matches.length > 0) {
+                        tagSearchResults.innerHTML = matches.map(opt => {
+                            const personId = opt.value;
+                            const personName = opt.getAttribute('data-name');
+                            const displayText = opt.textContent;
+                            
+                            return `
+                                <div onclick="addPersonTag('${personId}', '${personName}')" style="padding: 0.75rem; cursor: pointer; border-bottom: 1px solid var(--border-color); transition: background 0.2s;">
+                                    <div style="font-weight: 500; color: var(--text-primary);">${personName}</div>
+                                </div>
+                            `;
+                        }).join('');
+                        tagSearchResults.style.display = 'block';
                     } else {
-                        alert('No matching person found. Try searching by their name.');
+                        tagSearchResults.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--text-secondary);">No results found</div>';
+                        tagSearchResults.style.display = 'block';
                     }
                 });
                 
-                // Also allow pressing Enter to add
-                searchPeopleInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        addTagBtn.click();
+                // Hide results when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('#searchPeople') && !e.target.closest('#tagSearchResults')) {
+                        tagSearchResults.style.display = 'none';
+                    }
+                });
+                
+                // Add hover effect
+                tagSearchResults.addEventListener('mouseover', (e) => {
+                    const item = e.target.closest('div[onclick]');
+                    if (item) {
+                        item.style.background = 'var(--bg-secondary)';
+                    }
+                });
+                
+                tagSearchResults.addEventListener('mouseout', (e) => {
+                    const item = e.target.closest('div[onclick]');
+                    if (item) {
+                        item.style.background = '';
                     }
                 });
             }
+            
+            // Make addPersonTag globally accessible
+            window.addPersonTag = addPersonTag;
         }); // End of DOMContentLoaded
     </script>
 
@@ -1172,12 +1207,9 @@
                     <div class="form-group">
                         <label for="tagPeople">Tag People in This Story</label>
                         <div id="taggedPeopleContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; min-height: 40px; padding: 0.5rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-color);"></div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <input type="text" id="searchPeople" placeholder="Search by name..." style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
-                            <button type="button" id="addTagBtn" class="btn-cancel" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; white-space: nowrap;">
-                                <i class="fas fa-user-plus"></i>
-                                Add Person
-                            </button>
+                        <div style="position: relative;">
+                            <input type="text" id="searchPeople" placeholder="Start typing a name..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                            <div id="tagSearchResults" style="position: absolute; top: 100%; left: 0; right: 0; background: var(--bg-primary); border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); max-height: 200px; overflow-y: auto; z-index: 1000; display: none;"></div>
                         </div>
                         <select id="tagPeople" multiple style="display: none;">
                             <option value="john-smith" data-name="John Smith">John Smith (Profile Owner)</option>
