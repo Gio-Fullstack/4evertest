@@ -1773,33 +1773,55 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Record Your Story *</label>
-                        <div id="recordingInterface" style="padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); text-align: center;">
-                            <div id="recordingStatus" style="margin-bottom: 1rem;">
-                                <i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i>
-                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Ready to record</p>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-                                <button type="button" id="startRecording" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-microphone"></i>
-                                    Start Recording
-                                </button>
-                                <button type="button" id="stopRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-stop"></i>
-                                    Stop Recording
-                                </button>
-                                <button type="button" id="playRecording" class="btn-submit" style="display: none; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-play"></i>
-                                    Play
-                                </button>
-                                <button type="button" id="deleteRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-trash"></i>
-                                    Delete
-                                </button>
-                            </div>
-                            <div id="recordingTimer" style="margin-top: 1rem; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); display: none;">0:00</div>
+                        <label>Share Your Story *</label>
+                        
+                        <!-- Story Input Toggle -->
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; background: var(--bg-secondary); padding: 0.25rem; border-radius: var(--radius-md);">
+                            <button type="button" id="toggleTypeStory" class="story-input-toggle active" style="flex: 1; padding: 0.75rem; border: none; background: white; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                <i class="fas fa-keyboard"></i> Type Your Story
+                            </button>
+                            <button type="button" id="toggleRecordStory" class="story-input-toggle" style="flex: 1; padding: 0.75rem; border: none; background: transparent; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                <i class="fas fa-microphone"></i> Record Audio
+                            </button>
                         </div>
-                        <input type="hidden" id="storyAudio" required>
+
+                        <!-- Type Story Section -->
+                        <div id="typeStorySection" style="display: block;">
+                            <textarea id="storyDescription" rows="8" placeholder="Write your story here... Share the details, emotions, and memories that made this moment special." style="width: 100%; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.95rem; font-family: inherit; resize: vertical;"></textarea>
+                            <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                                <i class="fas fa-lightbulb"></i> Tip: Include who was there, what happened, and how it made you feel
+                            </small>
+                        </div>
+
+                        <!-- Record Story Section -->
+                        <div id="recordStorySection" style="display: none;">
+                            <div id="recordingInterface" style="padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); text-align: center;">
+                                <div id="recordingStatus" style="margin-bottom: 1rem;">
+                                    <i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i>
+                                    <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Ready to record your story</p>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                                    <button type="button" id="startRecording" class="btn-submit" style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-microphone"></i>
+                                        Start Recording
+                                    </button>
+                                    <button type="button" id="stopRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-stop"></i>
+                                        Stop Recording
+                                    </button>
+                                    <button type="button" id="playRecording" class="btn-submit" style="display: none; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-play"></i>
+                                        Play
+                                    </button>
+                                    <button type="button" id="deleteRecording" class="btn-cancel" style="display: none; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </button>
+                                </div>
+                                <div id="recordingTimer" style="margin-top: 1rem; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); display: none;">0:00</div>
+                            </div>
+                            <input type="hidden" id="storyAudio">
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -2450,6 +2472,50 @@
             }
             
             document.getElementById('addStoryModal').classList.add('active');
+        }
+
+        // Toggle between Type and Record Story
+        const toggleTypeStory = document.getElementById('toggleTypeStory');
+        const toggleRecordStory = document.getElementById('toggleRecordStory');
+        const typeStorySection = document.getElementById('typeStorySection');
+        const recordStorySection = document.getElementById('recordStorySection');
+        const storyDescriptionTextarea = document.getElementById('storyDescription');
+        const storyAudioInput = document.getElementById('storyAudio');
+
+        // Set initial state (Type is default)
+        if (storyDescriptionTextarea && storyAudioInput) {
+            storyDescriptionTextarea.required = true;
+            storyAudioInput.required = false;
+        }
+
+        if (toggleTypeStory && toggleRecordStory) {
+            toggleTypeStory.addEventListener('click', () => {
+                toggleTypeStory.classList.add('active');
+                toggleRecordStory.classList.remove('active');
+                toggleTypeStory.style.background = 'white';
+                toggleRecordStory.style.background = 'transparent';
+                
+                typeStorySection.style.display = 'block';
+                recordStorySection.style.display = 'none';
+                
+                // Make textarea required, audio optional
+                storyDescriptionTextarea.required = true;
+                storyAudioInput.required = false;
+            });
+
+            toggleRecordStory.addEventListener('click', () => {
+                toggleRecordStory.classList.add('active');
+                toggleTypeStory.classList.remove('active');
+                toggleRecordStory.style.background = 'white';
+                toggleTypeStory.style.background = 'transparent';
+                
+                recordStorySection.style.display = 'block';
+                typeStorySection.style.display = 'none';
+                
+                // Make audio required, textarea optional
+                storyAudioInput.required = true;
+                storyDescriptionTextarea.required = false;
+            });
         }
 
         // Audio Recording Variables
