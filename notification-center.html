@@ -486,7 +486,6 @@
                     card.classList.remove('unread');
                 });
                 updateBadgeCounts();
-                alert('All notifications marked as read!');
             });
 
             function loadDemoNotifications() {
@@ -675,7 +674,6 @@
                 setTimeout(() => {
                     card.remove();
                     updateBadgeCounts();
-                    alert('Story approved and published to timeline!');
                 }, 500);
             };
 
@@ -688,7 +686,6 @@
                     setTimeout(() => {
                         card.remove();
                         updateBadgeCounts();
-                        alert('Story declined and author notified.');
                     }, 500);
                 }
             };
@@ -704,7 +701,6 @@
                 setTimeout(() => {
                     card.remove();
                     updateBadgeCounts();
-                    alert('Connection request accepted!');
                 }, 500);
             };
 
@@ -715,7 +711,6 @@
                 setTimeout(() => {
                     card.remove();
                     updateBadgeCounts();
-                    alert('Connection request declined.');
                 }, 500);
             };
 
@@ -731,7 +726,6 @@
                 const card = btn.closest('.notification-card');
                 card.classList.remove('unread');
                 updateBadgeCounts();
-                alert('Question skipped. You can answer it later.');
             };
         });
     </script>
