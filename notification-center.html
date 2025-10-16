@@ -396,7 +396,7 @@
                 <span class="badge" id="connectionsCount">0</span>
             </button>
             <button class="tab" data-tab="questions">
-                Questions
+                Story Requests
                 <span class="badge" id="questionsCount">0</span>
             </button>
             <button class="tab" data-tab="tags">
@@ -628,16 +628,16 @@
                         <div class="notification-header">
                             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" class="notification-avatar">
                             <div class="notification-info">
-                                <div class="notification-title">New Question</div>
+                                <div class="notification-title">Story Request</div>
                                 <div class="notification-message">
-                                    <strong>Emma Wilson</strong> asked you: "What was your favorite subject to teach?"
+                                    <strong>Emma Wilson</strong> requested: "What was your favorite subject to teach?"
                                 </div>
                                 <div class="notification-time">5 hours ago</div>
                             </div>
                         </div>
                         <div class="notification-actions">
                             <button class="btn btn-primary" onclick="answerQuestion()">
-                                <i class="fas fa-comment"></i> Answer Question
+                                <i class="fas fa-microphone"></i> Record Story
                             </button>
                             <button class="btn btn-secondary" onclick="skipQuestion(this)">
                                 <i class="fas fa-forward"></i> Skip
@@ -674,7 +674,7 @@
                 document.getElementById('allContent').innerHTML = allHTML;
                 document.getElementById('storiesContent').innerHTML = storiesHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending story requests</p></div>';
                 document.getElementById('connectionsContent').innerHTML = connectionsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending connection requests</p></div>';
-                document.getElementById('questionsContent').innerHTML = questionsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending questions</p></div>';
+                document.getElementById('questionsContent').innerHTML = questionsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending story requests</p></div>';
                 document.getElementById('tagsContent').innerHTML = tagsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No new tags</p></div>';
 
                 updateBadgeCounts();
