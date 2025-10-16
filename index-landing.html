@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,278 +21,200 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e7eb;
-            z-index: 1000;
-            padding: 1.25rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
         }
 
-        .nav-logo img {
-            height: 45px;
+        .branding-section {
+            padding: 2rem 0;
         }
 
-        .btn-signin {
-            padding: 0.75rem 2rem;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .branding-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #000;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .branding-section p {
+            color: #666;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            color: #333;
+            font-size: 1.05rem;
+        }
+
+        .features i {
+            color: #8B4513;
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .pricing-note {
+            background: #f0f0f0;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border-left: 4px solid #8B4513;
+        }
+
+        .pricing-note strong {
+            font-size: 1.3rem;
+            color: #000;
+        }
+
+        .pricing-note p {
+            font-size: 0.95rem;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .waitlist-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+        }
+
+        .waitlist-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .waitlist-header h2 {
+            font-size: 1.75rem;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .waitlist-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f5f6f7;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #8B4513;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .name-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
             background: #000;
             color: white;
             border: none;
             border-radius: 10px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            margin-top: 0.5rem;
         }
 
-        .btn-signin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        .btn-submit:hover {
+            background: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Hero Section */
-        .hero {
-            margin-top: 100px;
-            padding: 5rem 2rem 4rem;
-            background: linear-gradient(135deg, #000 0%, #2a2a2a 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 3rem;
-        }
-
-        .waitlist-form {
-            max-width: 450px;
-            margin: 0 auto;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .waitlist-form input {
-            flex: 1;
-            padding: 1.25rem 1.5rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            font-size: 1.05rem;
-            color: white;
-        }
-
-        .waitlist-form input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .waitlist-form input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .waitlist-form button {
-            padding: 1.25rem 2.5rem;
-            background: white;
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .waitlist-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Screenshots Section */
-        .screenshots {
-            padding: 6rem 2rem;
-            background: #fafafa;
-        }
-
-        .screenshots-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .screenshots h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .screenshots p {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 4rem;
-        }
-
-        .screenshot-grid {
-            display: grid;
-            gap: 3rem;
-        }
-
-        .screenshot-item {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-        }
-
-        .screenshot-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .screenshot-caption {
-            padding: 2rem;
-        }
-
-        .screenshot-caption h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #1a1a1a;
-        }
-
-        .screenshot-caption p {
-            color: #666;
-            text-align: left;
-            margin: 0;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .features > p {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 4rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .feature i {
-            font-size: 3rem;
-            color: #8B4513;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-        }
-
-        .feature p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, #8B4513 0%, #d2691e 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .cta h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
-        }
-
-        .cta .waitlist-form input {
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            color: #000;
-        }
-
-        .cta .waitlist-form input::placeholder {
+        .terms {
+            font-size: 0.8rem;
             color: #999;
-        }
-
-        /* Footer */
-        .footer {
-            background: #000;
-            color: white;
-            padding: 3rem 2rem 2rem;
             text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
         }
 
-        .footer p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
+        .terms a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .signin-link a {
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
         }
 
         /* Success Modal */
@@ -303,7 +225,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 10000;
             align-items: center;
             justify-content: center;
@@ -315,11 +237,11 @@
 
         .modal-content {
             background: white;
+            border-radius: 16px;
             padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
             max-width: 450px;
-            margin: 1rem;
+            width: 90%;
+            text-align: center;
         }
 
         .modal-content i {
@@ -331,12 +253,13 @@
         .modal-content h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            color: #000;
         }
 
         .modal-content p {
             color: #666;
-            margin-bottom: 2rem;
             font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .btn-modal {
@@ -345,154 +268,128 @@
             color: white;
             border: none;
             border-radius: 10px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 1rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .branding-section {
+                text-align: center;
+            }
+
+            .logo-section {
+                justify-content: center;
+            }
+
+            .branding-section h1 {
                 font-size: 2.5rem;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .features {
+                text-align: left;
+                display: inline-block;
             }
 
-            .screenshots h2,
-            .features h2,
-            .cta h2 {
-                font-size: 2rem;
-            }
-
-            .waitlist-form {
-                flex-direction: column;
-            }
-
-            .features-grid {
+            .name-fields {
                 grid-template-columns: 1fr;
             }
+        }
+
+        small {
+            color: #999;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="images/4ever-logo.png" alt="4Ever">
-            </a>
-            <a href="login.html" class="btn-signin">Sign In</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Preserve Your Family's Stories Forever</h1>
-            <p>Capture memories through voice, text, or photos. Build timelines. Connect generations.</p>
+    <div class="container">
+        <!-- Branding Section -->
+        <div class="branding-section">
+            <div class="logo-section">
+                <img src="images/4ever-logo.png" alt="4Ever" class="logo">
+            </div>
+            <h1>Preserve your family's stories forever</h1>
+            <p>Capture memories through voice calls, build timelines, and connect generations through the stories that matter most.</p>
             
-            <form class="waitlist-form" id="waitlistFormHero">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit">Join Waitlist</button>
+            <ul class="features">
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <span>Call and tell your stories - AI does the rest</span>
+                </li>
+                <li>
+                    <i class="fas fa-timeline"></i>
+                    <span>Beautiful timelines for every family member</span>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i>
+                    <span>Build your family tree and connections</span>
+                </li>
+                <li>
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Private and secure - you control who sees what</span>
+                </li>
+            </ul>
+
+            <div class="pricing-note">
+                <strong>$18/month</strong>
+                <p>Unlimited profiles, stories, and AI recordings. Cancel anytime.</p>
+            </div>
+        </div>
+
+        <!-- Waitlist Form Section -->
+        <div class="waitlist-section">
+            <div class="waitlist-header">
+                <h2>Join the Waitlist</h2>
+                <p>Be among the first to experience 4Ever</p>
+            </div>
+
+            <form id="waitlistForm">
+                <div class="name-fields">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" required placeholder="First name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" required placeholder="Last name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="+1 (555) 123-4567" pattern="[\+]?[0-9\s\(\)\-]+">
+                    <small>We'll use this for your AI story recordings</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Join Waitlist</button>
+
+                <div class="terms">
+                    By joining, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+                </div>
             </form>
-        </div>
-    </section>
 
-    <!-- Screenshots Section -->
-    <section class="screenshots">
-        <div class="screenshots-container">
-            <h2>See 4Ever in Action</h2>
-            <p>A beautiful platform designed for preserving family memories</p>
-            
-            <div class="screenshot-grid">
-                <div class="screenshot-item">
-                    <img src="images/screenshot-timeline.png" alt="Profile Timeline" style="width: 100%; height: auto; display: block;">
-                    <div class="screenshot-caption">
-                        <h3>Beautiful Family Timelines</h3>
-                        <p>Every family member gets their own interactive timeline showing their life's journey through photos, stories, and memories.</p>
-                    </div>
-                </div>
-
-                <div class="screenshot-item">
-                    <img src="images/screenshot-notifications.png" alt="Story Approval" style="width: 100%; height: auto; display: block;">
-                    <div class="screenshot-caption">
-                        <h3>Story Approval System</h3>
-                        <p>Review and approve stories that others share about you. Keep your timeline accurate and meaningful.</p>
-                    </div>
-                </div>
-
-                <div class="screenshot-item">
-                    <img src="images/screenshot-feed.png" alt="Family Feed" style="width: 100%; height: auto; display: block;">
-                    <div class="screenshot-caption">
-                        <h3>Your Family Feed</h3>
-                        <p>See stories from your family members all in one place. Listen to audio recordings and view cherished memories.</p>
-                    </div>
-                </div>
+            <div class="signin-link">
+                Already have an account? <a href="login.html">Sign in</a>
             </div>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <h2>Everything You Need</h2>
-        <p>Simple, powerful tools for preserving family memories</p>
-        
-        <div class="features-grid">
-            <div class="feature">
-                <i class="fas fa-phone-alt"></i>
-                <h3>Record by Phone</h3>
-                <p>Call and tell your stories. Our AI handles the rest.</p>
-            </div>
-
-            <div class="feature">
-                <i class="fas fa-timeline"></i>
-                <h3>Life Timelines</h3>
-                <p>Visual timelines of your family's journey through time.</p>
-            </div>
-
-            <div class="feature">
-                <i class="fas fa-users"></i>
-                <h3>Family Profiles</h3>
-                <p>Create profiles for everyone, living or deceased.</p>
-            </div>
-
-            <div class="feature">
-                <i class="fas fa-question-circle"></i>
-                <h3>Q&A Feature</h3>
-                <p>Ask questions and preserve answers for generations.</p>
-            </div>
-
-            <div class="feature">
-                <i class="fas fa-lock"></i>
-                <h3>Privacy First</h3>
-                <p>You control who sees your family's stories.</p>
-            </div>
-
-            <div class="feature">
-                <i class="fas fa-cloud"></i>
-                <h3>Safe & Secure</h3>
-                <p>Your memories are backed up and protected.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <h2>Join the Waitlist</h2>
-        <p>Be among the first to preserve your family's legacy</p>
-        
-        <form class="waitlist-form" id="waitlistFormCTA">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Join Waitlist</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2024 4Ever. All rights reserved.</p>
-    </footer>
+    </div>
 
     <!-- Success Modal -->
     <div class="modal" id="successModal">
@@ -505,23 +402,33 @@
     </div>
 
     <script>
-        // Handle both waitlist forms
-        function handleWaitlistSubmit(e) {
+        document.getElementById('waitlistForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = e.target.querySelector('input[type="email"]').value;
             
-            // In production: save to database
-            console.log('Waitlist signup:', email);
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                birthday: document.getElementById('birthday').value
+            };
+            
+            // In production: Save to database
+            console.log('Waitlist signup:', formData);
             
             // Show success modal
             document.getElementById('successModal').classList.add('active');
             
             // Clear form
             e.target.reset();
-        }
-
-        document.getElementById('waitlistFormHero').addEventListener('submit', handleWaitlistSubmit);
-        document.getElementById('waitlistFormCTA').addEventListener('submit', handleWaitlistSubmit);
+            
+            // In production: Send to API
+            // await fetch('/api/waitlist', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+        });
 
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
