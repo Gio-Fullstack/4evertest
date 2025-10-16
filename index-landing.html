@@ -24,19 +24,18 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 2rem 1rem;
         }
 
         .container {
             max-width: 1100px;
             width: 100%;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            margin-bottom: 4rem;
         }
 
         .branding-section {
@@ -63,7 +62,7 @@
             line-height: 1.2;
         }
 
-        .branding-section p {
+        .branding-section > p {
             color: #666;
             font-size: 1.2rem;
             line-height: 1.7;
@@ -72,40 +71,57 @@
 
         .features {
             list-style: none;
-            margin-top: 2rem;
+            margin: 2rem 0;
         }
 
         .features li {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 1rem;
-            padding: 0.75rem 0;
+            padding: 1rem 0;
             color: #333;
-            font-size: 1.05rem;
         }
 
         .features i {
-            color: #8B4513;
-            font-size: 1.2rem;
-            width: 24px;
+            color: #3b82f6;
+            font-size: 1.3rem;
+            width: 28px;
+            margin-top: 0.2rem;
+        }
+
+        .features strong {
+            display: block;
+            font-size: 1.1rem;
+            color: #000;
+            margin-bottom: 0.25rem;
+        }
+
+        .features p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
         }
 
         .pricing-note {
-            background: #f0f0f0;
-            padding: 1.25rem;
+            background: linear-gradient(135deg, #000 0%, #2a2a2a 100%);
+            color: white;
+            padding: 1.5rem;
             border-radius: 12px;
             margin-top: 2rem;
-            border-left: 4px solid #8B4513;
         }
 
         .pricing-note strong {
-            font-size: 1.3rem;
-            color: #000;
+            font-size: 1.5rem;
+            color: white;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .pricing-note p {
-            font-size: 0.95rem;
-            margin: 0.5rem 0 0 0;
+            font-size: 1rem;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
         }
 
         .waitlist-section {
@@ -155,9 +171,9 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #8B4513;
+            border-color: #3b82f6;
             background: white;
-            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .name-fields {
@@ -196,7 +212,7 @@
         }
 
         .terms a {
-            color: #8B4513;
+            color: #3b82f6;
             text-decoration: none;
         }
 
@@ -208,7 +224,7 @@
         }
 
         .signin-link a {
-            color: #8B4513;
+            color: #3b82f6;
             text-decoration: none;
             font-weight: 500;
         }
@@ -217,7 +233,73 @@
             text-decoration: underline;
         }
 
-        /* Success Modal */
+        small {
+            color: #999;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Screenshot Section */
+        .screenshot-section {
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .screenshot-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .screenshot-section > p {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .screenshot-caption {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .screenshot-caption h3 {
+            font-size: 1.2rem;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .screenshot-caption p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -299,15 +381,19 @@
             .name-fields {
                 grid-template-columns: 1fr;
             }
-        }
 
-        small {
-            color: #999;
-            font-size: 0.85rem;
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot-section {
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Main Section -->
     <div class="container">
         <!-- Branding Section -->
         <div class="branding-section">
@@ -315,30 +401,42 @@
                 <img src="images/4ever-logo.png" alt="4Ever" class="logo">
             </div>
             <h1>Preserve your family's stories forever</h1>
-            <p>Capture memories through voice calls, build timelines, and connect generations through the stories that matter most.</p>
+            <p>The easiest way to capture, organize, and share your family's most precious memories across generations.</p>
             
             <ul class="features">
                 <li>
-                    <i class="fas fa-phone"></i>
-                    <span>Call and tell your stories - AI does the rest</span>
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <strong>Call & Tell Your Stories</strong>
+                        <p>Simply call our AI assistant and share your memories. No app, no typing, no hassle.</p>
+                    </div>
                 </li>
                 <li>
                     <i class="fas fa-timeline"></i>
-                    <span>Beautiful timelines for every family member</span>
+                    <div>
+                        <strong>Beautiful Life Timelines</strong>
+                        <p>Every family member gets their own interactive timeline with photos, videos, and audio recordings.</p>
+                    </div>
                 </li>
                 <li>
                     <i class="fas fa-users"></i>
-                    <span>Build your family tree and connections</span>
+                    <div>
+                        <strong>Connect Your Family</strong>
+                        <p>Build your family tree, collaborate on stories, and preserve memories together.</p>
+                    </div>
                 </li>
                 <li>
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Private and secure - you control who sees what</span>
+                    <i class="fas fa-question-circle"></i>
+                    <div>
+                        <strong>Ask & Answer Questions</strong>
+                        <p>Capture the wisdom and stories of older generations before it's too late.</p>
+                    </div>
                 </li>
             </ul>
 
             <div class="pricing-note">
                 <strong>$18/month</strong>
-                <p>Unlimited profiles, stories, and AI recordings. Cancel anytime.</p>
+                <p>Unlimited profiles, unlimited stories, unlimited AI recordings. Cancel anytime.</p>
             </div>
         </div>
 
@@ -370,7 +468,7 @@
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" required placeholder="+1 (555) 123-4567" pattern="[\+]?[0-9\s\(\)\-]+">
-                    <small>We'll use this for your AI story recordings</small>
+                    <small>For AI story recordings</small>
                 </div>
 
                 <div class="form-group">
@@ -391,12 +489,36 @@
         </div>
     </div>
 
+    <!-- Screenshots Section -->
+    <div class="screenshot-section">
+        <h2>See 4Ever in Action</h2>
+        <p>A beautiful platform designed to preserve what matters most</p>
+        
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <img src="images/screenshot-timeline.png" alt="Family Timeline">
+                <div class="screenshot-caption">
+                    <h3>Interactive Timelines</h3>
+                    <p>View your family's journey through time with photos, stories, and important milestones</p>
+                </div>
+            </div>
+
+            <div class="screenshot-card">
+                <img src="images/screenshot-notifications.png" alt="Story Approval">
+                <div class="screenshot-caption">
+                    <h3>Approve Stories About You</h3>
+                    <p>Review and approve stories that family members share about you before they appear on your timeline</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <i class="fas fa-check-circle"></i>
             <h3>You're on the list!</h3>
-            <p>We'll email you when 4Ever launches.</p>
+            <p>We'll email you when 4Ever launches. Thank you for joining us!</p>
             <button class="btn-modal" onclick="closeModal()">Got it</button>
         </div>
     </div>
