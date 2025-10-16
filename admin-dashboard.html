@@ -419,23 +419,86 @@
                 <span>My Profile</span>
             </a>
 
-            <a href="notification-center.html" class="nav-link">
+            <a href="profile.html#family-tree" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Family</span>
+            </a>
+
+            <button class="nav-link" id="notificationsBtn">
                 <i class="fas fa-bell"></i>
                 <span>Notifications</span>
                 <div class="notification-badge" id="notificationCount">4</div>
-            </a>
+            </button>
 
             <a href="admin-dashboard.html" class="nav-link active">
-                <i class="fas fa-cog"></i>
+                <i class="fas fa-users-cog"></i>
                 <span>Admin</span>
             </a>
         </div>
 
         <div class="nav-right">
-            <a href="profile.html" class="nav-profile-btn">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=john-smith&backgroundColor=c0aede" alt="Profile" class="nav-avatar">
+            <a href="profile.html" class="nav-profile-btn" style="cursor: pointer;">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
                 <span class="nav-profile-name">John Smith</span>
             </a>
+        </div>
+
+        <!-- Notifications Dropdown -->
+        <div class="notifications-dropdown" id="notificationsDropdown">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="btn-mark-read" id="markAllRead">
+                    <i class="fas fa-check-double"></i>
+                    Mark all read
+                </button>
+            </div>
+            
+            <div class="notifications-list" id="notificationsList">
+                <!-- Notifications -->
+                <div class="notification-item unread" data-type="story">
+                    <div class="notification-icon story-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Sarah Johnson</strong> added a new story about you</p>
+                        <p class="notification-time">2 hours ago</p>
+                    </div>
+                </div>
+
+                <div class="notification-item unread" data-type="connection">
+                    <div class="notification-icon connection-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>David Thompson</strong> sent you a connection request</p>
+                        <p class="notification-time">5 hours ago</p>
+                    </div>
+                </div>
+
+                <div class="notification-item unread" data-type="question">
+                    <div class="notification-icon question-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Michael Smith</strong> asked you a question</p>
+                        <p class="notification-time">1 day ago</p>
+                    </div>
+                </div>
+
+                <div class="notification-item unread" data-type="tagged">
+                    <div class="notification-icon tagged-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Mary Smith</strong> tagged you in a memory</p>
+                        <p class="notification-time">2 days ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notifications-footer">
+                <a href="notification-center.html" class="btn-view-all">Go to Notification Center</a>
+            </div>
         </div>
     </nav>
 
@@ -739,6 +802,39 @@
         document.getElementById('createProfileModal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('createProfileModal')) {
                 closeCreateProfileModal();
+            }
+        });
+
+        // Notifications dropdown toggle
+        const notificationsBtn = document.getElementById('notificationsBtn');
+        const notificationsDropdown = document.getElementById('notificationsDropdown');
+        
+        if (notificationsBtn && notificationsDropdown) {
+            notificationsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notificationsDropdown.classList.toggle('active');
+            });
+        }
+
+        // Mark all notifications as read
+        const markAllRead = document.getElementById('markAllRead');
+        if (markAllRead) {
+            markAllRead.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => item.classList.remove('unread'));
+                const notificationCount = document.getElementById('notificationCount');
+                if (notificationCount) {
+                    notificationCount.textContent = '0';
+                    notificationCount.style.display = 'none';
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationsBtn) {
+                notificationsDropdown.classList.remove('active');
             }
         });
     </script>
