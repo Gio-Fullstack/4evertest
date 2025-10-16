@@ -429,18 +429,47 @@
                 <span>Notifications</span>
                 <div class="notification-badge" id="notificationCount">4</div>
             </button>
-
-            <a href="admin-dashboard.html" class="nav-link active">
-                <i class="fas fa-users-cog"></i>
-                <span>Admin</span>
-            </a>
         </div>
 
         <div class="nav-right">
-            <a href="profile.html" class="nav-profile-btn" style="cursor: pointer;">
+            <button class="nav-profile-btn" id="profileMenuBtn">
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
                 <span class="nav-profile-name">John Smith</span>
-            </a>
+                <i class="fas fa-chevron-down" style="margin-left: 0.5rem; font-size: 0.8rem;"></i>
+            </button>
+
+            <div class="nav-dropdown" id="profileDropdown">
+                <a href="profile.html" class="nav-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="notification-center.html" class="nav-dropdown-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notification Center</span>
+                </a>
+                <a href="admin-dashboard.html" class="nav-dropdown-item">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Manage Profiles</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="settings.html" class="nav-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Account Settings</span>
+                </a>
+                <a href="privacy.html" class="nav-dropdown-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacy & Security</span>
+                </a>
+                <a href="help.html" class="nav-dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </div>
         </div>
 
         <!-- Notifications Dropdown -->
@@ -831,10 +860,28 @@
             });
         }
 
-        // Close dropdown when clicking outside
+        // Profile dropdown toggle
+        const profileMenuBtn = document.getElementById('profileMenuBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
+        if (profileMenuBtn) {
+            profileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+                // Close notifications if open
+                if (notificationsDropdown) {
+                    notificationsDropdown.classList.remove('active');
+                }
+            });
+        }
+
+        // Close dropdowns when clicking outside
         document.addEventListener('click', (e) => {
             if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationsBtn) {
                 notificationsDropdown.classList.remove('active');
+            }
+            if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileMenuBtn) {
+                profileDropdown.classList.remove('active');
             }
         });
     </script>
