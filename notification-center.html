@@ -331,23 +331,33 @@
         </div>
 
         <div class="nav-right">
-            <a href="profile.html" class="nav-profile-btn">
+            <button class="nav-profile-btn" id="profileMenuBtn">
                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=john-smith&backgroundColor=c0aede" alt="Profile" class="nav-avatar">
                 <span class="nav-profile-name">John Smith</span>
-            </a>
-
-            <button class="nav-settings-btn" id="settingsBtn">
-                <i class="fas fa-cog"></i>
+                <i class="fas fa-chevron-down" style="margin-left: 0.5rem; font-size: 0.8rem;"></i>
             </button>
 
-            <div class="nav-dropdown" id="settingsDropdown">
+            <div class="nav-dropdown" id="profileDropdown">
+                <a href="profile.html" class="nav-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="notification-center.html" class="nav-dropdown-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notification Center</span>
+                </a>
+                <a href="admin-dashboard.html" class="nav-dropdown-item">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Manage Profiles</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
                 <a href="settings.html" class="nav-dropdown-item">
                     <i class="fas fa-cog"></i>
-                    <span>Settings</span>
+                    <span>Account Settings</span>
                 </a>
                 <a href="privacy.html" class="nav-dropdown-item">
                     <i class="fas fa-lock"></i>
-                    <span>Privacy</span>
+                    <span>Privacy & Security</span>
                 </a>
                 <a href="help.html" class="nav-dropdown-item">
                     <i class="fas fa-question-circle"></i>
@@ -460,6 +470,35 @@
         // import api from './js/backend-api.js';
         
         document.addEventListener('DOMContentLoaded', function() {
+            // Profile dropdown toggle
+            const profileMenuBtn = document.getElementById('profileMenuBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+            
+            if (profileMenuBtn) {
+                profileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileMenuBtn) {
+                    profileDropdown.classList.remove('active');
+                }
+            });
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to log out?')) {
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+
             // Tab switching
             const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
