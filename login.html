@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Ever - Connect with your family through stories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .login-container {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .branding-section {
+            padding: 2rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .branding-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #000;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .branding-section p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .features i {
+            color: #8B4513;
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .login-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f5f6f7;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #8B4513;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.9rem;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn-login:hover {
+            background: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .forgot-password a {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .btn-create-account {
+            width: 100%;
+            padding: 0.9rem;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-create-account:hover {
+            background: #a0522d;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+
+        .social-login {
+            margin-top: 1.5rem;
+        }
+
+        .social-login p {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn-social {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .btn-social:hover {
+            background: #f5f6f7;
+            border-color: #8B4513;
+        }
+
+        .btn-social i {
+            font-size: 1.2rem;
+        }
+
+        .btn-google i {
+            color: #DB4437;
+        }
+
+        .btn-facebook i {
+            color: #1877F2;
+        }
+
+        /* Sign Up Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.75rem;
+            color: #000;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #000;
+        }
+
+        .name-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .terms {
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.5;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .terms a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .branding-section {
+                text-align: center;
+            }
+
+            .logo-section {
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 2.5rem;
+            }
+
+            .branding-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .features {
+                text-align: left;
+                display: inline-block;
+            }
+
+            .name-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Branding Section -->
+        <div class="branding-section">
+            <div class="logo-section">
+                <img src="images/4ever-logo.png" alt="4Ever" class="logo">
+            </div>
+            <h2>Preserve your family's stories for generations</h2>
+            <p>4Ever helps you capture, share, and preserve your family's most precious memories through stories, photos, and timelines.</p>
+            
+            <ul class="features">
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Create timelines for your entire family</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Share stories and memories with loved ones</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Build your family tree and connections</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Preserve memories for future generations</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Login/Signup Section -->
+        <div class="login-section">
+            <div id="successMessage" class="success-message">
+                Account created successfully! Please log in.
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                Invalid email or password. Please try again.
+            </div>
+
+            <div class="login-header">
+                <h1>Log in to 4Ever</h1>
+                <p>Welcome back! Continue your family's story.</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn-login">Log In</button>
+            </form>
+
+            <div class="forgot-password">
+                <a href="#" onclick="alert('Password reset coming soon!'); return false;">Forgot password?</a>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <button class="btn-create-account" onclick="openSignupModal()">
+                Create New Account
+            </button>
+
+            <div class="social-login">
+                <p>Or continue with</p>
+                <div class="social-buttons">
+                    <button class="btn-social btn-google" onclick="alert('Google sign-in coming soon!')">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button class="btn-social btn-facebook" onclick="alert('Facebook sign-in coming soon!')">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign Up</h2>
+                <button class="modal-close" onclick="closeSignupModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <p style="color: #666; margin-bottom: 1.5rem; text-align: center;">It's quick and easy.</p>
+
+            <form id="signupForm">
+                <div class="name-fields">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" placeholder="Email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" placeholder="New password (8+ characters)" required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label for="birthYear">Birth Year (Optional)</label>
+                    <input type="number" id="birthYear" name="birthYear" placeholder="e.g., 1950" min="1900" max="2024">
+                </div>
+
+                <div class="terms">
+                    By clicking Sign Up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>. You may receive notifications from us and can opt out at any time.
+                </div>
+
+                <button type="submit" class="btn-create-account">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import backend API (when using Supabase)
+        // import api from './js/backend-api.js';
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Hide messages
+            document.getElementById('errorMessage').classList.remove('show');
+            document.getElementById('successMessage').classList.remove('show');
+
+            // In production, authenticate with Supabase
+            // const result = await api.auth.signIn(email, password);
+            
+            // Demo: accept any login
+            console.log('Login attempt:', { email });
+            
+            // Simulate loading
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Logging in...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // For demo purposes, accept any login
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                window.location.href = 'feed.html';
+            }, 1000);
+        });
+
+        // Sign up form
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const birthYear = document.getElementById('birthYear').value;
+
+            const fullName = `${firstName} ${lastName}`;
+
+            // In production, create account with Supabase
+            // const result = await api.auth.signUp(email, password, fullName);
+            
+            console.log('Sign up attempt:', { fullName, email, birthYear });
+
+            // Simulate account creation
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.textContent = 'Creating Account...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // For demo purposes, simulate success
+                closeSignupModal();
+                document.getElementById('successMessage').classList.add('show');
+                document.getElementById('email').value = email;
+                btn.textContent = 'Sign Up';
+                btn.disabled = false;
+                
+                // Auto-login after 2 seconds
+                setTimeout(() => {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userName', fullName);
+                    window.location.href = 'feed.html';
+                }, 2000);
+            }, 1000);
+        });
+
+        function openSignupModal() {
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        window.openSignupModal = openSignupModal;
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.getElementById('signupForm').reset();
+        }
+
+        window.closeSignupModal = closeSignupModal;
+
+        // Close modal when clicking outside
+        document.getElementById('signupModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('signupModal')) {
+                closeSignupModal();
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'feed.html';
+        }
+    </script>
+</body>
+</html>
+
