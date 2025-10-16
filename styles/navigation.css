@@ -243,10 +243,18 @@
     transition: all 0.3s ease;
     text-decoration: none;
     color: var(--text-primary);
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
 }
 
 .nav-profile-btn:hover {
     background: var(--bg-tertiary);
+}
+
+.nav-profile-btn.active {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-color);
 }
 
 .nav-avatar {
@@ -264,22 +272,7 @@
 
 /* Settings Button */
 .nav-settings-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: var(--text-primary);
-    font-size: 1.2rem;
-}
-
-.nav-settings-btn:hover {
-    background: var(--bg-tertiary);
+    display: none !important;
 }
 
 /* Dropdown Menu */

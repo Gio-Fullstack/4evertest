@@ -55,23 +55,33 @@
         </div>
 
         <div class="nav-right">
-            <a href="profile.html" class="nav-profile-btn">
+            <button class="nav-profile-btn" id="profileMenuBtn">
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Profile" class="nav-avatar">
                 <span class="nav-profile-name">John Smith</span>
-            </a>
-
-            <button class="nav-settings-btn" id="settingsBtn">
-                <i class="fas fa-cog"></i>
+                <i class="fas fa-chevron-down" style="margin-left: 0.5rem; font-size: 0.8rem;"></i>
             </button>
 
-            <div class="nav-dropdown" id="settingsDropdown">
+            <div class="nav-dropdown" id="profileDropdown">
+                <a href="profile.html" class="nav-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="notification-center.html" class="nav-dropdown-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notification Center</span>
+                </a>
+                <a href="admin-dashboard.html" class="nav-dropdown-item">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Manage Profiles</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
                 <a href="settings.html" class="nav-dropdown-item">
                     <i class="fas fa-cog"></i>
-                    <span>Settings</span>
+                    <span>Account Settings</span>
                 </a>
                 <a href="privacy.html" class="nav-dropdown-item">
                     <i class="fas fa-lock"></i>
-                    <span>Privacy</span>
+                    <span>Privacy & Security</span>
                 </a>
                 <a href="help.html" class="nav-dropdown-item">
                     <i class="fas fa-question-circle"></i>
@@ -1015,14 +1025,14 @@
                 localStorage.setItem('notificationsCleared', 'true');
             }
 
-            // Settings dropdown toggle
-            const settingsBtn = document.getElementById('settingsBtn');
-            const settingsDropdown = document.getElementById('settingsDropdown');
+            // Profile dropdown toggle
+            const profileMenuBtn = document.getElementById('profileMenuBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
             
-            if (settingsBtn) {
-                settingsBtn.addEventListener('click', (e) => {
+            if (profileMenuBtn) {
+                profileMenuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    settingsDropdown.classList.toggle('active');
+                    profileDropdown.classList.toggle('active');
                     // Close notifications if open
                     const notificationsDropdown = document.getElementById('notificationsDropdown');
                     if (notificationsDropdown) {
@@ -1046,9 +1056,9 @@
                         clearNotifications();
                     }
                     
-                    // Close settings if open
-                    if (settingsDropdown) {
-                        settingsDropdown.classList.remove('active');
+                    // Close profile menu if open
+                    if (profileDropdown) {
+                        profileDropdown.classList.remove('active');
                     }
                 });
             }
@@ -1064,8 +1074,8 @@
 
             // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
-                if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
-                    settingsDropdown.classList.remove('active');
+                if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileMenuBtn) {
+                    profileDropdown.classList.remove('active');
                 }
                 if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationsBtn) {
                     notificationsDropdown.classList.remove('active');
