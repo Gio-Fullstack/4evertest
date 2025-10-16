@@ -1777,24 +1777,16 @@
                         
                         <!-- Story Input Toggle -->
                         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; background: var(--bg-secondary); padding: 0.25rem; border-radius: var(--radius-md);">
-                            <button type="button" id="toggleTypeStory" class="story-input-toggle active" style="flex: 1; padding: 0.75rem; border: none; background: white; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
-                                <i class="fas fa-keyboard"></i> Type Your Story
-                            </button>
-                            <button type="button" id="toggleRecordStory" class="story-input-toggle" style="flex: 1; padding: 0.75rem; border: none; background: transparent; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                            <button type="button" id="toggleRecordStory" class="story-input-toggle active" style="flex: 1; padding: 0.75rem; border: none; background: white; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
                                 <i class="fas fa-microphone"></i> Record Audio
                             </button>
-                        </div>
-
-                        <!-- Type Story Section -->
-                        <div id="typeStorySection" style="display: block;">
-                            <textarea id="storyDescription" rows="8" placeholder="Write your story here... Share the details, emotions, and memories that made this moment special." style="width: 100%; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.95rem; font-family: inherit; resize: vertical;"></textarea>
-                            <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.5rem;">
-                                <i class="fas fa-lightbulb"></i> Tip: Include who was there, what happened, and how it made you feel
-                            </small>
+                            <button type="button" id="toggleTypeStory" class="story-input-toggle" style="flex: 1; padding: 0.75rem; border: none; background: transparent; border-radius: var(--radius-sm); cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+                                <i class="fas fa-keyboard"></i> Type Your Story
+                            </button>
                         </div>
 
                         <!-- Record Story Section -->
-                        <div id="recordStorySection" style="display: none;">
+                        <div id="recordStorySection" style="display: block;">
                             <div id="recordingInterface" style="padding: 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); text-align: center;">
                                 <div id="recordingStatus" style="margin-bottom: 1rem;">
                                     <i class="fas fa-microphone" style="font-size: 2rem; color: var(--text-muted);"></i>
@@ -1821,6 +1813,14 @@
                                 <div id="recordingTimer" style="margin-top: 1rem; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); display: none;">0:00</div>
                             </div>
                             <input type="hidden" id="storyAudio">
+                        </div>
+
+                        <!-- Type Story Section -->
+                        <div id="typeStorySection" style="display: none;">
+                            <textarea id="storyDescription" rows="8" placeholder="Write your story here... Share the details, emotions, and memories that made this moment special." style="width: 100%; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.95rem; font-family: inherit; resize: vertical;"></textarea>
+                            <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                                <i class="fas fa-lightbulb"></i> Tip: Include who was there, what happened, and how it made you feel
+                            </small>
                         </div>
                     </div>
                     
@@ -2482,10 +2482,10 @@
         const storyDescriptionTextarea = document.getElementById('storyDescription');
         const storyAudioInput = document.getElementById('storyAudio');
 
-        // Set initial state (Type is default)
+        // Set initial state (Record Audio is default)
         if (storyDescriptionTextarea && storyAudioInput) {
-            storyDescriptionTextarea.required = true;
-            storyAudioInput.required = false;
+            storyDescriptionTextarea.required = false;
+            storyAudioInput.required = true;
         }
 
         if (toggleTypeStory && toggleRecordStory) {
