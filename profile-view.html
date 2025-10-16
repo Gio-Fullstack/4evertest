@@ -168,6 +168,10 @@
                         <i class="fas fa-star"></i>
                         <span>Featured Stories</span>
                     </button>
+                    <button class="overview-sub-btn" data-subsection="qna">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Q&A</span>
+                    </button>
                 </div>
 
                 <!-- Feed Sub-Section -->
@@ -188,6 +192,18 @@
                 <div class="overview-subsection" id="featured-stories-subsection">
                     <div class="featured-stories-content" id="featuredStoriesContent">
                         <!-- Featured stories will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Q&A Sub-Section -->
+                <div class="overview-subsection" id="qna-subsection">
+                    <div class="qna-section">
+                        <h2>Questions & Answers</h2>
+                        <p class="overview-intro">Get to know <span id="qnaProfileName">them</span> better through answered questions.</p>
+                        
+                        <div class="qna-container" id="qnaContainer">
+                            <!-- Q&A will be loaded dynamically -->
+                        </div>
                     </div>
                 </div>
             </section>
@@ -678,6 +694,65 @@
             } else {
                 featuredStoriesContent.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No featured stories yet.</p>';
             }
+
+            // Load Q&A Section
+            const qnaContainer = document.getElementById('qnaContainer');
+            const qnaProfileNameSpan = document.getElementById('qnaProfileName');
+            if (qnaProfileNameSpan) {
+                qnaProfileNameSpan.textContent = firstName;
+            }
+
+            // Sample Q&A data (in production, load from database)
+            const sampleQnA = [
+                {
+                    asker: { name: 'Sarah Johnson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-johnson&backgroundColor=b6e3f4' },
+                    question: 'What inspired you to become a teacher?',
+                    answer: 'I had an amazing 5th grade teacher, Mr. Henderson, who made learning fun and exciting. He saw potential in me that I didn\'t see in myself. I wanted to do the same for other kids - to be that person who believes in them and helps them discover their passion for learning.',
+                    time: '2 weeks ago',
+                    hasAudio: true
+                },
+                {
+                    asker: { name: 'Michael Smith', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=michael-smith&backgroundColor=d1d4f9' },
+                    question: 'What\'s your favorite memory of us kids growing up?',
+                    answer: 'Oh, that\'s impossible to choose just one! But if I had to, it would be our annual summer camping trips to Lake Michigan. Watching you three explore the woods, roast marshmallows, and tell stories around the campfire. Those simple moments of being together as a family were everything to me.',
+                    time: '1 month ago',
+                    hasAudio: true
+                }
+            ];
+
+            qnaContainer.innerHTML = sampleQnA.map(qa => `
+                <div class="qna-item">
+                    <div class="qna-header">
+                        <div class="qna-asker">
+                            <img src="${qa.asker.avatar}" alt="${qa.asker.name}" class="qna-avatar">
+                            <div>
+                                <div class="qna-asker-name">${qa.asker.name}</div>
+                                <div class="qna-time">Asked ${qa.time}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qna-question">
+                        <i class="fas fa-question-circle"></i>
+                        <strong>Q:</strong> ${qa.question}
+                    </div>
+                    <div class="qna-answer">
+                        <i class="fas fa-comment"></i>
+                        <strong>A:</strong> ${qa.answer}
+                    </div>
+                    <div class="qna-actions">
+                        ${qa.hasAudio ? `
+                        <button class="qna-action-btn">
+                            <i class="fas fa-play"></i>
+                            Listen to Audio Answer
+                        </button>
+                        ` : ''}
+                        <button class="qna-action-btn">
+                            <i class="fas fa-share-alt"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            `).join('');
 
             // Load timeline
             if (profileData.timeline && profileData.timeline.length > 0) {
