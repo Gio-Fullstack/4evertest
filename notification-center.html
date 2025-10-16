@@ -648,11 +648,26 @@
                 const unreadQuestions = document.querySelectorAll('#questionsContent .notification-card.unread').length;
                 const unreadTags = document.querySelectorAll('#tagsContent .notification-card.unread').length;
 
-                document.getElementById('allCount').textContent = unreadAll;
-                document.getElementById('storiesCount').textContent = unreadStories;
-                document.getElementById('connectionsCount').textContent = unreadConnections;
-                document.getElementById('questionsCount').textContent = unreadQuestions;
-                document.getElementById('tagsCount').textContent = unreadTags;
+                // Update badge counts and hide if 0
+                const allBadge = document.getElementById('allCount');
+                allBadge.textContent = unreadAll;
+                allBadge.style.display = unreadAll > 0 ? 'inline-flex' : 'none';
+
+                const storiesBadge = document.getElementById('storiesCount');
+                storiesBadge.textContent = unreadStories;
+                storiesBadge.style.display = unreadStories > 0 ? 'inline-flex' : 'none';
+
+                const connectionsBadge = document.getElementById('connectionsCount');
+                connectionsBadge.textContent = unreadConnections;
+                connectionsBadge.style.display = unreadConnections > 0 ? 'inline-flex' : 'none';
+
+                const questionsBadge = document.getElementById('questionsCount');
+                questionsBadge.textContent = unreadQuestions;
+                questionsBadge.style.display = unreadQuestions > 0 ? 'inline-flex' : 'none';
+
+                const tagsBadge = document.getElementById('tagsCount');
+                tagsBadge.textContent = unreadTags;
+                tagsBadge.style.display = unreadTags > 0 ? 'inline-flex' : 'none';
 
                 // Update main notification count
                 const totalUnread = unreadAll;
