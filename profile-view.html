@@ -47,11 +47,11 @@
                 <span>Family</span>
             </a>
 
-            <a href="#" class="nav-link" data-page="notifications" style="opacity: 0.5; cursor: not-allowed;">
+            <button class="nav-link" id="notificationsBtn">
                 <i class="fas fa-bell"></i>
                 <span>Notifications</span>
-                <div class="notification-badge" id="notificationCount" style="display: none;">3</div>
-            </a>
+                <div class="notification-badge" id="notificationCount">4</div>
+            </button>
         </div>
 
         <div class="nav-right">
@@ -82,6 +82,67 @@
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Log Out</span>
                 </a>
+            </div>
+        </div>
+
+        <!-- Notifications Dropdown -->
+        <div class="notifications-dropdown" id="notificationsDropdown">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="btn-mark-read" id="markAllRead">
+                    <i class="fas fa-check-double"></i>
+                    Mark all read
+                </button>
+            </div>
+            
+            <div class="notifications-list" id="notificationsList">
+                <!-- Connection Request -->
+                <div class="notification-item unread" data-type="connection">
+                    <div class="notification-icon connection-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>David Thompson</strong> sent you a connection request</p>
+                        <p class="notification-time">2 hours ago</p>
+                    </div>
+                </div>
+
+                <!-- New Story About You -->
+                <div class="notification-item unread" data-type="story">
+                    <div class="notification-icon story-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Sarah Johnson</strong> added a new story about you</p>
+                        <p class="notification-time">5 hours ago</p>
+                    </div>
+                </div>
+
+                <!-- Tagged in Story -->
+                <div class="notification-item unread" data-type="tagged">
+                    <div class="notification-icon tagged-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Mary Smith</strong> tagged you in a memory</p>
+                        <p class="notification-time">1 day ago</p>
+                    </div>
+                </div>
+
+                <!-- New Question -->
+                <div class="notification-item unread" data-type="question">
+                    <div class="notification-icon question-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>Michael Smith</strong> asked you a question</p>
+                        <p class="notification-time">2 days ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notifications-footer">
+                <a href="notification-center.html" class="btn-view-all">Go to Notification Center</a>
             </div>
         </div>
     </nav>
@@ -929,6 +990,31 @@
                 });
             }
 
+            // Check if notifications were already cleared
+            const notificationsCleared = localStorage.getItem('notificationsCleared');
+            if (notificationsCleared === 'true') {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => item.classList.remove('unread'));
+                const notificationCount = document.getElementById('notificationCount');
+                if (notificationCount) {
+                    notificationCount.textContent = '0';
+                    notificationCount.style.display = 'none';
+                }
+            }
+
+            // Function to clear notifications
+            function clearNotifications() {
+                const unreadItems = document.querySelectorAll('.notification-item.unread');
+                unreadItems.forEach(item => item.classList.remove('unread'));
+                const notificationCount = document.getElementById('notificationCount');
+                if (notificationCount) {
+                    notificationCount.textContent = '0';
+                    notificationCount.style.display = 'none';
+                }
+                // Save to localStorage
+                localStorage.setItem('notificationsCleared', 'true');
+            }
+
             // Settings dropdown toggle
             const settingsBtn = document.getElementById('settingsBtn');
             const settingsDropdown = document.getElementById('settingsDropdown');
@@ -937,13 +1023,52 @@
                 settingsBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     settingsDropdown.classList.toggle('active');
+                    // Close notifications if open
+                    const notificationsDropdown = document.getElementById('notificationsDropdown');
+                    if (notificationsDropdown) {
+                        notificationsDropdown.classList.remove('active');
+                    }
                 });
             }
 
-            // Close dropdown when clicking outside
+            // Notifications dropdown toggle
+            const notificationsBtn = document.getElementById('notificationsBtn');
+            const notificationsDropdown = document.getElementById('notificationsDropdown');
+            
+            if (notificationsBtn && notificationsDropdown) {
+                notificationsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isCurrentlyActive = notificationsDropdown.classList.contains('active');
+                    notificationsDropdown.classList.toggle('active');
+                    
+                    // If opening the dropdown (was not active before), clear notifications
+                    if (!isCurrentlyActive) {
+                        clearNotifications();
+                    }
+                    
+                    // Close settings if open
+                    if (settingsDropdown) {
+                        settingsDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // Mark all notifications as read
+            const markAllRead = document.getElementById('markAllRead');
+            if (markAllRead) {
+                markAllRead.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    clearNotifications();
+                });
+            }
+
+            // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
                 if (settingsDropdown && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
                     settingsDropdown.classList.remove('active');
+                }
+                if (notificationsDropdown && !notificationsDropdown.contains(e.target) && e.target !== notificationsBtn) {
+                    notificationsDropdown.classList.remove('active');
                 }
             });
 
