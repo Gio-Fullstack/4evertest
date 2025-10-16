@@ -914,15 +914,25 @@
             const closeQuestionModal = document.getElementById('closeQuestionModal');
             const cancelQuestion = document.getElementById('cancelQuestion');
             
+            // Declare taggedPeople and renderTaggedPeople here so they're accessible
+            let taggedPeople = [];
+            let renderTaggedPeople = () => {};
+            
             if (closeAddStoryModal) {
                 closeAddStoryModal.addEventListener('click', () => {
                     document.getElementById('addStoryModal').classList.remove('active');
+                    // Clear tagged people
+                    taggedPeople = [];
+                    renderTaggedPeople();
                 });
             }
             
             if (cancelAddStory) {
                 cancelAddStory.addEventListener('click', () => {
                     document.getElementById('addStoryModal').classList.remove('active');
+                    // Clear tagged people
+                    taggedPeople = [];
+                    renderTaggedPeople();
                 });
             }
             
@@ -961,9 +971,12 @@
                                        storyData.privacy === 'connections' ? 'Connections (Everyone)' : 
                                        storyData.privacy === 'close-friends' ? 'Close Friends' : 'Not specified';
                     
-                    alert(`Story about ${profileData.name} will be saved!\n\nPrivacy: ${privacyText}\n\nIn production, this would upload the story to their profile.`);
+                    alert(`Story about ${profileData.name} will be saved!\n\nIn production, this would upload the story to their profile.`);
                     document.getElementById('addStoryModal').classList.remove('active');
                     addStoryForm.reset();
+                    // Clear tagged people
+                    taggedPeople = [];
+                    renderTaggedPeople();
                 });
             }
             
@@ -974,6 +987,85 @@
                     alert(`Question for ${profileData.name} submitted!\n\nIn production, this would be sent to them for answering.`);
                     document.getElementById('questionModal').classList.remove('active');
                     questionForm.reset();
+                });
+            }
+
+            // Tag People functionality
+            const searchPeopleInput = document.getElementById('searchPeople');
+            const addTagBtn = document.getElementById('addTagBtn');
+            const taggedPeopleContainer = document.getElementById('taggedPeopleContainer');
+            const tagPeopleSelect = document.getElementById('tagPeople');
+            
+            // Function to render tagged people
+            renderTaggedPeople = function() {
+                taggedPeopleContainer.innerHTML = taggedPeople.map(person => `
+                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary-color); color: white; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); font-size: 0.9rem;">
+                        <span>${person.name}</span>
+                        <button type="button" onclick="removeTag('${person.id}')" style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            // Function to remove tag
+            window.removeTag = function(personId) {
+                taggedPeople = taggedPeople.filter(p => p.id !== personId);
+                renderTaggedPeople();
+                
+                // Unselect in the hidden select
+                const option = tagPeopleSelect.querySelector(`option[value="${personId}"]`);
+                if (option) {
+                    option.selected = false;
+                }
+            };
+            
+            // Add tag button click
+            if (addTagBtn && searchPeopleInput) {
+                addTagBtn.addEventListener('click', () => {
+                    const searchTerm = searchPeopleInput.value.trim().toLowerCase();
+                    
+                    if (!searchTerm) {
+                        alert('Please enter a name to search');
+                        return;
+                    }
+                    
+                    // Search through all options
+                    const options = Array.from(tagPeopleSelect.options);
+                    const matchedOption = options.find(opt => 
+                        opt.getAttribute('data-name').toLowerCase().includes(searchTerm)
+                    );
+                    
+                    if (matchedOption) {
+                        const personId = matchedOption.value;
+                        const personName = matchedOption.getAttribute('data-name');
+                        
+                        // Check if already tagged
+                        if (taggedPeople.find(p => p.id === personId)) {
+                            alert(`${personName} is already tagged`);
+                            return;
+                        }
+                        
+                        // Add to tagged people
+                        taggedPeople.push({ id: personId, name: personName });
+                        renderTaggedPeople();
+                        
+                        // Select in the hidden select
+                        matchedOption.selected = true;
+                        
+                        // Clear search
+                        searchPeopleInput.value = '';
+                    } else {
+                        alert('No matching person found. Try searching by their name.');
+                    }
+                });
+                
+                // Also allow pressing Enter to add
+                searchPeopleInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addTagBtn.click();
+                    }
                 });
             }
         }); // End of DOMContentLoaded
