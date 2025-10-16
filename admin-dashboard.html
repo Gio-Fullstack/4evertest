@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - 4Ever</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.profiles {
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-icon.stories {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .stat-icon.connections {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .stat-icon.storage {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .profile-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .profile-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .profile-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-card-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+        }
+
+        .profile-card-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .profile-card-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .profile-card-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .profile-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .subscription-card {
+            background: linear-gradient(135deg, var(--primary-color), #d2691e);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .subscription-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subscription-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .subscription-details p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-action {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .quick-action i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .quick-action h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .quick-action p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <nav class="main-navigation">
+        <a href="feed.html" class="nav-logo">
+            <img src="images/4ever-logo.png" alt="4Ever" class="nav-logo-img">
+        </a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="feed.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Feed</span>
+            </a>
+
+            <a href="profile.html" class="nav-link">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <a href="notification-center.html" class="nav-link">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge" id="notificationCount">4</div>
+            </a>
+
+            <a href="admin-dashboard.html" class="nav-link active">
+                <i class="fas fa-cog"></i>
+                <span>Admin</span>
+            </a>
+        </div>
+
+        <div class="nav-right">
+            <a href="profile.html" class="nav-profile-btn">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=john-smith&backgroundColor=c0aede" alt="Profile" class="nav-avatar">
+                <span class="nav-profile-name">John Smith</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <div class="page-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage your profiles, subscriptions, and account settings</p>
+        </div>
+
+        <!-- Subscription Card -->
+        <div class="subscription-card">
+            <h3>Family Plan</h3>
+            <p>Your subscription renews on December 15, 2024</p>
+            <div class="subscription-info">
+                <div class="subscription-details">
+                    <p><strong>3 of 10 profiles created</strong></p>
+                    <p><strong>2.5GB of 10GB storage used</strong></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%;"></div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="manageSubscription()">
+                    Manage Subscription
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Total Profiles</div>
+                    </div>
+                    <div class="stat-icon profiles">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Total Stories</div>
+                    </div>
+                    <div class="stat-icon stories">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">Connections</div>
+                    </div>
+                    <div class="stat-icon connections">
+                        <i class="fas fa-link"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-value">2.5GB</div>
+                        <div class="stat-label">Storage Used</div>
+                    </div>
+                    <div class="stat-icon storage">
+                        <i class="fas fa-database"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="quick-actions">
+                <div class="quick-action" onclick="openCreateProfileModal()">
+                    <i class="fas fa-user-plus"></i>
+                    <h4>Create Profile</h4>
+                    <p>Add a new family member</p>
+                </div>
+                <div class="quick-action" onclick="alert('Upload media feature coming soon!')">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h4>Upload Media</h4>
+                    <p>Add photos & videos</p>
+                </div>
+                <div class="quick-action" onclick="alert('Invite feature coming soon!')">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Invite Family</h4>
+                    <p>Send invitations</p>
+                </div>
+                <div class="quick-action" onclick="alert('Export feature coming soon!')">
+                    <i class="fas fa-download"></i>
+                    <h4>Export Data</h4>
+                    <p>Download your data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Managed Profiles -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Your Profiles</h2>
+                <button class="btn btn-primary" onclick="openCreateProfileModal()">
+                    <i class="fas fa-plus"></i> Create New Profile
+                </button>
+            </div>
+            <div class="profiles-grid">
+                <!-- Profile Cards -->
+                <div class="profile-card" onclick="window.location.href='profile.html'">
+                    <div class="profile-card-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=john-smith&backgroundColor=c0aede" class="profile-card-avatar">
+                        <div class="profile-card-info">
+                            <h3>John Smith</h3>
+                            <p>You</p>
+                        </div>
+                    </div>
+                    <div class="profile-card-stats">
+                        <span><i class="fas fa-book"></i> 15 stories</span>
+                        <span><i class="fas fa-users"></i> 42 connections</span>
+                    </div>
+                    <div class="profile-card-actions">
+                        <button class="icon-btn" onclick="editProfile(event, 'john-smith')" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn" onclick="viewProfile(event, 'john-smith')" title="View">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn" onclick="shareProfile(event, 'john-smith')" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="profile-card" onclick="window.location.href='profile-view.html?id=mary-smith'">
+                    <div class="profile-card-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=mary-smith&backgroundColor=ffd5dc" class="profile-card-avatar">
+                        <div class="profile-card-info">
+                            <h3>Mary Smith</h3>
+                            <p>Created by you</p>
+                        </div>
+                    </div>
+                    <div class="profile-card-stats">
+                        <span><i class="fas fa-book"></i> 8 stories</span>
+                        <span><i class="fas fa-users"></i> 6 connections</span>
+                    </div>
+                    <div class="profile-card-actions">
+                        <button class="icon-btn" onclick="editProfile(event, 'mary-smith')" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn" onclick="viewProfile(event, 'mary-smith')" title="View">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn" onclick="shareProfile(event, 'mary-smith')" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="profile-card" onclick="window.location.href='profile-view.html?id=sarah-johnson'">
+                    <div class="profile-card-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-johnson&backgroundColor=b6e3f4" class="profile-card-avatar">
+                        <div class="profile-card-info">
+                            <h3>Sarah Johnson</h3>
+                            <p>Created by you</p>
+                        </div>
+                    </div>
+                    <div class="profile-card-stats">
+                        <span><i class="fas fa-book"></i> 12 stories</span>
+                        <span><i class="fas fa-users"></i> 6 connections</span>
+                    </div>
+                    <div class="profile-card-actions">
+                        <button class="icon-btn" onclick="editProfile(event, 'sarah-johnson')" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn" onclick="viewProfile(event, 'sarah-johnson')" title="View">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="icon-btn" onclick="shareProfile(event, 'sarah-johnson')" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Profile Modal -->
+    <div class="modal" id="createProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Profile</h3>
+                <button class="modal-close" onclick="closeCreateProfileModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="createProfileForm">
+                <div class="form-group">
+                    <label for="profileName">Full Name *</label>
+                    <input type="text" id="profileName" required placeholder="e.g., John Smith">
+                </div>
+
+                <div class="form-group">
+                    <label for="relationship">Relationship to You</label>
+                    <select id="relationship">
+                        <option value="">Select relationship</option>
+                        <option value="parent">Parent</option>
+                        <option value="child">Child</option>
+                        <option value="spouse">Spouse</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="grandparent">Grandparent</option>
+                        <option value="grandchild">Grandchild</option>
+                        <option value="other">Other Relative</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthYear">Birth Year</label>
+                    <input type="number" id="birthYear" min="1900" max="2024" placeholder="e.g., 1950">
+                </div>
+
+                <div class="form-group">
+                    <label for="profileBio">Bio</label>
+                    <textarea id="profileBio" placeholder="Tell us about this person..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="isDeceased">
+                        <input type="checkbox" id="isDeceased">
+                        This person is deceased
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateProfileModal()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Create Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        function openCreateProfileModal() {
+            document.getElementById('createProfileModal').classList.add('active');
+        }
+
+        function closeCreateProfileModal() {
+            document.getElementById('createProfileModal').classList.remove('active');
+            document.getElementById('createProfileForm').reset();
+        }
+
+        document.getElementById('createProfileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('profileName').value;
+            alert(`Profile for "${name}" created successfully!\n\nIn production, this would:\n1. Create the profile in the database\n2. Set up privacy settings\n3. Generate a profile slug\n4. Redirect to the new profile page`);
+            closeCreateProfileModal();
+        });
+
+        function editProfile(event, profileId) {
+            event.stopPropagation();
+            alert(`Editing profile: ${profileId}\n\nIn production, this would open an edit modal with the profile data.`);
+        }
+
+        function viewProfile(event, profileId) {
+            event.stopPropagation();
+            window.location.href = `profile-view.html?id=${profileId}`;
+        }
+
+        function shareProfile(event, profileId) {
+            event.stopPropagation();
+            const url = `${window.location.origin}/profile-view.html?id=${profileId}`;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url);
+                alert('Profile link copied to clipboard!');
+            } else {
+                alert(`Share this link:\n${url}`);
+            }
+        }
+
+        function manageSubscription() {
+            alert('Subscription management coming soon!\n\nYou will be able to:\n- Upgrade/downgrade your plan\n- Update payment method\n- View billing history\n- Cancel subscription');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('createProfileModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('createProfileModal')) {
+                closeCreateProfileModal();
+            }
+        });
+    </script>
+</body>
+</html>
+

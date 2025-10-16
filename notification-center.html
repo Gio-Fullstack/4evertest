@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Center - 4Ever</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    
+    <style>
+        .notification-center-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .tab .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            background: #ef4444;
+            color: white;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0 0.4rem;
+            margin-left: 0.5rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .notification-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .notification-card.unread {
+            border-left: 4px solid var(--primary-color);
+            background: rgba(139, 69, 19, 0.02);
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .notification-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+        }
+
+        .notification-info {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-message {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-time {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .story-preview {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+        }
+
+        .story-preview h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .story-preview p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .story-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-controls select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <nav class="main-navigation">
+        <a href="feed.html" class="nav-logo">
+            <img src="images/4ever-logo.png" alt="4Ever" class="nav-logo-img">
+        </a>
+
+        <div class="nav-search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="profileSearch" placeholder="Search profiles..." class="search-input">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+
+        <button class="nav-mobile-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="feed.html" class="nav-link" data-page="feed">
+                <i class="fas fa-home"></i>
+                <span>Feed</span>
+            </a>
+
+            <a href="profile.html" class="nav-link" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <a href="profile.html#family-tree" class="nav-link" data-page="family">
+                <i class="fas fa-users"></i>
+                <span>Family</span>
+            </a>
+
+            <button class="nav-link active" id="notificationsBtn">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <div class="notification-badge" id="notificationCount" style="display: none;">0</div>
+            </button>
+        </div>
+
+        <div class="nav-right">
+            <a href="profile.html" class="nav-profile-btn">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=john-smith&backgroundColor=c0aede" alt="Profile" class="nav-avatar">
+                <span class="nav-profile-name">John Smith</span>
+            </a>
+
+            <button class="nav-settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+            </button>
+
+            <div class="nav-dropdown" id="settingsDropdown">
+                <a href="settings.html" class="nav-dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="privacy.html" class="nav-dropdown-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacy</span>
+                </a>
+                <a href="help.html" class="nav-dropdown-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+                <div class="nav-dropdown-divider"></div>
+                <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="nav-spacer"></div>
+
+    <!-- Notification Center Content -->
+    <div class="notification-center-container">
+        <div class="page-header">
+            <h1>Notification Center</h1>
+            <p>Manage your notifications, approve stories, and respond to connection requests</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="all">
+                All Notifications
+                <span class="badge" id="allCount">0</span>
+            </button>
+            <button class="tab" data-tab="stories">
+                Story Requests
+                <span class="badge" id="storiesCount">0</span>
+            </button>
+            <button class="tab" data-tab="connections">
+                Connection Requests
+                <span class="badge" id="connectionsCount">0</span>
+            </button>
+            <button class="tab" data-tab="questions">
+                Questions
+                <span class="badge" id="questionsCount">0</span>
+            </button>
+            <button class="tab" data-tab="tags">
+                Tags & Mentions
+                <span class="badge" id="tagsCount">0</span>
+            </button>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <div>
+                <select id="filterSelect">
+                    <option value="unread">Unread Only</option>
+                    <option value="all">All</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="markAllReadBtn">
+                    <i class="fas fa-check-double"></i> Mark All Read
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Content: All Notifications -->
+        <div class="tab-content active" id="allContent">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading notifications...</p>
+            </div>
+        </div>
+
+        <!-- Tab Content: Story Requests -->
+        <div class="tab-content" id="storiesContent">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading story requests...</p>
+            </div>
+        </div>
+
+        <!-- Tab Content: Connection Requests -->
+        <div class="tab-content" id="connectionsContent">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading connection requests...</p>
+            </div>
+        </div>
+
+        <!-- Tab Content: Questions -->
+        <div class="tab-content" id="questionsContent">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading questions...</p>
+            </div>
+        </div>
+
+        <!-- Tab Content: Tags -->
+        <div class="tab-content" id="tagsContent">
+            <div class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Loading tags...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/profile-data.js"></script>
+    <script type="module">
+        // Import backend API (when using Supabase)
+        // import api from './js/backend-api.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const tabName = tab.getAttribute('data-tab');
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${tabName}Content`).classList.add('active');
+                });
+            });
+
+            // Load demo notifications
+            loadDemoNotifications();
+
+            // Mark all as read button
+            document.getElementById('markAllReadBtn').addEventListener('click', () => {
+                document.querySelectorAll('.notification-card').forEach(card => {
+                    card.classList.remove('unread');
+                });
+                updateBadgeCounts();
+                alert('All notifications marked as read!');
+            });
+
+            function loadDemoNotifications() {
+                // Story requests
+                const storiesHTML = `
+                    <div class="notification-card unread">
+                        <div class="notification-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-johnson&backgroundColor=b6e3f4" class="notification-avatar">
+                            <div class="notification-info">
+                                <div class="notification-title">New Story Added</div>
+                                <div class="notification-message">
+                                    <strong>Sarah Johnson</strong> added a story about you
+                                </div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="story-preview">
+                            <h4>Family Vacation to Yellowstone</h4>
+                            <p>Remember our amazing trip to Yellowstone? The kids loved seeing Old Faithful and we had the best time hiking...</p>
+                            <div class="story-meta">
+                                <span><i class="fas fa-calendar"></i> 2019</span>
+                                <span><i class="fas fa-tag"></i> Family</span>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="btn btn-primary" onclick="approveStory(this)">
+                                <i class="fas fa-check"></i> Approve & Publish
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewStory()">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="btn btn-danger" onclick="rejectStory(this)">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="notification-card unread">
+                        <div class="notification-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=michael-smith&backgroundColor=d1d4f9" class="notification-avatar">
+                            <div class="notification-info">
+                                <div class="notification-title">Story Pending Approval</div>
+                                <div class="notification-message">
+                                    <strong>Michael Smith</strong> shared a story about you
+                                </div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="story-preview">
+                            <h4>Teaching Me to Drive</h4>
+                            <p>One of my favorite memories is when Dad taught me how to drive. We practiced in empty parking lots...</p>
+                            <div class="story-meta">
+                                <span><i class="fas fa-calendar"></i> 2003</span>
+                                <span><i class="fas fa-tag"></i> Milestone</span>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="btn btn-primary" onclick="approveStory(this)">
+                                <i class="fas fa-check"></i> Approve & Publish
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewStory()">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="btn btn-danger" onclick="rejectStory(this)">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Connection requests
+                const connectionsHTML = `
+                    <div class="notification-card unread">
+                        <div class="notification-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=david-thompson&backgroundColor=c0aede" class="notification-avatar">
+                            <div class="notification-info">
+                                <div class="notification-title">Connection Request</div>
+                                <div class="notification-message">
+                                    <strong>David Thompson</strong> wants to connect with you
+                                </div>
+                                <div class="notification-time">3 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="btn btn-primary" onclick="acceptConnection(this)">
+                                <i class="fas fa-user-plus"></i> Accept
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewProfile()">
+                                <i class="fas fa-eye"></i> View Profile
+                            </button>
+                            <button class="btn btn-danger" onclick="rejectConnection(this)">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Questions
+                const questionsHTML = `
+                    <div class="notification-card unread">
+                        <div class="notification-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=emma-wilson&backgroundColor=ffd5dc" class="notification-avatar">
+                            <div class="notification-info">
+                                <div class="notification-title">New Question</div>
+                                <div class="notification-message">
+                                    <strong>Emma Wilson</strong> asked you: "What was your favorite subject to teach?"
+                                </div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="btn btn-primary" onclick="answerQuestion()">
+                                <i class="fas fa-comment"></i> Answer Question
+                            </button>
+                            <button class="btn btn-secondary" onclick="skipQuestion(this)">
+                                <i class="fas fa-forward"></i> Skip
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Tags
+                const tagsHTML = `
+                    <div class="notification-card">
+                        <div class="notification-header">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=mary-smith&backgroundColor=ffd5dc" class="notification-avatar">
+                            <div class="notification-info">
+                                <div class="notification-title">Tagged in Story</div>
+                                <div class="notification-message">
+                                    <strong>Mary Smith</strong> tagged you in "Our 50th Anniversary Celebration"
+                                </div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-actions">
+                            <button class="btn btn-secondary" onclick="viewStory()">
+                                <i class="fas fa-eye"></i> View Story
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // All notifications combined
+                const allHTML = storiesHTML + connectionsHTML + questionsHTML + tagsHTML;
+
+                // Update content
+                document.getElementById('allContent').innerHTML = allHTML;
+                document.getElementById('storiesContent').innerHTML = storiesHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending story requests</p></div>';
+                document.getElementById('connectionsContent').innerHTML = connectionsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending connection requests</p></div>';
+                document.getElementById('questionsContent').innerHTML = questionsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No pending questions</p></div>';
+                document.getElementById('tagsContent').innerHTML = tagsHTML || '<div class="empty-state"><i class="fas fa-check-circle"></i><h3>All caught up!</h3><p>No new tags</p></div>';
+
+                updateBadgeCounts();
+            }
+
+            function updateBadgeCounts() {
+                const unreadAll = document.querySelectorAll('#allContent .notification-card.unread').length;
+                const unreadStories = document.querySelectorAll('#storiesContent .notification-card.unread').length;
+                const unreadConnections = document.querySelectorAll('#connectionsContent .notification-card.unread').length;
+                const unreadQuestions = document.querySelectorAll('#questionsContent .notification-card.unread').length;
+                const unreadTags = document.querySelectorAll('#tagsContent .notification-card.unread').length;
+
+                document.getElementById('allCount').textContent = unreadAll;
+                document.getElementById('storiesCount').textContent = unreadStories;
+                document.getElementById('connectionsCount').textContent = unreadConnections;
+                document.getElementById('questionsCount').textContent = unreadQuestions;
+                document.getElementById('tagsCount').textContent = unreadTags;
+
+                // Update main notification count
+                const totalUnread = unreadAll;
+                const notifCount = document.getElementById('notificationCount');
+                if (totalUnread > 0) {
+                    notifCount.textContent = totalUnread;
+                    notifCount.style.display = 'flex';
+                } else {
+                    notifCount.style.display = 'none';
+                }
+            }
+
+            // Global functions for button actions
+            window.approveStory = function(btn) {
+                const card = btn.closest('.notification-card');
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(100px)';
+                setTimeout(() => {
+                    card.remove();
+                    updateBadgeCounts();
+                    alert('Story approved and published to timeline!');
+                }, 500);
+            };
+
+            window.rejectStory = function(btn) {
+                if (confirm('Are you sure you want to decline this story?')) {
+                    const card = btn.closest('.notification-card');
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(-100px)';
+                    setTimeout(() => {
+                        card.remove();
+                        updateBadgeCounts();
+                        alert('Story declined and author notified.');
+                    }, 500);
+                }
+            };
+
+            window.viewStory = function() {
+                alert('In production, this would open a modal with the full story details.');
+            };
+
+            window.acceptConnection = function(btn) {
+                const card = btn.closest('.notification-card');
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    card.remove();
+                    updateBadgeCounts();
+                    alert('Connection request accepted!');
+                }, 500);
+            };
+
+            window.rejectConnection = function(btn) {
+                const card = btn.closest('.notification-card');
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    card.remove();
+                    updateBadgeCounts();
+                    alert('Connection request declined.');
+                }, 500);
+            };
+
+            window.viewProfile = function() {
+                alert('In production, this would navigate to the person\'s profile.');
+            };
+
+            window.answerQuestion = function() {
+                alert('In production, this would open a modal to record your answer.');
+            };
+
+            window.skipQuestion = function(btn) {
+                const card = btn.closest('.notification-card');
+                card.classList.remove('unread');
+                updateBadgeCounts();
+                alert('Question skipped. You can answer it later.');
+            };
+        });
+    </script>
+</body>
+</html>
+
