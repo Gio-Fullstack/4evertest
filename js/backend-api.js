@@ -9,18 +9,28 @@ import { supabase } from './supabase-client.js';
 
 export const auth = {
     // Sign up new user
-    async signUp(email, password, fullName) {
+    async signUp(email, password, fullName, phoneNumber) {
         try {
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
                     data: {
-                        full_name: fullName
+                        full_name: fullName,
+                        phone_number: phoneNumber
                     }
                 }
             });
             if (error) throw error;
+            
+            // Store phone number in users table
+            if (data.user) {
+                await supabase
+                    .from('users')
+                    .update({ phone_number: phoneNumber })
+                    .eq('id', data.user.id);
+            }
+            
             return { success: true, data };
         } catch (error) {
             console.error('Sign up error:', error);
@@ -676,6 +686,137 @@ export const activity = {
     }
 };
 
+// =====================================================
+// AI PHONE CALLS
+// =====================================================
+
+export const aiCalls = {
+    // Create new call session
+    async createSession(userId, phoneNumber, callSid) {
+        try {
+            const { data, error } = await supabase
+                .from('ai_call_sessions')
+                .insert([{
+                    user_id: userId,
+                    phone_number: phoneNumber,
+                    call_sid: callSid
+                }])
+                .select()
+                .single();
+            
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Create call session error:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Get user by phone number (for incoming calls)
+    async getUserByPhone(phoneNumber) {
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('phone_number', phoneNumber)
+                .single();
+            
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Get user by phone error:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Save recorded story from AI call
+    async saveRecording(callSessionId, userId, audioUrl, transcription, aiData) {
+        try {
+            const { data, error } = await supabase
+                .from('ai_recorded_stories')
+                .insert([{
+                    call_session_id: callSessionId,
+                    user_id: userId,
+                    audio_url: audioUrl,
+                    transcription: transcription,
+                    ai_extracted_title: aiData.title,
+                    ai_extracted_year: aiData.year,
+                    ai_extracted_category: aiData.category,
+                    ai_summary: aiData.summary,
+                    ai_sentiment: aiData.sentiment
+                }])
+                .select()
+                .single();
+            
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Save recording error:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Get pending AI recordings for user
+    async getPendingRecordings(userId) {
+        try {
+            const { data, error } = await supabase
+                .from('ai_recorded_stories')
+                .select('*')
+                .eq('user_id', userId)
+                .eq('processing_status', 'pending')
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Get pending recordings error:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Publish AI recording as story
+    async publishRecording(recordingId, profileId) {
+        try {
+            // Get the recording
+            const { data: recording, error: fetchError } = await supabase
+                .from('ai_recorded_stories')
+                .select('*')
+                .eq('id', recordingId)
+                .single();
+            
+            if (fetchError) throw fetchError;
+
+            // Create story from recording
+            const { data: story, error: storyError } = await supabase
+                .from('stories')
+                .insert([{
+                    profile_id: profileId,
+                    author_user_id: recording.user_id,
+                    title: recording.ai_extracted_title,
+                    description: recording.ai_summary,
+                    category: recording.ai_extracted_category,
+                    year: recording.ai_extracted_year,
+                    status: 'published'
+                }])
+                .select()
+                .single();
+            
+            if (storyError) throw storyError;
+
+            // Update recording status
+            await supabase
+                .from('ai_recorded_stories')
+                .update({ processing_status: 'published' })
+                .eq('id', recordingId);
+            
+            return { success: true, data: story };
+        } catch (error) {
+            console.error('Publish recording error:', error);
+            return { success: false, error: error.message };
+        }
+    }
+};
+
 // Export all as default
 export default {
     auth,
@@ -685,6 +826,7 @@ export default {
     questions,
     notifications,
     subscriptions,
-    activity
+    activity,
+    aiCalls
 };
 

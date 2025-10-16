@@ -550,6 +550,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1 (555) 123-4567" required pattern="[\+]?[0-9\s\(\)\-]+">
+                    <small style="color: #666; font-size: 0.8rem; display: block; margin-top: 0.25rem;">
+                        <i class="fas fa-phone"></i> We'll use this to connect your AI story recordings to your account
+                    </small>
+                </div>
+
+                <div class="form-group">
                     <label for="signupPassword">Password</label>
                     <input type="password" id="signupPassword" name="password" placeholder="New password (8+ characters)" required minlength="8">
                 </div>
@@ -609,15 +617,16 @@
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('signupEmail').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
             const password = document.getElementById('signupPassword').value;
             const birthYear = document.getElementById('birthYear').value;
 
             const fullName = `${firstName} ${lastName}`;
 
             // In production, create account with Supabase
-            // const result = await api.auth.signUp(email, password, fullName);
+            // const result = await api.auth.signUp(email, password, fullName, phoneNumber);
             
-            console.log('Sign up attempt:', { fullName, email, birthYear });
+            console.log('Sign up attempt:', { fullName, email, phoneNumber, birthYear });
 
             // Simulate account creation
             const btn = e.target.querySelector('button[type="submit"]');

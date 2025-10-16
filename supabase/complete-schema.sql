@@ -12,12 +12,16 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email TEXT UNIQUE NOT NULL,
+    phone_number TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     last_login TIMESTAMP WITH TIME ZONE,
     is_active BOOLEAN DEFAULT TRUE,
-    email_verified BOOLEAN DEFAULT FALSE
+    email_verified BOOLEAN DEFAULT FALSE,
+    phone_verified BOOLEAN DEFAULT FALSE,
+    phone_verification_code TEXT,
+    phone_verification_expires TIMESTAMP WITH TIME ZONE
 );
 
 -- Profiles table (user profile information)
@@ -229,6 +233,41 @@ CREATE TABLE IF NOT EXISTS user_subscriptions (
 );
 
 -- =====================================================
+-- AI PHONE RECORDINGS
+-- =====================================================
+
+-- AI phone call sessions
+CREATE TABLE IF NOT EXISTS ai_call_sessions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    phone_number TEXT NOT NULL,
+    call_sid TEXT, -- Twilio call SID or similar
+    call_duration INTEGER, -- Duration in seconds
+    call_status TEXT DEFAULT 'in_progress', -- 'in_progress', 'completed', 'failed'
+    transcription_status TEXT DEFAULT 'pending', -- 'pending', 'processing', 'completed', 'failed'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    completed_at TIMESTAMP WITH TIME ZONE
+);
+
+-- AI recorded stories (from phone calls)
+CREATE TABLE IF NOT EXISTS ai_recorded_stories (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    call_session_id UUID REFERENCES ai_call_sessions(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    profile_id UUID REFERENCES profiles(id),
+    audio_url TEXT NOT NULL,
+    transcription TEXT,
+    ai_extracted_title TEXT,
+    ai_extracted_year INTEGER,
+    ai_extracted_category TEXT,
+    ai_summary TEXT,
+    ai_sentiment TEXT, -- 'positive', 'nostalgic', 'emotional', etc.
+    processing_status TEXT DEFAULT 'pending', -- 'pending', 'processed', 'published'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    processed_at TIMESTAMP WITH TIME ZONE
+);
+
+-- =====================================================
 -- ACTIVITY LOG
 -- =====================================================
 
@@ -236,8 +275,8 @@ CREATE TABLE IF NOT EXISTS user_subscriptions (
 CREATE TABLE IF NOT EXISTS activity_log (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID REFERENCES users(id),
-    action_type TEXT NOT NULL, -- 'login', 'story_created', 'profile_updated', etc.
-    entity_type TEXT, -- 'story', 'profile', 'connection', etc.
+    action_type TEXT NOT NULL, -- 'login', 'story_created', 'profile_updated', 'ai_call', etc.
+    entity_type TEXT, -- 'story', 'profile', 'connection', 'ai_call', etc.
     entity_id UUID,
     metadata JSONB,
     ip_address TEXT,
@@ -251,6 +290,7 @@ CREATE TABLE IF NOT EXISTS activity_log (
 
 -- Users indexes
 CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_phone_number ON users(phone_number);
 CREATE INDEX idx_users_created_at ON users(created_at);
 
 -- Profiles indexes
@@ -273,6 +313,12 @@ CREATE INDEX idx_notifications_created_at ON notifications(created_at);
 CREATE INDEX idx_connection_requests_to_user_id ON connection_requests(to_user_id);
 CREATE INDEX idx_connection_requests_from_user_id ON connection_requests(from_user_id);
 CREATE INDEX idx_connection_requests_status ON connection_requests(status);
+
+-- AI call indexes
+CREATE INDEX idx_ai_call_sessions_user_id ON ai_call_sessions(user_id);
+CREATE INDEX idx_ai_call_sessions_phone_number ON ai_call_sessions(phone_number);
+CREATE INDEX idx_ai_recorded_stories_user_id ON ai_recorded_stories(user_id);
+CREATE INDEX idx_ai_recorded_stories_call_session_id ON ai_recorded_stories(call_session_id);
 
 -- =====================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
