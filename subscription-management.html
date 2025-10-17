@@ -569,23 +569,27 @@
                 </table>
             </div>
 
-            <!-- Cancel Subscription Section -->
+            <!-- Delete Account Section -->
             <div class="section-card full-width">
                 <div class="cancel-section">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Cancel Subscription</h3>
+                    <h3><i class="fas fa-exclamation-triangle"></i> Delete Your Account</h3>
                     <p>
-                        If you cancel your subscription, you'll continue to have access until the end of your current billing period (December 15, 2024). After that, your account will be downgraded and you'll lose access to premium features.
+                        If you delete your account, all of your data will be permanently removed. This action cannot be undone.
                     </p>
                     <p>
-                        <strong>What you'll lose:</strong>
+                        <strong>What will be deleted:</strong>
                     </p>
                     <ul style="margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">
-                        <li>Ability to add new stories</li>
-                        <li>AI recording features</li>
-                        <li>Access to existing stories and connections</li>
+                        <li>All stories and memories</li>
+                        <li>All photos and videos</li>
+                        <li>All connections and family tree data</li>
+                        <li>Your profile and account information</li>
                     </ul>
+                    <p style="color: #dc2626; font-weight: 600; margin-bottom: 1rem;">
+                        <i class="fas fa-info-circle"></i> To stop paying but keep your data, switch to the Free Plan instead
+                    </p>
                     <button class="btn btn-danger" onclick="showCancelModal()">
-                        <i class="fas fa-times-circle"></i> Cancel Subscription
+                        <i class="fas fa-trash-alt"></i> Delete Account
                     </button>
                 </div>
             </div>
@@ -725,28 +729,32 @@
         </div>
     </div>
 
-    <!-- Cancel Subscription Modal -->
+    <!-- Delete Account Modal -->
     <div class="modal" id="cancelModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Cancel Subscription</h3>
+                <h3>Delete Your Account</h3>
                 <button class="close-modal" onclick="closeModal('cancelModal')">×</button>
             </div>
             
+            <p style="color: #dc2626; font-weight: 600; margin-bottom: 1rem; line-height: 1.6;">
+                <i class="fas fa-exclamation-triangle"></i> This action is permanent and cannot be undone!
+            </p>
+
             <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
-                We're sorry to see you go! Before you cancel, please let us know why you're leaving so we can improve.
+                All of your stories, photos, videos, connections, and profile data will be permanently deleted. If you just want to stop paying, consider switching to the Free Plan instead to keep your data.
             </p>
 
             <form id="cancelForm" onsubmit="cancelSubscription(event)">
                 <div class="form-group">
-                    <label for="cancelReason">Reason for canceling</label>
+                    <label for="cancelReason">Reason for deleting</label>
                     <select id="cancelReason" required>
                         <option value="">Select a reason</option>
                         <option value="too-expensive">Too expensive</option>
                         <option value="not-using">Not using it enough</option>
                         <option value="missing-features">Missing features I need</option>
                         <option value="technical-issues">Technical issues</option>
-                        <option value="switching">Switching to another service</option>
+                        <option value="privacy-concerns">Privacy concerns</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -758,10 +766,10 @@
 
                 <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
                     <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('cancelModal')">
-                        Keep Subscription
+                        Keep Account
                     </button>
                     <button type="submit" class="btn btn-danger" style="flex: 1;">
-                        Confirm Cancellation
+                        Delete Account Permanently
                     </button>
                 </div>
             </form>
@@ -980,16 +988,16 @@
             const reason = document.getElementById('cancelReason').value;
             const feedback = document.getElementById('feedback').value;
             
-            // In production: Make API call to cancel subscription
-            console.log('Cancellation reason:', reason);
+            // In production: Make API call to delete account
+            console.log('Account deletion reason:', reason);
             console.log('Feedback:', feedback);
             
-            alert('Your subscription has been cancelled.\n\nYou will have access until December 15, 2024.\n\nWe hope to see you again soon!');
+            alert('Your account has been deleted.\n\nAll of your data has been permanently removed.\n\nThank you for using 4Ever. We hope to see you again someday!');
             closeModal('cancelModal');
             
-            // Redirect to dashboard
+            // In production: Redirect to login page
             setTimeout(() => {
-                window.location.href = 'admin-dashboard.html';
+                window.location.href = 'login.html';
             }, 1000);
         }
 
