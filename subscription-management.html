@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Management - 4Ever</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/navigation.css">
+    
+    <style>
+        .subscription-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .subscription-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .section-card h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-card h2 i {
+            color: var(--primary-color);
+        }
+
+        .current-plan {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #704214 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .current-plan h3 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-plan .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-plan .price span {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .current-plan p {
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .plan-features i {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .renewal-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+        }
+
+        .renewal-info strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .plan-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .plan-option {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-option:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+        }
+
+        .plan-option.current {
+            border-color: var(--primary-color);
+            background: rgba(139, 69, 19, 0.05);
+        }
+
+        .plan-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .plan-option h4 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .plan-option .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .plan-option p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .plan-option .badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+
+        .payment-method-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 35px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .payment-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .payment-details p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .billing-table th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .billing-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .billing-table tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge.paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #704214;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary-color);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: #dc2626;
+            border: 1px solid #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        .cancel-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(220, 38, 38, 0.05);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: var(--radius-md);
+        }
+
+        .cancel-section h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cancel-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .card-logos {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .card-logos i {
+            font-size: 2rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .subscription-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .billing-table {
+                font-size: 0.9rem;
+            }
+
+            .billing-table th,
+            .billing-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar"></nav>
+
+    <div class="subscription-container">
+        <a href="admin-dashboard.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+        <div class="page-header">
+            <h1>Subscription Management</h1>
+            <p>Manage your subscription, payment method, and billing</p>
+        </div>
+
+        <div class="subscription-grid">
+            <!-- Current Plan Section -->
+            <div class="section-card">
+                <h2><i class="fas fa-crown"></i> Current Plan</h2>
+                
+                <div class="current-plan">
+                    <h3>Family Plan</h3>
+                    <div class="price">$18<span>/month</span></div>
+                    <p>Perfect for preserving your family's stories</p>
+                    
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check-circle"></i> Unlimited stories</li>
+                        <li><i class="fas fa-check-circle"></i> Unlimited connections</li>
+                        <li><i class="fas fa-check-circle"></i> Unlimited AI recordings</li>
+                        <li><i class="fas fa-check-circle"></i> 10GB storage</li>
+                    </ul>
+
+                    <div class="renewal-info">
+                        <strong>Next billing date:</strong>
+                        December 15, 2024
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%;" onclick="showUpgradeModal()">
+                    <i class="fas fa-arrow-up"></i> Change Plan
+                </button>
+            </div>
+
+            <!-- Payment Method Section -->
+            <div class="section-card">
+                <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+                
+                <div class="payment-method">
+                    <div class="payment-method-info">
+                        <div class="payment-icon">
+                            <i class="fab fa-cc-visa" style="color: #1434CB;"></i>
+                        </div>
+                        <div class="payment-details">
+                            <h4>Visa ending in 4242</h4>
+                            <p>Expires 12/2026</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showPaymentModal()">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                </div>
+
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+                    <i class="fas fa-lock"></i> Your payment information is encrypted and secure
+                </p>
+            </div>
+
+            <!-- Billing History Section -->
+            <div class="section-card full-width">
+                <h2><i class="fas fa-file-invoice-dollar"></i> Billing History</h2>
+                
+                <table class="billing-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nov 15, 2024</td>
+                            <td>Family Plan - Monthly</td>
+                            <td>$18.00</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><a href="#" style="color: var(--primary-color);"><i class="fas fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr>
+                            <td>Oct 15, 2024</td>
+                            <td>Family Plan - Monthly</td>
+                            <td>$18.00</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><a href="#" style="color: var(--primary-color);"><i class="fas fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr>
+                            <td>Sep 15, 2024</td>
+                            <td>Family Plan - Monthly</td>
+                            <td>$18.00</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><a href="#" style="color: var(--primary-color);"><i class="fas fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr>
+                            <td>Aug 15, 2024</td>
+                            <td>Family Plan - Monthly</td>
+                            <td>$18.00</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><a href="#" style="color: var(--primary-color);"><i class="fas fa-download"></i> Download</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cancel Subscription Section -->
+            <div class="section-card full-width">
+                <div class="cancel-section">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Cancel Subscription</h3>
+                    <p>
+                        If you cancel your subscription, you'll continue to have access until the end of your current billing period (December 15, 2024). After that, your account will be downgraded and you'll lose access to premium features.
+                    </p>
+                    <p>
+                        <strong>What you'll lose:</strong>
+                    </p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">
+                        <li>Ability to add new stories</li>
+                        <li>AI recording features</li>
+                        <li>Access to existing stories and connections</li>
+                    </ul>
+                    <button class="btn btn-danger" onclick="showCancelModal()">
+                        <i class="fas fa-times-circle"></i> Cancel Subscription
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Plan Modal -->
+    <div class="modal" id="upgradePlanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Plan</h3>
+                <button class="close-modal" onclick="closeModal('upgradePlanModal')">×</button>
+            </div>
+            
+            <div class="plan-options">
+                <div class="plan-option current">
+                    <div class="plan-option-header">
+                        <h4>Family Plan</h4>
+                        <div class="price">$18<span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
+                    </div>
+                    <p>Perfect for preserving family memories</p>
+                    <span class="badge">Current Plan</span>
+                </div>
+
+                <div class="plan-option">
+                    <div class="plan-option-header">
+                        <h4>Annual Plan</h4>
+                        <div class="price">$180<span style="font-size: 1rem; font-weight: 400;">/year</span></div>
+                    </div>
+                    <p>Save $36/year with annual billing</p>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="changePlan('annual')">
+                        Upgrade to Annual
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Payment Method</h3>
+                <button class="close-modal" onclick="closeModal('paymentModal')">×</button>
+            </div>
+            
+            <form id="paymentForm" onsubmit="updatePayment(event)">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required maxlength="19">
+                    <div class="card-logos">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-cc-discover"></i>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" required maxlength="5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" required maxlength="4">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" id="cardName" placeholder="John Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="billingZip">Billing ZIP Code</label>
+                    <input type="text" id="billingZip" placeholder="12345" required maxlength="10">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-save"></i> Update Payment Method
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cancel Subscription Modal -->
+    <div class="modal" id="cancelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cancel Subscription</h3>
+                <button class="close-modal" onclick="closeModal('cancelModal')">×</button>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                We're sorry to see you go! Before you cancel, please let us know why you're leaving so we can improve.
+            </p>
+
+            <form id="cancelForm" onsubmit="cancelSubscription(event)">
+                <div class="form-group">
+                    <label for="cancelReason">Reason for canceling</label>
+                    <select id="cancelReason" required>
+                        <option value="">Select a reason</option>
+                        <option value="too-expensive">Too expensive</option>
+                        <option value="not-using">Not using it enough</option>
+                        <option value="missing-features">Missing features I need</option>
+                        <option value="technical-issues">Technical issues</option>
+                        <option value="switching">Switching to another service</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback">Additional feedback (optional)</label>
+                    <input type="text" id="feedback" placeholder="Tell us more...">
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('cancelModal')">
+                        Keep Subscription
+                    </button>
+                    <button type="submit" class="btn btn-danger" style="flex: 1;">
+                        Confirm Cancellation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Load navigation
+        fetch('components/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+                
+                // Initialize profile dropdown
+                const profileMenuBtn = document.getElementById('profileMenuBtn');
+                const profileDropdown = document.getElementById('profileDropdown');
+                
+                if (profileMenuBtn && profileDropdown) {
+                    profileMenuBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        profileDropdown.classList.toggle('active');
+                    });
+                    
+                    document.addEventListener('click', () => {
+                        profileDropdown.classList.remove('active');
+                    });
+                }
+            });
+
+        // Modal functions
+        function showUpgradeModal() {
+            document.getElementById('upgradePlanModal').classList.add('active');
+        }
+
+        function showPaymentModal() {
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function showCancelModal() {
+            document.getElementById('cancelModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modals on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Change plan
+        function changePlan(plan) {
+            // In production: Make API call to change plan
+            alert(`Plan changed to: ${plan}\n\nYou will be charged the new amount on your next billing date.`);
+            closeModal('upgradePlanModal');
+        }
+
+        // Update payment method
+        function updatePayment(e) {
+            e.preventDefault();
+            
+            const cardNumber = document.getElementById('cardNumber').value;
+            const lastFour = cardNumber.slice(-4);
+            
+            // In production: Make secure API call to update payment method
+            alert(`Payment method updated successfully!\n\nNew card ending in ${lastFour}`);
+            closeModal('paymentModal');
+            
+            // Update displayed payment method
+            location.reload();
+        }
+
+        // Cancel subscription
+        function cancelSubscription(e) {
+            e.preventDefault();
+            
+            const reason = document.getElementById('cancelReason').value;
+            const feedback = document.getElementById('feedback').value;
+            
+            // In production: Make API call to cancel subscription
+            console.log('Cancellation reason:', reason);
+            console.log('Feedback:', feedback);
+            
+            alert('Your subscription has been cancelled.\n\nYou will have access until December 15, 2024.\n\nWe hope to see you again soon!');
+            closeModal('cancelModal');
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = 'admin-dashboard.html';
+            }, 1000);
+        }
+
+        // Format card number input
+        document.getElementById('cardNumber')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date input
+        document.getElementById('expiryDate')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Format CVV input (numbers only)
+        document.getElementById('cvv')?.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+    </script>
+</body>
+</html>
+
