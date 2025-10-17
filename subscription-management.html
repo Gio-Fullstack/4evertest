@@ -606,6 +606,12 @@
                         <div class="price">$18<span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
                     </div>
                     <p>Perfect for preserving family memories</p>
+                    <ul class="plan-features" style="list-style: none; padding: 0; margin: 1rem 0 0 0; font-size: 0.9rem;">
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> Add unlimited stories</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> AI recording features</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> Unlimited connections</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> 10GB storage</li>
+                    </ul>
                     <span class="badge">Current Plan</span>
                 </div>
 
@@ -615,8 +621,32 @@
                         <div class="price">$180<span style="font-size: 1rem; font-weight: 400;">/year</span></div>
                     </div>
                     <p>Save $36/year with annual billing</p>
+                    <ul class="plan-features" style="list-style: none; padding: 0; margin: 1rem 0; font-size: 0.9rem;">
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> All Family Plan features</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> Save $36 per year</li>
+                    </ul>
                     <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="changePlan('annual')">
                         Upgrade to Annual
+                    </button>
+                </div>
+
+                <div class="plan-option">
+                    <div class="plan-option-header">
+                        <h4>Legacy Plan</h4>
+                        <div class="price">$2.50<span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
+                    </div>
+                    <p>Preserve existing memories without adding new ones</p>
+                    <ul class="plan-features" style="list-style: none; padding: 0; margin: 1rem 0; font-size: 0.9rem;">
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> Keep all existing stories</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-check" style="color: #10b981; margin-right: 0.5rem;"></i> Profile remains active</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-times" style="color: #dc2626; margin-right: 0.5rem;"></i> Cannot add new stories</li>
+                        <li style="padding: 0.3rem 0;"><i class="fas fa-times" style="color: #dc2626; margin-right: 0.5rem;"></i> No AI recording access</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #f59e0b; margin-top: 0.75rem; line-height: 1.4;">
+                        <i class="fas fa-info-circle"></i> Ideal for memorial profiles or during financial hardship
+                    </p>
+                    <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;" onclick="showLegacyConfirmation()">
+                        Switch to Legacy
                     </button>
                 </div>
             </div>
@@ -715,6 +745,56 @@
         </div>
     </div>
 
+    <!-- Legacy Plan Confirmation Modal -->
+    <div class="modal" id="legacyConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Switch to Legacy Plan</h3>
+                <button class="close-modal" onclick="closeModal('legacyConfirmModal')">×</button>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                You're switching to the Legacy Plan at $2.50/month. This plan is designed to preserve existing memories.
+            </p>
+
+            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
+                <strong style="color: #f59e0b; display: block; margin-bottom: 0.5rem;">
+                    <i class="fas fa-exclamation-triangle"></i> Important Limitations:
+                </strong>
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                    <li>You will <strong>not be able to add new stories</strong></li>
+                    <li>AI recording features will be <strong>disabled</strong></li>
+                    <li>All existing stories and connections will remain accessible</li>
+                    <li>Your profile will stay active and viewable</li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
+                <strong style="color: #10b981; display: block; margin-bottom: 0.5rem;">
+                    <i class="fas fa-heart"></i> Perfect For:
+                </strong>
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                    <li>Memorial profiles for loved ones who have passed</li>
+                    <li>Preserving completed family histories</li>
+                    <li>Maintaining access during financial hardship</li>
+                </ul>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                You can upgrade back to the Family Plan at any time to regain full features.
+            </p>
+
+            <div style="display: flex; gap: 1rem;">
+                <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('legacyConfirmModal')">
+                    Keep Family Plan
+                </button>
+                <button type="button" class="btn btn-primary" style="flex: 1;" onclick="changePlan('legacy')">
+                    Confirm Switch to Legacy
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Load navigation
         fetch('components/navigation.html')
@@ -751,6 +831,11 @@
             document.getElementById('cancelModal').classList.add('active');
         }
 
+        function showLegacyConfirmation() {
+            closeModal('upgradePlanModal');
+            document.getElementById('legacyConfirmModal').classList.add('active');
+        }
+
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
         }
@@ -767,8 +852,23 @@
         // Change plan
         function changePlan(plan) {
             // In production: Make API call to change plan
-            alert(`Plan changed to: ${plan}\n\nYou will be charged the new amount on your next billing date.`);
-            closeModal('upgradePlanModal');
+            let message = '';
+            let newPrice = '';
+            
+            if (plan === 'legacy') {
+                newPrice = '$2.50/month';
+                message = `Plan switched to Legacy Plan at ${newPrice}\n\nYour billing will be updated to the new amount on your next billing date (December 15, 2024).\n\nNote: You will no longer be able to add new stories or use AI recording features, but all existing content will remain accessible.`;
+                closeModal('legacyConfirmModal');
+            } else if (plan === 'annual') {
+                newPrice = '$180/year';
+                message = `Plan upgraded to Annual Plan at ${newPrice}\n\nYou will be charged the prorated amount immediately and save $36 per year!`;
+                closeModal('upgradePlanModal');
+            }
+            
+            alert(message);
+            
+            // In production: Reload page to reflect new plan
+            // location.reload();
         }
 
         // Update payment method
