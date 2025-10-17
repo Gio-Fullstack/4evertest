@@ -234,6 +234,32 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
+        .consent-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-top: clamp(1rem, 2vh, 1.5rem);
+            padding: clamp(0.75rem, 1.4vh, 1rem);
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            margin-top: 0.2rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .consent-checkbox label {
+            font-size: clamp(0.75rem, 1.3vh, 0.85rem);
+            color: #333;
+            line-height: 1.5;
+            cursor: pointer;
+            margin: 0;
+        }
+
         .terms {
             font-size: clamp(0.7rem, 1.2vh, 0.8rem);
             color: #999;
@@ -388,6 +414,13 @@
                     </div>
                 </div>
 
+                <div class="consent-checkbox">
+                    <input type="checkbox" id="marketingConsent" required>
+                    <label for="marketingConsent">
+                        By checking this box, I agree to receive text messages and emails from 4Ever about product updates, features, and promotions. Message and data rates may apply. I can opt out at any time by replying STOP or unsubscribing.
+                    </label>
+                </div>
+
                 <button type="submit" class="btn-submit">Join Waitlist</button>
 
                 <div class="terms">
@@ -407,7 +440,8 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 birthday: document.getElementById('birthday').value,
-                betaTester: document.getElementById('betaTester').value
+                betaTester: document.getElementById('betaTester').value,
+                marketingConsent: document.getElementById('marketingConsent').checked
             };
             
             // In production: Save to database
