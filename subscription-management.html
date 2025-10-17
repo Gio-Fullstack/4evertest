@@ -729,12 +729,65 @@
         </div>
     </div>
 
-    <!-- Delete Account Modal -->
+    <!-- Free Plan Option Modal (First Step) -->
     <div class="modal" id="cancelModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Delete Your Account</h3>
+                <h3>Wait! You Have Options</h3>
                 <button class="close-modal" onclick="closeModal('cancelModal')">×</button>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                Instead of deleting your account entirely, you can switch to our Free Plan and stay connected to your family.
+            </p>
+
+            <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
+                <strong style="color: #3b82f6; display: block; margin-bottom: 1rem; font-size: 1.1rem;">
+                    <i class="fas fa-gift"></i> Free Plan - $0/month
+                </strong>
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>Stay connected</strong> - appear on family trees</li>
+                    <li><strong>View</strong> all connected family profiles</li>
+                    <li><strong>Access</strong> your family network</li>
+                    <li><strong>No monthly charges</strong> - completely free</li>
+                </ul>
+                <p style="color: #666; margin: 1rem 0 0 0; font-size: 0.9rem;">
+                    Note: Profile content (stories/photos) will be removed, but you stay in the family network.
+                </p>
+            </div>
+
+            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
+                <p style="color: #f59e0b; margin: 0; line-height: 1.6;">
+                    <i class="fas fa-shield-alt"></i> <strong>Want to keep your stories?</strong> Consider the Legacy Plan at $2.50/mo instead - it preserves all your content.
+                </p>
+            </div>
+
+            <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
+                <p style="color: #dc2626; margin: 0; line-height: 1.6;">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>Deleting your account</strong> will permanently remove all stories, photos, videos, and connections. This cannot be undone.
+                </p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="switchToFreeFromDelete()">
+                    <i class="fas fa-check-circle"></i> Switch to Free Plan (Recommended)
+                </button>
+                <button type="button" class="btn btn-danger" style="width: 100%;" onclick="showDeleteConfirmation()">
+                    <i class="fas fa-trash-alt"></i> Delete Account Permanently
+                </button>
+                <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="closeModal('cancelModal')">
+                    Keep Premium Plan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirmation Modal (Second Step) -->
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete Your Account</h3>
+                <button class="close-modal" onclick="closeModal('deleteConfirmModal')">×</button>
             </div>
             
             <p style="color: #dc2626; font-weight: 600; margin-bottom: 1rem; line-height: 1.6;">
@@ -742,7 +795,7 @@
             </p>
 
             <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
-                All of your stories, photos, videos, connections, and profile data will be permanently deleted. If you just want to stop paying, consider switching to the Free Plan instead to keep your data.
+                All of your stories, photos, videos, connections, and profile data will be permanently deleted.
             </p>
 
             <form id="cancelForm" onsubmit="cancelSubscription(event)">
@@ -765,8 +818,8 @@
                 </div>
 
                 <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('cancelModal')">
-                        Keep Account
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal('deleteConfirmModal')">
+                        Go Back
                     </button>
                     <button type="submit" class="btn btn-danger" style="flex: 1;">
                         Delete Account Permanently
@@ -917,6 +970,17 @@
             document.getElementById('cancelModal').classList.add('active');
         }
 
+        function showDeleteConfirmation() {
+            closeModal('cancelModal');
+            document.getElementById('deleteConfirmModal').classList.add('active');
+        }
+
+        function switchToFreeFromDelete() {
+            closeModal('cancelModal');
+            // Switch to free plan
+            changePlan('free');
+        }
+
         function showLegacyConfirmation() {
             closeModal('upgradePlanModal');
             document.getElementById('legacyConfirmModal').classList.add('active');
@@ -981,7 +1045,7 @@
             location.reload();
         }
 
-        // Cancel subscription
+        // Delete account
         function cancelSubscription(e) {
             e.preventDefault();
             
@@ -993,7 +1057,7 @@
             console.log('Feedback:', feedback);
             
             alert('Your account has been deleted.\n\nAll of your data has been permanently removed.\n\nThank you for using 4Ever. We hope to see you again someday!');
-            closeModal('cancelModal');
+            closeModal('deleteConfirmModal');
             
             // In production: Redirect to login page
             setTimeout(() => {
