@@ -233,86 +233,11 @@
             text-decoration: none;
         }
 
-        .signin-link {
-            text-align: center;
-            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
-            padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
-            border-top: 1px solid #e5e7eb;
-            font-size: clamp(0.85rem, 1.5vh, 0.95rem);
-        }
-
-        .signin-link a {
-            color: #3b82f6;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .signin-link a:hover {
-            text-decoration: underline;
-        }
-
         small {
             color: #999;
             font-size: clamp(0.7rem, 1.2vh, 0.8rem);
             display: block;
             margin-top: 0.25rem;
-        }
-
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            padding: clamp(2rem, 4vh, 3.5rem);
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .modal-content i {
-            font-size: clamp(3rem, 5vh, 4.5rem);
-            color: #10b981;
-            margin-bottom: clamp(1rem, 2vh, 1.75rem);
-        }
-
-        .modal-content h3 {
-            font-size: clamp(1.5rem, 3vh, 2.25rem);
-            margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
-            color: #000;
-        }
-
-        .modal-content p {
-            color: #666;
-            font-size: clamp(1rem, 1.8vh, 1.15rem);
-            margin-bottom: clamp(1.5rem, 2.5vh, 2.25rem);
-        }
-
-        .btn-modal {
-            padding: clamp(0.85rem, 1.5vh, 1.15rem) clamp(2rem, 3vh, 2.75rem);
-            background: #000;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: clamp(0.95rem, 1.6vh, 1.05rem);
         }
 
         /* Responsive */
@@ -443,20 +368,6 @@
                     By joining, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
                 </div>
             </form>
-
-            <div class="signin-link">
-                Already have an account? <a href="login.html">Sign in</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <i class="fas fa-check-circle"></i>
-            <h3>You're on the list!</h3>
-            <p>We'll email you when 4Ever launches. Thank you for joining us!</p>
-            <button class="btn-modal" onclick="closeModal()">Got it</button>
         </div>
     </div>
 
@@ -475,29 +386,15 @@
             // In production: Save to database
             console.log('Waitlist signup:', formData);
             
-            // Show success modal
-            document.getElementById('successModal').classList.add('active');
-            
-            // Clear form
-            e.target.reset();
-            
             // In production: Send to API
             // await fetch('/api/waitlist', {
             //     method: 'POST',
             //     headers: { 'Content-Type': 'application/json' },
             //     body: JSON.stringify(formData)
             // });
-        });
-
-        function closeModal() {
-            document.getElementById('successModal').classList.remove('active');
-        }
-
-        // Close modal on outside click
-        document.getElementById('successModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('successModal')) {
-                closeModal();
-            }
+            
+            // Redirect to thank you page
+            window.location.href = 'thank-you.html';
         });
     </script>
 </body>
