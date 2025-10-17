@@ -23,81 +23,91 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            min-height: 100vh;
-            padding: 1rem;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2vh, 2rem);
+            overflow: hidden;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
+            height: 100%;
+            max-height: 95vh;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: clamp(2rem, 3vw, 4rem);
             align-items: center;
         }
 
         .branding-section {
-            padding: 1rem 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: clamp(0.75rem, 1.5vh, 1.5rem);
         }
 
         .logo {
-            height: 50px;
+            height: clamp(50px, 6vh, 70px);
             width: auto;
         }
 
         .branding-section h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: clamp(2rem, 3.5vh, 3rem);
             color: #000;
-            margin-bottom: 0.75rem;
+            margin-bottom: clamp(0.75rem, 1.5vh, 1.5rem);
             line-height: 1.2;
         }
 
         .branding-section > p {
             color: #666;
-            font-size: 0.95rem;
+            font-size: clamp(0.95rem, 1.6vh, 1.1rem);
             line-height: 1.5;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(1rem, 2vh, 1.5rem);
         }
 
         .features {
             list-style: none;
-            margin: 1rem 0;
+            margin: clamp(0.75rem, 1.5vh, 1.25rem) 0;
         }
 
         .features li {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
-            padding: 0.5rem 0;
+            gap: 1rem;
+            padding: clamp(0.4rem, 0.8vh, 0.6rem) 0;
             color: #333;
         }
 
         .features i {
             color: #3b82f6;
-            font-size: 1rem;
-            width: 20px;
+            font-size: clamp(1rem, 1.8vh, 1.25rem);
+            width: 24px;
             margin-top: 0.15rem;
+            flex-shrink: 0;
         }
 
         .features strong {
             display: block;
-            font-size: 0.9rem;
+            font-size: clamp(0.9rem, 1.6vh, 1.05rem);
             color: #000;
-            margin-bottom: 0.15rem;
+            margin-bottom: 0.2rem;
         }
 
         .features p {
             color: #666;
-            font-size: 0.8rem;
+            font-size: clamp(0.8rem, 1.4vh, 0.95rem);
             line-height: 1.4;
             margin: 0;
         }
@@ -105,20 +115,20 @@
         .pricing-note {
             background: linear-gradient(135deg, #000 0%, #2a2a2a 100%);
             color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
+            padding: clamp(1rem, 2vh, 1.5rem);
+            border-radius: 12px;
+            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
         }
 
         .pricing-note strong {
-            font-size: 1.2rem;
+            font-size: clamp(1.2rem, 2.2vh, 1.6rem);
             color: white;
             display: block;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.4rem;
         }
 
         .pricing-note p {
-            font-size: 0.85rem;
+            font-size: clamp(0.85rem, 1.5vh, 1rem);
             margin: 0;
             color: rgba(255, 255, 255, 0.85);
         }
@@ -127,27 +137,33 @@
             background: white;
             border-radius: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
+            padding: clamp(1.5rem, 3vh, 2.5rem);
+            height: 100%;
+            max-height: 95vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .waitlist-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 2vh, 1.75rem);
         }
 
         .waitlist-header h2 {
-            font-size: 1.4rem;
+            font-size: clamp(1.4rem, 2.5vh, 1.85rem);
             color: #000;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.5rem;
         }
 
         .waitlist-header p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: clamp(0.9rem, 1.6vh, 1rem);
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.85rem, 1.5vh, 1.1rem);
         }
 
         .form-group label {
@@ -155,15 +171,15 @@
             margin-bottom: 0.4rem;
             color: #333;
             font-weight: 500;
-            font-size: 0.8rem;
+            font-size: clamp(0.8rem, 1.4vh, 0.9rem);
         }
 
         .form-group input {
             width: 100%;
-            padding: 0.7rem 0.85rem;
+            padding: clamp(0.65rem, 1.2vh, 0.85rem) clamp(0.75rem, 1.4vh, 1rem);
             border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 10px;
+            font-size: clamp(0.9rem, 1.6vh, 1rem);
             transition: all 0.3s ease;
             background: #f5f6f7;
         }
@@ -179,21 +195,21 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.85rem, 1.5vh, 1.1rem);
         }
 
         .btn-submit {
             width: 100%;
-            padding: 0.75rem;
+            padding: clamp(0.75rem, 1.4vh, 1rem);
             background: #000;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            font-size: clamp(0.95rem, 1.7vh, 1.05rem);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 0.25rem;
+            margin-top: clamp(0.25rem, 0.5vh, 0.5rem);
         }
 
         .btn-submit:hover {
@@ -203,10 +219,10 @@
         }
 
         .terms {
-            font-size: 0.7rem;
+            font-size: clamp(0.7rem, 1.2vh, 0.8rem);
             color: #999;
             text-align: center;
-            margin-top: 1rem;
+            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
             line-height: 1.4;
         }
 
@@ -217,10 +233,10 @@
 
         .signin-link {
             text-align: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
+            padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
             border-top: 1px solid #e5e7eb;
-            font-size: 0.85rem;
+            font-size: clamp(0.85rem, 1.5vh, 0.95rem);
         }
 
         .signin-link a {
@@ -235,9 +251,9 @@
 
         small {
             color: #999;
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 1.2vh, 0.8rem);
             display: block;
-            margin-top: 0.2rem;
+            margin-top: 0.25rem;
         }
 
 
@@ -262,38 +278,39 @@
         .modal-content {
             background: white;
             border-radius: 16px;
-            padding: 3rem;
+            padding: clamp(2rem, 4vh, 3.5rem);
             max-width: 450px;
             width: 90%;
             text-align: center;
         }
 
         .modal-content i {
-            font-size: 4rem;
+            font-size: clamp(3rem, 5vh, 4.5rem);
             color: #10b981;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(1rem, 2vh, 1.75rem);
         }
 
         .modal-content h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1.5rem, 3vh, 2.25rem);
+            margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
             color: #000;
         }
 
         .modal-content p {
             color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            font-size: clamp(1rem, 1.8vh, 1.15rem);
+            margin-bottom: clamp(1.5rem, 2.5vh, 2.25rem);
         }
 
         .btn-modal {
-            padding: 1rem 2.5rem;
+            padding: clamp(0.85rem, 1.5vh, 1.15rem) clamp(2rem, 3vh, 2.75rem);
             background: #000;
             color: white;
             border: none;
             border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
+            font-size: clamp(0.95rem, 1.6vh, 1.05rem);
         }
 
         /* Responsive */
