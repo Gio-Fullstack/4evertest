@@ -176,7 +176,8 @@
             font-size: clamp(0.8rem, 1.4vh, 0.9rem);
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: clamp(0.65rem, 1.2vh, 0.85rem) clamp(0.75rem, 1.4vh, 1rem);
             border: 1px solid #ddd;
@@ -184,13 +185,26 @@
             font-size: clamp(0.9rem, 1.6vh, 1rem);
             transition: all 0.3s ease;
             background: #f5f6f7;
+            font-family: inherit;
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #3b82f6;
             background: white;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .beta-description {
+            font-size: clamp(0.75rem, 1.3vh, 0.85rem);
+            color: #666;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            padding: clamp(0.75rem, 1.4vh, 1rem);
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
         }
 
         .name-fields {
@@ -362,6 +376,18 @@
                     <input type="date" id="birthday" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="betaTester">Interested in Beta Testing?</label>
+                    <select id="betaTester" required>
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes, I'd love to help!</option>
+                        <option value="no">No, notify me at launch</option>
+                    </select>
+                    <div class="beta-description">
+                        Beta testers will be among our first users and get early access to 4Ever. We'll ask for your feedback to help us improve the product before the official launch.
+                    </div>
+                </div>
+
                 <button type="submit" class="btn-submit">Join Waitlist</button>
 
                 <div class="terms">
@@ -380,7 +406,8 @@
                 lastName: document.getElementById('lastName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                birthday: document.getElementById('birthday').value
+                birthday: document.getElementById('birthday').value,
+                betaTester: document.getElementById('betaTester').value
             };
             
             // In production: Save to database
