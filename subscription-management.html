@@ -585,9 +585,6 @@
                         <li>All connections and family tree data</li>
                         <li>Your profile and account information</li>
                     </ul>
-                    <p style="color: #dc2626; font-weight: 600; margin-bottom: 1rem;">
-                        <i class="fas fa-info-circle"></i> To stop paying but keep your data, switch to the Free Plan instead
-                    </p>
                     <button class="btn btn-danger" onclick="showCancelModal()">
                         <i class="fas fa-trash-alt"></i> Delete Account
                     </button>
@@ -731,51 +728,155 @@
 
     <!-- Free Plan Option Modal (First Step) -->
     <div class="modal" id="cancelModal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
-                <h3>Wait! You Have Options</h3>
+                <h3>Before You Go...</h3>
                 <button class="close-modal" onclick="closeModal('cancelModal')">×</button>
             </div>
             
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
-                Instead of deleting your account entirely, you can switch to our Free Plan and stay connected to your family.
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6; text-align: center; font-size: 1.05rem;">
+                Choose the option that's right for you
             </p>
 
-            <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.5rem;">
-                <strong style="color: #3b82f6; display: block; margin-bottom: 1rem; font-size: 1.1rem;">
-                    <i class="fas fa-gift"></i> Free Plan - $0/month
-                </strong>
-                <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
-                    <li><strong>Stay connected</strong> - appear on family trees</li>
-                    <li><strong>View</strong> all connected family profiles</li>
-                    <li><strong>Access</strong> your family network</li>
-                    <li><strong>No monthly charges</strong> - completely free</li>
+            <style>
+                .delete-option-card {
+                    border: 2px solid #e5e7eb;
+                    border-radius: 12px;
+                    padding: 1.75rem;
+                    margin-bottom: 1rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+                .delete-option-card:hover {
+                    border-color: var(--primary-color);
+                    box-shadow: 0 4px 20px rgba(139, 69, 19, 0.15);
+                    transform: translateY(-2px);
+                }
+                .delete-option-card.recommended {
+                    border-color: #3b82f6;
+                    background: rgba(59, 130, 246, 0.03);
+                }
+                .delete-option-card.recommended::before {
+                    content: "RECOMMENDED";
+                    position: absolute;
+                    top: -12px;
+                    left: 20px;
+                    background: #3b82f6;
+                    color: white;
+                    padding: 0.25rem 0.75rem;
+                    border-radius: 20px;
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                }
+                .delete-option-card .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                }
+                .delete-option-card .card-title {
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+                .delete-option-card .card-price {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                }
+                .delete-option-card.free-plan .card-price { color: #10b981; }
+                .delete-option-card.legacy-plan .card-price { color: #f59e0b; }
+                .delete-option-card.delete-plan .card-price { color: #dc2626; }
+                .delete-option-card ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 1rem 0;
+                }
+                .delete-option-card ul li {
+                    padding: 0.5rem 0;
+                    color: var(--text-secondary);
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                .delete-option-card ul li i {
+                    width: 20px;
+                }
+                .delete-option-card .card-note {
+                    background: rgba(0,0,0,0.03);
+                    padding: 0.75rem;
+                    border-radius: 6px;
+                    font-size: 0.9rem;
+                    margin-top: 1rem;
+                    color: #666;
+                }
+            </style>
+
+            <!-- Free Plan Card -->
+            <div class="delete-option-card recommended free-plan" onclick="switchToFreeFromDelete()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-gift" style="color: #3b82f6;"></i>
+                        Free Plan
+                    </div>
+                    <div class="card-price">$0/mo</div>
+                </div>
+                <ul>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> Stay connected - appear on family trees</li>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> View all connected family profiles</li>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> Access your family network</li>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> Profile content will be removed</li>
                 </ul>
-                <p style="color: #666; margin: 1rem 0 0 0; font-size: 0.9rem;">
-                    Note: Profile content (stories/photos) will be removed, but you stay in the family network.
-                </p>
+                <div class="card-note">
+                    ✨ Best for staying connected without monthly charges
+                </div>
             </div>
 
-            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
-                <p style="color: #f59e0b; margin: 0; line-height: 1.6;">
-                    <i class="fas fa-shield-alt"></i> <strong>Want to keep your stories?</strong> Consider the Legacy Plan at $2.50/mo instead - it preserves all your content.
-                </p>
+            <!-- Legacy Plan Card -->
+            <div class="delete-option-card legacy-plan" onclick="showLegacyConfirmation()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-heart" style="color: #f59e0b;"></i>
+                        Legacy Plan
+                    </div>
+                    <div class="card-price">$2.50/mo</div>
+                </div>
+                <ul>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> Keep all existing stories</li>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> Profile remains active</li>
+                    <li><i class="fas fa-check" style="color: #10b981;"></i> All photos & videos preserved</li>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> Cannot add new stories</li>
+                </ul>
+                <div class="card-note">
+                    💝 Perfect for memorial profiles - preserve all memories
+                </div>
             </div>
 
-            <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
-                <p style="color: #dc2626; margin: 0; line-height: 1.6;">
-                    <i class="fas fa-exclamation-triangle"></i> <strong>Deleting your account</strong> will permanently remove all stories, photos, videos, and connections. This cannot be undone.
-                </p>
+            <!-- Delete Account Card -->
+            <div class="delete-option-card delete-plan" onclick="showDeleteConfirmation()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-trash-alt" style="color: #dc2626;"></i>
+                        Delete Account
+                    </div>
+                    <div class="card-price">Forever</div>
+                </div>
+                <ul>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> All stories permanently deleted</li>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> All photos & videos removed</li>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> All connections lost</li>
+                    <li><i class="fas fa-times" style="color: #dc2626;"></i> Cannot be undone</li>
+                </ul>
+                <div class="card-note" style="background: rgba(220, 38, 38, 0.1); color: #dc2626;">
+                    ⚠️ This action is permanent and irreversible
+                </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="switchToFreeFromDelete()">
-                    <i class="fas fa-check-circle"></i> Switch to Free Plan (Recommended)
-                </button>
-                <button type="button" class="btn btn-danger" style="width: 100%;" onclick="showDeleteConfirmation()">
-                    <i class="fas fa-trash-alt"></i> Delete Account Permanently
-                </button>
-                <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="closeModal('cancelModal')">
+            <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('cancelModal')">
                     Keep Premium Plan
                 </button>
             </div>
